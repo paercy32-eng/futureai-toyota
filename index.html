@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toyota Uganda - Investment Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background: #f0f4f8;
+            color: #1a2332;
+            min-height: 100vh;
+            padding-bottom: 80px;
+        }
+
+        /* TOP HEADER */
+        .top-header {
+            background: #ffffff;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #e1e8f0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: #1e5cbf;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1e5cbf;
+        }
+
+        .logo-text span {
+            color: #1a2332;
+            font-weight: 500;
+        }
+
+        .notification-btn {
+            width: 40px;
+            height: 40px;
+            background: #f0f4f8;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        /* WELCOME SECTION */
+        .welcome-section {
+            background: linear-gradient(135deg, #1e5cbf 0%, #0d47a1 100%);
+            padding: 24px 20px 32px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-section::after {
+            content: '';
+            position: absolute;
+            right: -50px;
+            top: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+        }
+
+        .welcome-text {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 4px;
+        }
+
+        .welcome-name {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .wallet-row {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .wallet-card {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .wallet-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .wallet-info {
+            flex: 1;
+        }
+
+        .wallet-label {
+            font-size: 11px;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .wallet-value {
+            font-size: 16px;
+            font-weight: 700;
+            margin-top: 2px;
+        }
+
+        /* CATEGORY TABS */
+        .category-tabs {
+            display: flex;
+            gap: 8px;
+            padding: 16px 20px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            background: #ffffff;
+            border-bottom: 1px solid #e1e8f0;
+            position: sticky;
+            top: 69px;
+            z-index: 99;
+        }
+
+        .category-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab {
+            padding: 8px 18px;
+            border-radius: 20px;
+            background: #f0f4f8;
+            border: none;
+            font-size: 14px;
+            font-weight: 500;
+            color: #4a5568;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tab.active {
+            background: #1e5cbf;
+            color: white;
+        }
+
+        /* PRODUCTS */
+        .products-container {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        .product-card {
+            background: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(30, 92, 191, 0.08);
+            border: 1px solid #e1e8f0;
+            transition: transform 0.2s;
+        }
+
+        .product-card:active {
+            transform: scale(0.98);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 160px;
+            background: #e8eef7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: #1e5cbf;
+            position: relative;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: #1e5cbf;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .product-details {
+            padding: 16px;
+        }
+
+        .product-name {
+            font-size: 17px;
+            font-weight: 700;
+            color: #1a2332;
+            margin-bottom: 12px;
+        }
+
+        .product-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .stat {
+            background: #f0f4f8;
+            border-radius: 8px;
+            padding: 10px;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-value {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1a2332;
+            margin-top: 4px;
+        }
+
+        .stat-value.blue {
+            color: #1e5cbf;
+        }
+
+        .buy-btn {
+            width: 100%;
+            padding: 14px;
+            background: #1e5cbf;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .buy-btn:active {
+            background: #0d47a1;
+        }
+
+        /* BOTTOM NAV */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #ffffff;
+            border-top: 1px solid #e1e8f0;
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            z-index: 100;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 8px 16px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #94a3b8;
+            font-size: 11px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-item.active {
+            color: #1e5cbf;
+        }
+
+        .nav-icon {
+            font-size: 22px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px 20px;
+            color: #64748b;
+        }
+
+        .error-msg {
+            text-align: center;
+            padding: 40px 20px;
+            color: #dc2626;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP HEADER -->
+    <header class="top-header">
+        <div class="logo">
+            <div class="logo-icon">T</div>
+            <div class="logo-text">Toyota <span>Uganda</span></div>
+        </div>
+        <button class="notification-btn">🔔</button>
+    </header>
+
+    <!-- WELCOME SECTION -->
+    <section class="welcome-section">
+        <div class="welcome-text">Welcome back,</div>
+        <div class="welcome-name" id="userName">Guest</div>
+        <div class="wallet-row">
+            <div class="wallet-card">
+                <div class="wallet-icon">💰</div>
+                <div class="wallet-info">
+                    <div class="wallet-label">Balance</div>
+                    <div class="wallet-value" id="userBalance">0 UGX</div>
+                </div>
+            </div>
+            <div class="wallet-card">
+                <div class="wallet-icon">📈</div>
+                <div class="wallet-info">
+                    <div class="wallet-label">Total Earned</div>
+                    <div class="wallet-value" id="userEarned">0 UGX</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATEGORY TABS -->
+    <nav class="category-tabs" id="categoryTabs">
+        <button class="tab active" data-category="All">All</button>
+        <button class="tab" data-category="RAV4">RAV4</button>
+        <button class="tab" data-category="Camry">Camry</button>
+        <button class="tab" data-category="Corolla">Corolla</button>
+        <button class="tab" data-category="Land Cruiser">Land Cruiser</button>
+    </nav>
+
+    <!-- PRODUCTS -->
+    <main class="products-container" id="productsContainer">
+        <div class="loading">Loading cars...</div>
+    </main>
+
+    <!-- BOTTOM NAV -->
+    <nav class="bottom-nav">
+        <button class="nav-item active">
+            <span class="nav-icon">🏠</span>
+            <span>Home</span>
+        </button>
+        <button class="nav-item">
+            <span class="nav-icon">🚗</span>
+            <span>Cars</span>
+        </button>
+        <button class="nav-item">
+            <span class="nav-icon">📋</span>
+            <span>My Cars</span>
+        </button>
+        <button class="nav-item">
+            <span class="nav-icon">👤</span>
+            <span>Profile</span>
+        </button>
+    </nav>
+
+    <script>
+        // ============================================
+        // SUPABASE CONFIGURATION
+        // Replace these with your actual values
+        // ============================================
+        const SUPABASE_URL = 'https://uiidsthzvnxvouxjpsfd.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVpaWRzdGh6dm54dm91eGpwc2ZkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkzNjgwNjEsImV4cCI6MjEwNDk0NDA2MX0.hXbFdoKo78LnBKv5OqNunO1tOmnMBvC7khh0tzZAVc4';
+
+        // ============================================
+        // STATE
+        // ============================================
+        let allProducts = [];
+        let currentCategory = 'All';
+
+        // ============================================
+        // FETCH PRODUCTS FROM SUPABASE
+        // ============================================
+        async function fetchProducts() {
+            try {
+                const response = await fetch(
+                    `${SUPABASE_URL}/rest/v1/products?is_active=eq.true&order=display_order.asc`,
+                    {
+                        headers: {
+                            'apikey': SUPABASE_ANON_KEY,
+                            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+                        }
+                    }
+                );
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch products');
+                }
+
+                const data = await response.json();
+                allProducts = data;
+                renderProducts();
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('productsContainer').innerHTML = 
+                    '<div class="error-msg">Failed to load cars. Please refresh.</div>';
+            }
+        }
+
+        // ============================================
+        // RENDER PRODUCTS
+        // ============================================
+        function renderProducts() {
+            const container = document.getElementById('productsContainer');
+            
+            const filtered = currentCategory === 'All' 
+                ? allProducts 
+                : allProducts.filter(p => p.category === currentCategory);
+
+            if (filtered.length === 0) {
+                container.innerHTML = '<div class="loading">No cars in this category.</div>';
+                return;
+            }
+
+            container.innerHTML = filtered.map(product => {
+                const isDaily = product.earning_type === 'daily';
+                const badgeText = isDaily ? 'Daily Earnings' : 'Locked';
+                const badgeColor = isDaily ? '#10b981' : '#1e5cbf';
+                
+                const stat1Label = isDaily ? 'Daily Earning' : 'Lock Period';
+                const stat1Value = isDaily 
+                    ? `${formatNumber(product.daily_earning)} UGX` 
+                    : `${product.lock_days} Days`;
+                
+                const stat2Label = isDaily ? 'Duration' : 'Total Return';
+                const stat2Value = isDaily 
+                    ? `${product.earning_days} Days` 
+                    : `${formatNumber(product.return_amount)} UGX`;
+
+                return `
+                    <div class="product-card">
+                        <div class="product-image">
+                            <span class="product-badge" style="background: ${badgeColor}">${badgeText}</span>
+                            ${product.image_url 
+                                ? `<img src="${product.image_url}" alt="${product.model_name}" style="width:100%;height:100%;object-fit:cover;">` 
+                                : '🚗'}
+                        </div>
+                        <div class="product-details">
+                            <div class="product-name">${product.model_name}</div>
+                            <div class="product-stats">
+                                <div class="stat">
+                                    <div class="stat-label">Deposit</div>
+                                    <div class="stat-value blue">${formatNumber(product.deposit_amount)} UGX</div>
+                                </div>
+                                <div class="stat">
+                                    <div class="stat-label">${stat1Label}</div>
+                                    <div class="stat-value">${stat1Value}</div>
+                                </div>
+                                <div class="stat">
+                                    <div class="stat-label">${stat2Label}</div>
+                                    <div class="stat-value">${stat2Value}</div>
+                                </div>
+                                <div class="stat">
+                                    <div class="stat-label">Category</div>
+                                    <div class="stat-value">${product.category}</div>
+                                </div>
+                            </div>
+                            <button class="buy-btn" onclick="buyProduct('${product.id}', '${product.model_name}')">
+                                Buy Now
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ============================================
+        // HELPERS
+        // ============================================
+        function formatNumber(num) {
+            return Number(num).toLocaleString('en-UG');
+        }
+
+        function buyProduct(id, name) {
+            alert(`You tapped Buy for ${name}.\n\nNext step: We'll build the purchase flow here.`);
+        }
+
+        // ============================================
+        // CATEGORY TAB SWITCHING
+        // ============================================
+        document.getElementById('categoryTabs').addEventListener('click', (e) => {
+            if (!e.target.classList.contains('tab')) return;
+
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            e.target.classList.add('active');
+
+            currentCategory = e.target.dataset.category;
+            renderProducts();
+        });
+
+        // ============================================
+        // INIT
+        // ============================================
+        fetchProducts();
+    </script>
+
+</body>
+</html>
