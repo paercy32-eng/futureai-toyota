@@ -247,8 +247,7 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
 <div class="toast" id="toast"></div>
 
 <script>
-window.addEventListener('error', function(e) { alert('JS ERROR: ' + e.message + ' at line ' + e.lineno); });
-    window.SUPABASE_URL = '';
+window.SUPABASE_URL = '';
 window.SUPABASE_ANON_KEY = '';
 const FAKE_EMAIL_DOMAIN = 'toyota-uganda.local';
 let currentUser = null;
@@ -391,24 +390,12 @@ function updateUserUI() {
 
 async function fetchProducts() {
     try {
-        const url = `${window.SUPABASE_URL}/rest/v1/products?is_active=eq.true&order=display_order.asc`;
-        window.SUPABASE_ANON_KEY.length);
-        const res = await fetch(url, {
-            headers: {
-                'apikey': window.SUPABASE_ANON_KEY,
-                'Authorization': `Bearer ${window.SUPABASE_ANON_KEY}`
-            }
-        });
-        if (!res.ok) {
-            const body = await res.text();
-            throw new Error('Status ' + res.status + ': ' + body);
-        }
+        const res = await sbFetch('/rest/v1/products?is_active=eq.true&order=display_order.asc');
+        if (!res.ok) throw new Error('Failed to fetch products');
         allProducts = await res.json();
-    
     } catch (err) {
         console.error(err);
-        alert('FETCH FAILED: ' + err.message);
-        document.getElementById('productsContainer').innerHTML = '<div class="error-msg">' + err.message + '</div>';
+        document.getElementById('productsContainer').innerHTML = '<div class="error-msg">Failed to load cars.</div>';
     }
 }
 
