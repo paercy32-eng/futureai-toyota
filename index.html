@@ -585,7 +585,7 @@ function renderProducts() {
 
     c.innerHTML = filtered.map(p => {
         const isDaily = p.earning_type === 'daily';
-        const owned = userInvestments.find(i => i.product_id === p.id);
+        const owned = (userInvestments || []).find(i => i.product_id === p.id);
         const isOwned = !!owned;
 
         const badgeText = isDaily ? 'Daily' : 'Locked';
