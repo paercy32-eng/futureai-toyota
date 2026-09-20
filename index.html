@@ -391,7 +391,7 @@ function updateUserUI() {
 async function fetchProducts() {
     try {
         const url = `${window.SUPABASE_URL}/rest/v1/products?is_active=eq.true&order=display_order.asc`;
-        alert('URL: [' + url + ']\nKey length: ' + window.SUPABASE_ANON_KEY.length);
+        window.SUPABASE_ANON_KEY.length);
         const res = await fetch(url, {
             headers: {
                 'apikey': window.SUPABASE_ANON_KEY,
@@ -403,7 +403,7 @@ async function fetchProducts() {
             throw new Error('Status ' + res.status + ': ' + body);
         }
         allProducts = await res.json();
-        alert('SUCCESS! Loaded ' + allProducts.length + ' products');
+    
     } catch (err) {
         console.error(err);
         alert('FETCH FAILED: ' + err.message);
