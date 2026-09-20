@@ -391,7 +391,7 @@ function updateUserUI() {
 async function fetchProducts() {
     try {
         const url = `${window.SUPABASE_URL}/rest/v1/products?is_active=eq.true&order=display_order.asc`;
-        alert('Calling: ' + url + '\n\nWith apikey starting: ' + window.SUPABASE_ANON_KEY.substring(0, 20) + '...');
+        alert('URL: [' + url + ']\nKey length: ' + window.SUPABASE_ANON_KEY.length);
         const res = await fetch(url, {
             headers: {
                 'apikey': window.SUPABASE_ANON_KEY,
