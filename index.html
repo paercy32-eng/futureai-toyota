@@ -367,8 +367,8 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
 // ==========================================
 // CONFIG — REPLACE THESE TWO VALUES
 // ==========================================
-const SUPABASE_URL = 'https://uiidsthzvnxvouxjpsfd.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVpaWRzdGh6dm54dm91eGpwc2ZkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkzNjgwNjEsImV4cCI6MjEwNDk0NDA2MX0.hXbFdoKo78LnBKv5OqNunO1tOmnMBvC7khh0tzZAVc4';
+let SUPABASE_URL = '';
+let SUPABASE_ANON_KEY = '';
 const FAKE_EMAIL_DOMAIN = 'toyota-uganda.local';
 
 // ==========================================
@@ -851,7 +851,26 @@ function quickAction(name) {
 // ==========================================
 // INIT
 // ==========================================
+
+async function loadConfig() {
+    try {
+        const res = await fetch('/api/config');
+        const cfg = await res.json();
+        if (!cfg.supabaseUrl || !cfg.supabaseKey) {
+            throw new Error('Config missing — check Vercel env vars');
+        }
+        SUPABASE_URL = cfg.supabaseUrl;
+        SUPABASE_ANON_KEY = cfg.supabaseKey;
+    } catch (err) {
+        console.error('Config load failed:', err);
+        alert('App config failed to load. Please refresh.');
+        throw err;
+    }
+}
+
 async function init() {
+    await loadConfig();
+
     const saved = localStorage.getItem('sb_session');
     if (saved) {
         try {
@@ -868,6 +887,3 @@ async function init() {
     document.getElementById('authScreen').style.display = 'flex';
 }
 init();
-</script>
-</body>
-        </html>
