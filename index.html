@@ -576,6 +576,7 @@ async function fetchProducts() {
         const res = await sbFetch('/rest/v1/products?is_active=eq.true&order=display_order.asc');
         if (!res.ok) throw new Error('Failed to fetch products');
         allProducts = await res.json();
+      document.getElementById('productsContainer').innerHTML = '<div style="padding:20px;color:#fff;font-size:12px;">DEBUG: Loaded ' + allProducts.length + ' products. Status: ' + res.status + '</div>';  
     } catch (err) {
         console.error(err);
         document.getElementById('productsContainer').innerHTML = '<div class="error-msg">Failed to load cars.</div>';
