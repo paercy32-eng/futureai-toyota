@@ -7,7 +7,6 @@
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
 body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 80px; }
-
 .auth-screen { min-height: 100vh; display: flex; flex-direction: column; padding: 40px 24px; background: linear-gradient(180deg, #061428 0%, #0a2141 100%); }
 .auth-logo { display: flex; align-items: center; gap: 12px; margin-bottom: 40px; justify-content: center; }
 .auth-logo-icon { width: 48px; height: 48px; background: linear-gradient(135deg, #1e5cbf 0%, #0d47a1 100%); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 24px; }
@@ -26,7 +25,6 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
 .auth-switch a { color: #4a9eff; font-weight: 600; cursor: pointer; }
 .auth-error { background: rgba(220,38,38,0.15); border: 1px solid rgba(220,38,38,0.4); color: #fca5a5; padding: 12px; border-radius: 8px; font-size: 13px; text-align: center; display: none; margin-bottom: 12px; }
 .auth-error.show { display: block; }
-
 .app-container { display: none; }
 .app-container.active { display: block; }
 .top-header { background: #071a30; padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #0f2a4a; position: sticky; top: 0; z-index: 100; }
@@ -35,43 +33,37 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
 .logo-text { font-size: 17px; font-weight: 700; color: #fff; }
 .logo-text span { color: #4a9eff; font-weight: 500; }
 .notification-btn { width: 38px; height: 38px; background: #0f2540; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: none; font-size: 17px; }
-
 .hero { background: linear-gradient(135deg, #0a2544 0%, #0d3b6f 100%); padding: 22px 20px 26px; position: relative; overflow: hidden; }
-.hero::after { content: ''; position: absolute; right: -60px; top: -60px; width: 220px; height: 220px; background: radial-gradient(circle, rgba(74,158,255,0.15) 0%, transparent 70%); border-radius: 50%; }
-.hero-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px; position: relative; z-index: 2; }
+.hero-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px; }
 .hero-greet { font-size: 13px; color: #94b8e0; margin-bottom: 2px; }
-.hero-name { font-size: 24px; font-weight: 800; color: #fff; letter-spacing: -0.5px; }
+.hero-name { font-size: 24px; font-weight: 800; color: #fff; }
 .hero-tagline { text-align: right; font-size: 11px; font-weight: 700; color: #7fb8ff; letter-spacing: 1.5px; line-height: 1.4; }
 .hero-tagline span { display: block; }
-.wallet-row { display: flex; gap: 10px; position: relative; z-index: 2; }
+.wallet-row { display: flex; gap: 10px; }
 .wallet-card { flex: 1; background: rgba(10,30,55,0.75); border: 1px solid rgba(74,158,255,0.2); border-radius: 12px; padding: 14px; display: flex; align-items: center; gap: 12px; }
 .wallet-icon { width: 42px; height: 42px; background: linear-gradient(135deg, #1e5cbf 0%, #0d47a1 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
 .wallet-info { flex: 1; }
-.wallet-label { font-size: 10px; color: #7aa3d0; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.wallet-label { font-size: 10px; color: #7aa3d0; text-transform: uppercase; font-weight: 600; }
 .wallet-value { font-size: 15px; font-weight: 800; color: #fff; margin-top: 3px; }
-
 .quick-section { padding: 20px 18px; }
 .quick-title { font-size: 13px; color: #7aa3d0; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 14px; }
 .quick-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
 .quick-btn { background: #0a1e38; border: 1px solid #143254; border-radius: 14px; padding: 14px 6px; display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; }
-.quick-btn:active { background: #0f2a4a; }
 .quick-icon { width: 40px; height: 40px; background: linear-gradient(135deg, #1e5cbf 0%, #0d47a1 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 19px; }
 .quick-label { font-size: 11px; color: #b8d0ea; font-weight: 600; text-align: center; }
-
 .category-tabs { display: flex; gap: 8px; padding: 14px 18px; overflow-x: auto; background: #071a30; border-bottom: 1px solid #0f2a4a; position: sticky; top: 63px; z-index: 99; }
 .category-tabs::-webkit-scrollbar { display: none; }
 .tab { padding: 8px 18px; border-radius: 20px; background: #0f2540; border: 1px solid #143254; font-size: 13px; font-weight: 600; color: #94a3b8; white-space: nowrap; cursor: pointer; }
 .tab.active { background: linear-gradient(135deg, #1e5cbf 0%, #0d47a1 100%); color: white; border-color: transparent; }
-
 .products-container { padding: 14px; display: flex; flex-direction: column; gap: 12px; }
 .product-card { background: #0a1e38; border-radius: 14px; border: 1px solid #143254; display: flex; overflow: hidden; }
 .product-image { width: 110px; height: 110px; flex-shrink: 0; background: #0f2a4a; display: flex; align-items: center; justify-content: center; font-size: 42px; color: #4a9eff; position: relative; }
 .product-image img { width: 100%; height: 100%; object-fit: cover; }
-.product-badge { position: absolute; top: 6px; left: 6px; padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; }
+.product-badge { position: absolute; top: 6px; left: 6px; padding: 2px 6px; border-radius: 4px; font-size: 9px; font-weight: 700; text-transform: uppercase; }
 .badge-locked { background: linear-gradient(135deg, #1e5cbf 0%, #0d47a1 100%); color: white; }
 .badge-daily { background: linear-gradient(135deg, #059669 0%, #047857 100%); color: white; }
 .product-details { flex: 1; padding: 12px 14px; display: flex; flex-direction: column; justify-content: space-between; min-width: 0; }
-.product-name { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.product-name { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 8px; }
 .product-stats { display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px; }
 .stat-row { display: flex; justify-content: space-between; font-size: 12px; }
 .stat-label { color: #64748b; font-weight: 500; }
@@ -79,8 +71,6 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
 .stat-value.blue { color: #4a9eff; }
 .buy-btn { width: 100%; padding: 9px; background: linear-gradient(135deg, #1e5cbf 0%, #0d47a1 100%); color: white; border: none; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; }
 .buy-btn:disabled { background: linear-gradient(135deg, #059669 0%, #047857 100%); cursor: default; }
-.buy-btn.grey { background: #1e3a5f; color: #64748b; }
-
 .mycar-card { background: #0a1e38; border-radius: 14px; border: 1px solid #143254; padding: 14px; }
 .mycar-header { display: flex; gap: 12px; margin-bottom: 12px; }
 .mycar-img { width: 70px; height: 70px; background: #0f2a4a; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 28px; color: #4a9eff; overflow: hidden; }
@@ -95,32 +85,25 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
 .mycar-stat-value.green { color: #10b981; }
 .unlock-btn { width: 100%; padding: 10px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border: none; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; }
 .locked-btn { width: 100%; padding: 10px; background: #0f2a4a; color: #64748b; border: none; border-radius: 8px; font-size: 13px; font-weight: 600; }
-
 .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #071a30; border-top: 1px solid #0f2a4a; display: flex; justify-content: space-around; padding: 8px 0; z-index: 100; }
 .nav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 6px 14px; background: none; border: none; color: #64748b; font-size: 10px; font-weight: 600; }
 .nav-item.active { color: #4a9eff; }
 .nav-icon { font-size: 21px; }
-
 .profile-hero { background: linear-gradient(135deg, #0a2544 0%, #0d3b6f 100%); padding: 24px 20px 30px; text-align: center; }
 .profile-avatar { width: 76px; height: 76px; background: linear-gradient(135deg, #1e5cbf 0%, #0d47a1 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: 700; color: white; margin: 0 auto 12px; }
 .profile-name { font-size: 20px; font-weight: 800; color: #fff; }
 .profile-phone { font-size: 13px; color: #94b8e0; margin-top: 4px; }
 .profile-badge { display: inline-block; margin-top: 10px; padding: 4px 12px; background: rgba(74,158,255,0.15); border: 1px solid rgba(74,158,255,0.4); border-radius: 20px; font-size: 11px; font-weight: 700; color: #7fb8ff; letter-spacing: 1px; }
-
 .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 18px; }
 .stat-box { background: #0a1e38; border: 1px solid #143254; border-radius: 12px; padding: 14px; }
-.stat-box-label { font-size: 10px; color: #7aa3d0; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; margin-bottom: 6px; }
+.stat-box-label { font-size: 10px; color: #7aa3d0; text-transform: uppercase; font-weight: 600; margin-bottom: 6px; }
 .stat-box-value { font-size: 16px; font-weight: 800; color: #fff; }
-
 .menu-list { padding: 0 18px 18px; display: flex; flex-direction: column; gap: 8px; }
 .menu-item { background: #0a1e38; border: 1px solid #143254; border-radius: 12px; padding: 14px; display: flex; align-items: center; gap: 12px; cursor: pointer; }
-.menu-item:active { background: #0f2a4a; }
 .menu-icon { width: 36px; height: 36px; background: #0f2a4a; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 17px; }
 .menu-text { flex: 1; font-size: 14px; color: #e2e8f0; font-weight: 600; }
 .menu-arrow { color: #64748b; font-size: 18px; }
-
 .signout-btn { width: calc(100% - 36px); margin: 0 18px 18px; padding: 14px; background: rgba(220,38,38,0.15); border: 1px solid rgba(220,38,38,0.4); color: #fca5a5; border-radius: 10px; font-size: 14px; font-weight: 700; }
-
 .loading { text-align: center; padding: 40px 20px; color: #64748b; font-size: 14px; }
 .error-msg { text-align: center; padding: 40px 20px; color: #fca5a5; font-size: 14px; }
 .toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); background: #0f2a4a; border: 1px solid #1e3a5f; color: white; padding: 12px 20px; border-radius: 10px; font-size: 13px; z-index: 999; opacity: 0; transition: opacity 0.3s; pointer-events: none; max-width: 90%; text-align: center; }
@@ -128,12 +111,9 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
 .empty-state { text-align: center; padding: 60px 20px; }
 .empty-state-icon { font-size: 48px; margin-bottom: 12px; }
 .empty-state-text { color: #64748b; font-size: 14px; }
-
-/* MODAL */
 .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); display: none; align-items: flex-end; justify-content: center; z-index: 999; }
 .modal-overlay.show { display: flex; }
-.modal-box { background: #0a1e38; width: 100%; max-width: 500px; border-radius: 20px 20px 0 0; padding: 20px; border: 1px solid #143254; border-bottom: none; animation: slideUp 0.25s ease-out; }
-@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+.modal-box { background: #0a1e38; width: 100%; max-width: 500px; border-radius: 20px 20px 0 0; padding: 20px; border: 1px solid #143254; border-bottom: none; }
 .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid #143254; }
 .modal-title { font-size: 18px; font-weight: 700; color: #fff; }
 .modal-close { background: #0f2a4a; border: none; color: #94a3b8; width: 32px; height: 32px; border-radius: 50%; font-size: 14px; cursor: pointer; }
@@ -148,42 +128,25 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
         <div class="auth-logo-icon">T</div>
         <div class="auth-logo-text">Toyota <span>Uganda</span></div>
     </div>
-
     <div id="signupForm">
         <div class="auth-title">Create Account</div>
         <div class="auth-subtitle">Start earning with Toyota Uganda</div>
         <div class="auth-error" id="signupError"></div>
         <div class="auth-form">
-            <div class="form-group">
-                <label class="form-label">Full Name</label>
-                <input type="text" id="signupName" class="form-input" placeholder="e.g. John Doe">
-            </div>
-            <div class="form-group">
-                <label class="form-label">Phone Number</label>
-                <input type="tel" id="signupPhone" class="form-input" placeholder="e.g. 0749302975">
-            </div>
-            <div class="form-group">
-                <label class="form-label">Password</label>
-                <input type="password" id="signupPassword" class="form-input" placeholder="Minimum 6 characters">
-            </div>
+            <div class="form-group"><label class="form-label">Full Name</label><input type="text" id="signupName" class="form-input" placeholder="e.g. John Doe"></div>
+            <div class="form-group"><label class="form-label">Phone Number</label><input type="tel" id="signupPhone" class="form-input" placeholder="e.g. 0749302975"></div>
+            <div class="form-group"><label class="form-label">Password</label><input type="password" id="signupPassword" class="form-input" placeholder="Minimum 6 characters"></div>
             <button class="auth-btn" id="signupBtn" onclick="handleSignup()">Create Account</button>
         </div>
         <div class="auth-switch">Already have an account? <a onclick="showSignin()">Sign In</a></div>
     </div>
-
     <div id="signinForm" style="display:none;">
         <div class="auth-title">Welcome Back</div>
         <div class="auth-subtitle">Sign in to continue earning</div>
         <div class="auth-error" id="signinError"></div>
         <div class="auth-form">
-            <div class="form-group">
-                <label class="form-label">Phone Number</label>
-                <input type="tel" id="signinPhone" class="form-input" placeholder="e.g. 0749302975">
-            </div>
-            <div class="form-group">
-                <label class="form-label">Password</label>
-                <input type="password" id="signinPassword" class="form-input" placeholder="Your password">
-            </div>
+            <div class="form-group"><label class="form-label">Phone Number</label><input type="tel" id="signinPhone" class="form-input" placeholder="e.g. 0749302975"></div>
+            <div class="form-group"><label class="form-label">Password</label><input type="password" id="signinPassword" class="form-input" placeholder="Your password"></div>
             <button class="auth-btn" id="signinBtn" onclick="handleSignin()">Sign In</button>
         </div>
         <div class="auth-switch">Don't have an account? <a onclick="showSignup()">Sign Up</a></div>
@@ -191,46 +154,21 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
 </div>
 
 <div id="appScreen" class="app-container">
-
     <div id="homeView">
         <header class="top-header">
-            <div class="logo">
-                <div class="logo-icon">T</div>
-                <div class="logo-text">Toyota <span>Uganda</span></div>
-            </div>
+            <div class="logo"><div class="logo-icon">T</div><div class="logo-text">Toyota <span>Uganda</span></div></div>
             <button class="notification-btn">🔔</button>
         </header>
-
         <section class="hero">
             <div class="hero-top">
-                <div>
-                    <div class="hero-greet">Welcome back,</div>
-                    <div class="hero-name" id="userName">User</div>
-                </div>
-                <div class="hero-tagline">
-                    <span>DRIVE</span>
-                    <span>YOUR</span>
-                    <span>FUTURE</span>
-                </div>
+                <div><div class="hero-greet">Welcome back,</div><div class="hero-name" id="userName">User</div></div>
+                <div class="hero-tagline"><span>DRIVE</span><span>YOUR</span><span>FUTURE</span></div>
             </div>
             <div class="wallet-row">
-                <div class="wallet-card">
-                    <div class="wallet-icon">💰</div>
-                    <div class="wallet-info">
-                        <div class="wallet-label">Balance</div>
-                        <div class="wallet-value" id="userBalance">0 UGX</div>
-                    </div>
-                </div>
-                <div class="wallet-card">
-                    <div class="wallet-icon">📈</div>
-                    <div class="wallet-info">
-                        <div class="wallet-label">Total Earned</div>
-                        <div class="wallet-value" id="userEarned">0 UGX</div>
-                    </div>
-                </div>
+                <div class="wallet-card"><div class="wallet-icon">💰</div><div class="wallet-info"><div class="wallet-label">Balance</div><div class="wallet-value" id="userBalance">0 UGX</div></div></div>
+                <div class="wallet-card"><div class="wallet-icon">📈</div><div class="wallet-info"><div class="wallet-label">Total Earned</div><div class="wallet-value" id="userEarned">0 UGX</div></div></div>
             </div>
         </section>
-
         <section class="quick-section">
             <div class="quick-title">Quick Actions</div>
             <div class="quick-grid">
@@ -244,7 +182,6 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
                 <div class="quick-btn" onclick="quickAction('Settings')"><div class="quick-icon">⚙️</div><div class="quick-label">Settings</div></div>
             </div>
         </section>
-
         <nav class="category-tabs" id="categoryTabs">
             <button class="tab active" data-category="All">All</button>
             <button class="tab" data-category="RAV4">RAV4</button>
@@ -252,126 +189,55 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
             <button class="tab" data-category="Corolla">Corolla</button>
             <button class="tab" data-category="Land Cruiser">Land Cruiser</button>
         </nav>
-
         <main class="products-container" id="productsContainer">
             <div class="loading">Loading cars...</div>
         </main>
     </div>
 
     <div id="myCarsView" style="display:none;">
-        <header class="top-header">
-            <div class="logo">
-                <div class="logo-icon">T</div>
-                <div class="logo-text">My <span>Cars</span></div>
-            </div>
-        </header>
-        <div class="products-container" id="myCarsContainer">
-            <div class="loading">Loading...</div>
-        </div>
+        <header class="top-header"><div class="logo"><div class="logo-icon">T</div><div class="logo-text">My <span>Cars</span></div></div></header>
+        <div class="products-container" id="myCarsContainer"><div class="loading">Loading...</div></div>
     </div>
 
     <div id="profileView" style="display:none;">
-        <header class="top-header">
-            <div class="logo">
-                <div class="logo-icon">T</div>
-                <div class="logo-text">My <span>Profile</span></div>
-            </div>
-        </header>
-
+        <header class="top-header"><div class="logo"><div class="logo-icon">T</div><div class="logo-text">My <span>Profile</span></div></div></header>
         <div class="profile-hero">
             <div class="profile-avatar" id="profileAvatar">U</div>
             <div class="profile-name" id="profileName">User</div>
             <div class="profile-phone" id="profilePhone">+256 ...</div>
             <div class="profile-badge">MEMBER</div>
         </div>
-
         <div class="stats-grid">
-            <div class="stat-box">
-                <div class="stat-box-label">Balance</div>
-                <div class="stat-box-value" id="profileBalance">0 UGX</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-box-label">Total Earned</div>
-                <div class="stat-box-value" id="profileEarned">0 UGX</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-box-label">Deposited</div>
-                <div class="stat-box-value" id="profileDeposited">0 UGX</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-box-label">Withdrawn</div>
-                <div class="stat-box-value" id="profileWithdrawn">0 UGX</div>
-            </div>
+            <div class="stat-box"><div class="stat-box-label">Balance</div><div class="stat-box-value" id="profileBalance">0 UGX</div></div>
+            <div class="stat-box"><div class="stat-box-label">Total Earned</div><div class="stat-box-value" id="profileEarned">0 UGX</div></div>
+            <div class="stat-box"><div class="stat-box-label">Deposited</div><div class="stat-box-value" id="profileDeposited">0 UGX</div></div>
+            <div class="stat-box"><div class="stat-box-label">Withdrawn</div><div class="stat-box-value" id="profileWithdrawn">0 UGX</div></div>
         </div>
-
         <div class="menu-list">
-            <div class="menu-item" onclick="quickAction('Invite')">
-                <div class="menu-icon">🔗</div>
-                <div class="menu-text">Invite & Earn</div>
-                <div class="menu-arrow">›</div>
-            </div>
-            <div class="menu-item" onclick="quickAction('Referrals')">
-                <div class="menu-icon">👥</div>
-                <div class="menu-text">My Referrals</div>
-                <div class="menu-arrow">›</div>
-            </div>
-            <div class="menu-item" onclick="quickAction('VIP Task')">
-                <div class="menu-icon">⭐</div>
-                <div class="menu-text">VIP Task</div>
-                <div class="menu-arrow">›</div>
-            </div>
-            <div class="menu-item" onclick="quickAction('Reward')">
-                <div class="menu-icon">🎁</div>
-                <div class="menu-text">Rewards</div>
-                <div class="menu-arrow">›</div>
-            </div>
-            <div class="menu-item" onclick="quickAction('Support')">
-                <div class="menu-icon">🎧</div>
-                <div class="menu-text">Support</div>
-                <div class="menu-arrow">›</div>
-            </div>
-            <div class="menu-item" onclick="quickAction('Settings')">
-                <div class="menu-icon">⚙️</div>
-                <div class="menu-text">Settings</div>
-                <div class="menu-arrow">›</div>
-            </div>
+            <div class="menu-item" onclick="quickAction('Invite')"><div class="menu-icon">🔗</div><div class="menu-text">Invite & Earn</div><div class="menu-arrow">›</div></div>
+            <div class="menu-item" onclick="quickAction('Referrals')"><div class="menu-icon">👥</div><div class="menu-text">My Referrals</div><div class="menu-arrow">›</div></div>
+            <div class="menu-item" onclick="quickAction('VIP Task')"><div class="menu-icon">⭐</div><div class="menu-text">VIP Task</div><div class="menu-arrow">›</div></div>
+            <div class="menu-item" onclick="quickAction('Reward')"><div class="menu-icon">🎁</div><div class="menu-text">Rewards</div><div class="menu-arrow">›</div></div>
+            <div class="menu-item" onclick="quickAction('Support')"><div class="menu-icon">🎧</div><div class="menu-text">Support</div><div class="menu-arrow">›</div></div>
+            <div class="menu-item" onclick="quickAction('Settings')"><div class="menu-icon">⚙️</div><div class="menu-text">Settings</div><div class="menu-arrow">›</div></div>
         </div>
-
         <button class="signout-btn" onclick="handleSignout()">Sign Out</button>
     </div>
 
     <nav class="bottom-nav">
-        <button class="nav-item active" onclick="switchTab('home', this)">
-            <span class="nav-icon">🏠</span><span>Home</span>
-        </button>
-        <button class="nav-item" onclick="switchTab('cars', this)">
-            <span class="nav-icon">🚗</span><span>Cars</span>
-        </button>
-        <button class="nav-item" onclick="switchTab('mycars', this)">
-            <span class="nav-icon">📋</span><span>My Cars</span>
-        </button>
-        <button class="nav-item" onclick="switchTab('profile', this)">
-            <span class="nav-icon">👤</span><span>Profile</span>
-        </button>
+        <button class="nav-item active" onclick="switchTab('home', this)"><span class="nav-icon">🏠</span><span>Home</span></button>
+        <button class="nav-item" onclick="switchTab('cars', this)"><span class="nav-icon">🚗</span><span>Cars</span></button>
+        <button class="nav-item" onclick="switchTab('mycars', this)"><span class="nav-icon">📋</span><span>My Cars</span></button>
+        <button class="nav-item" onclick="switchTab('profile', this)"><span class="nav-icon">👤</span><span>Profile</span></button>
     </nav>
 </div>
 
-<!-- CASH IN MODAL -->
 <div id="cashinModal" class="modal-overlay">
     <div class="modal-box">
-        <div class="modal-header">
-            <div class="modal-title">💰 Cash In</div>
-            <button class="modal-close" onclick="closeCashin()">✕</button>
-        </div>
+        <div class="modal-header"><div class="modal-title">💰 Cash In</div><button class="modal-close" onclick="closeCashin()">✕</button></div>
         <div class="modal-body">
-            <div class="form-group">
-                <label class="form-label">Amount (UGX)</label>
-                <input type="number" id="depositAmount" class="form-input" placeholder="e.g. 20000" min="1000">
-            </div>
-            <div class="form-group">
-                <label class="form-label">Phone Number</label>
-                <input type="tel" id="depositPhone" class="form-input" placeholder="e.g. 0749302975">
-            </div>
+            <div class="form-group"><label class="form-label">Amount (UGX)</label><input type="number" id="depositAmount" class="form-input" placeholder="e.g. 20000" min="1000"></div>
+            <div class="form-group"><label class="form-label">Phone Number</label><input type="tel" id="depositPhone" class="form-input" placeholder="e.g. 0749302975"></div>
             <div class="modal-note">You'll receive a USSD prompt to approve this payment.</div>
             <button class="auth-btn" id="depositBtn" onclick="submitDeposit()">Send Request</button>
         </div>
@@ -381,15 +247,9 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
 <div class="toast" id="toast"></div>
 
 <script>
-window.onerror = function(msg, url, line, col, error) {
-    const div = document.createElement('div');
-    div.style.cssText = 'position:fixed;top:0;left:0;right:0;background:red;color:white;padding:10px;font-size:12px;z-index:99999;word-break:break-all;';
-    div.textContent = 'ERROR: ' + msg + ' at line ' + line;
-    document.body.appendChild(div);
-};window.SUPABASE_URL = '';
+window.SUPABASE_URL = '';
 window.SUPABASE_ANON_KEY = '';
 const FAKE_EMAIL_DOMAIN = 'toyota-uganda.local';
-
 let currentUser = null;
 let allProducts = [];
 let userInvestments = [];
@@ -405,10 +265,7 @@ function showToast(msg, d = 2500) {
     t.textContent = msg; t.classList.add('show');
     setTimeout(() => t.classList.remove('show'), d);
 }
-function showError(id, msg) {
-    const el = document.getElementById(id);
-    el.textContent = msg; el.classList.add('show');
-}
+function showError(id, msg) { const el = document.getElementById(id); el.textContent = msg; el.classList.add('show'); }
 function hideError(id) { document.getElementById(id).classList.remove('show'); }
 
 async function sbFetch(path, options = {}) {
@@ -434,16 +291,8 @@ async function sbAuth(path, body) {
     return data;
 }
 
-function showSignup() {
-    document.getElementById('signupForm').style.display = 'block';
-    document.getElementById('signinForm').style.display = 'none';
-    hideError('signinError');
-}
-function showSignin() {
-    document.getElementById('signupForm').style.display = 'none';
-    document.getElementById('signinForm').style.display = 'block';
-    hideError('signupError');
-}
+function showSignup() { document.getElementById('signupForm').style.display='block'; document.getElementById('signinForm').style.display='none'; hideError('signinError'); }
+function showSignin() { document.getElementById('signupForm').style.display='none'; document.getElementById('signinForm').style.display='block'; hideError('signupError'); }
 
 async function handleSignup() {
     hideError('signupError');
@@ -452,44 +301,24 @@ async function handleSignup() {
     const password = document.getElementById('signupPassword').value;
     if (!name || !phone || !password) return showError('signupError', 'Please fill in all fields.');
     if (password.length < 6) return showError('signupError', 'Password must be at least 6 characters.');
-
     const btn = document.getElementById('signupBtn');
     btn.disabled = true; btn.textContent = 'Creating...';
-
     try {
         const email = phoneToEmail(phone);
         const authData = await sbAuth('/signup', { email, password });
         if (!authData.access_token) throw new Error('Signup failed. Check "Confirm email" is OFF in Supabase.');
-
         const res = await fetch(`${window.SUPABASE_URL}/rest/v1/users`, {
             method: 'POST',
-            headers: {
-                'apikey': window.SUPABASE_ANON_KEY,
-                'Authorization': `Bearer ${authData.access_token}`,
-                'Content-Type': 'application/json',
-                'Prefer': 'return=representation'
-            },
-            body: JSON.stringify({
-                id: authData.user.id,
-                full_name: name,
-                phone_number: phone,
-                password: 'managed-by-auth',
-                balance: 0,
-                referral_code: 'REF' + Math.random().toString(36).substring(2, 8).toUpperCase()
-            })
+            headers: { 'apikey': window.SUPABASE_ANON_KEY, 'Authorization': `Bearer ${authData.access_token}`, 'Content-Type': 'application/json', 'Prefer': 'return=representation' },
+            body: JSON.stringify({ id: authData.user.id, full_name: name, phone_number: phone, password: 'managed-by-auth', balance: 0, referral_code: 'REF' + Math.random().toString(36).substring(2, 8).toUpperCase() })
         });
         if (!res.ok) console.error('User row insert:', await res.text());
-
         localStorage.setItem('sb_session', JSON.stringify(authData));
         currentUser = { ...authData.user, access_token: authData.access_token };
         await loadUserProfile();
         await enterApp();
-    } catch (err) {
-        console.error(err);
-        showError('signupError', err.message || 'Signup failed.');
-    } finally {
-        btn.disabled = false; btn.textContent = 'Create Account';
-    }
+    } catch (err) { console.error(err); showError('signupError', err.message || 'Signup failed.'); }
+    finally { btn.disabled = false; btn.textContent = 'Create Account'; }
 }
 
 async function handleSignin() {
@@ -497,10 +326,8 @@ async function handleSignin() {
     const phone = document.getElementById('signinPhone').value.trim();
     const password = document.getElementById('signinPassword').value;
     if (!phone || !password) return showError('signinError', 'Please fill in all fields.');
-
     const btn = document.getElementById('signinBtn');
     btn.disabled = true; btn.textContent = 'Signing in...';
-
     try {
         const email = phoneToEmail(phone);
         const authData = await sbAuth('/token?grant_type=password', { email, password });
@@ -508,21 +335,12 @@ async function handleSignin() {
         currentUser = { ...authData.user, access_token: authData.access_token };
         await loadUserProfile();
         await enterApp();
-    } catch (err) {
-        console.error(err);
-        showError('signinError', 'Invalid phone or password.');
-    } finally {
-        btn.disabled = false; btn.textContent = 'Sign In';
-    }
+    } catch (err) { console.error(err); showError('signinError', 'Invalid phone or password.'); }
+    finally { btn.disabled = false; btn.textContent = 'Sign In'; }
 }
 
 async function handleSignout() {
-    try {
-        await fetch(`${window.SUPABASE_URL}/auth/v1/logout`, {
-            method: 'POST',
-            headers: { 'apikey': window.SUPABASE_ANON_KEY, 'Authorization': `Bearer ${currentUser.access_token}` }
-        });
-    } catch(e) {}
+    try { await fetch(`${window.SUPABASE_URL}/auth/v1/logout`, { method: 'POST', headers: { 'apikey': window.SUPABASE_ANON_KEY, 'Authorization': `Bearer ${currentUser.access_token}` } }); } catch(e) {}
     localStorage.removeItem('sb_session');
     currentUser = null; userInvestments = [];
     location.reload();
@@ -552,7 +370,6 @@ async function loadUserInvestments() {
 async function enterApp() {
     document.getElementById('authScreen').style.display = 'none';
     document.getElementById('appScreen').classList.add('active');
-
     updateUserUI();
     await Promise.all([fetchProducts(), loadUserInvestments()]);
     renderProducts();
@@ -573,50 +390,46 @@ function updateUserUI() {
 
 async function fetchProducts() {
     try {
-        const res = await sbFetch('/rest/v1/products?is_active=eq.true&order=display_order.asc');
-        if (!res.ok) throw new Error('Failed to fetch products');
+        const url = `${window.SUPABASE_URL}/rest/v1/products?is_active=eq.true&order=display_order.asc`;
+        alert('Calling: ' + url + '\n\nWith apikey starting: ' + window.SUPABASE_ANON_KEY.substring(0, 20) + '...');
+        const res = await fetch(url, {
+            headers: {
+                'apikey': window.SUPABASE_ANON_KEY,
+                'Authorization': `Bearer ${window.SUPABASE_ANON_KEY}`
+            }
+        });
+        if (!res.ok) {
+            const body = await res.text();
+            throw new Error('Status ' + res.status + ': ' + body);
+        }
         allProducts = await res.json();
-      document.getElementById('productsContainer').innerHTML = '<div style="padding:20px;color:#fff;font-size:12px;">DEBUG: Loaded ' + allProducts.length + ' products. Status: ' + res.status + '</div>';  
+        alert('SUCCESS! Loaded ' + allProducts.length + ' products');
     } catch (err) {
-    alert('FETCH ERROR: ' + err.message);
-    document.getElementById('productsContainer').innerHTML = '<div style="padding:20px;color:red;font-size:13px;">ERROR: ' + err.message + '</div>';
+        console.error(err);
+        alert('FETCH FAILED: ' + err.message);
+        document.getElementById('productsContainer').innerHTML = '<div class="error-msg">' + err.message + '</div>';
     }
 }
 
 function renderProducts() {
     const c = document.getElementById('productsContainer');
     const filtered = currentCategory === 'All' ? allProducts : allProducts.filter(p => p.category === currentCategory);
-
     if (filtered.length === 0) { c.innerHTML = '<div class="loading">No cars in this category.</div>'; return; }
-
     c.innerHTML = filtered.map(p => {
         const isDaily = p.earning_type === 'daily';
         const owned = (userInvestments || []).find(i => i.product_id === p.id);
         const isOwned = !!owned;
-
         const badgeText = isDaily ? 'Daily' : 'Locked';
         const badgeClass = isDaily ? 'badge-daily' : 'badge-locked';
-
         const stat1Lbl = isDaily ? 'Daily' : 'Lock';
-        const stat1Val = isDaily ? `${formatNumber(p.daily_earning)} UGX` : `${p.lock_days} Days`;
+        const stat1Val = isDaily ? formatNumber(p.daily_earning) + ' UGX' : p.lock_days + ' Days';
         const stat2Lbl = isDaily ? 'Duration' : 'Return';
-        const stat2Val = isDaily ? `${p.earning_days} Days` : `${formatNumber(p.return_amount)} UGX`;
-
-        let btnText, btnClass, btnDisabled;
-        if (isOwned) {
-            btnText = isDaily ? 'Purchased' : 'Locked In';
-            btnClass = ''; btnDisabled = true;
-        } else {
-            btnText = isDaily ? 'Purchase Now' : 'Lock In';
-            btnClass = ''; btnDisabled = false;
-        }
-
-        return `
-        <div class="product-card">
-            <div class="product-image">
-                <span class="product-badge ${badgeClass}">${badgeText}</span>
-                ${p.image_url ? `<img src="${p.image_url}" alt="${p.model_name}">` : '🚗'}
-            </div>
+        const stat2Val = isDaily ? p.earning_days + ' Days' : formatNumber(p.return_amount) + ' UGX';
+        let btnText, btnDisabled;
+        if (isOwned) { btnText = isDaily ? 'Purchased' : 'Locked In'; btnDisabled = true; }
+        else { btnText = isDaily ? 'Purchase Now' : 'Lock In'; btnDisabled = false; }
+        return `<div class="product-card">
+            <div class="product-image"><span class="product-badge ${badgeClass}">${badgeText}</span>${p.image_url ? '<img src="'+p.image_url+'">' : '🚗'}</div>
             <div class="product-details">
                 <div class="product-name">${p.model_name}</div>
                 <div class="product-stats">
@@ -624,7 +437,7 @@ function renderProducts() {
                     <div class="stat-row"><span class="stat-label">${stat1Lbl}</span><span class="stat-value">${stat1Val}</span></div>
                     <div class="stat-row"><span class="stat-label">${stat2Lbl}</span><span class="stat-value">${stat2Val}</span></div>
                 </div>
-                <button class="buy-btn ${btnClass}" ${btnDisabled ? 'disabled' : ''} onclick="handlePurchase('${p.id}','${p.model_name.replace(/'/g,"\\'")}',${isDaily})">${btnText}</button>
+                <button class="buy-btn" ${btnDisabled ? 'disabled' : ''} onclick="handlePurchase('${p.id}','${p.model_name.replace(/'/g,"\\'")}',${isDaily})">${btnText}</button>
             </div>
         </div>`;
     }).join('');
@@ -633,81 +446,48 @@ function renderProducts() {
 async function handlePurchase(productId, productName, isDaily) {
     const product = allProducts.find(p => p.id === productId);
     if (!product) return;
-
     const depRes = await sbFetch(`/rest/v1/deposits?user_id=eq.${currentUser.id}&status=eq.approved&select=id&limit=1`);
     const deposits = await depRes.json();
-    if (!deposits || deposits.length === 0) {
-        return showToast('You need an approved deposit before buying.');
-    }
-
-    if ((currentUser.balance || 0) < product.deposit_amount) {
-        return showToast('Insufficient balance. Deposit first.');
-    }
-
+    if (!deposits || deposits.length === 0) return showToast('You need an approved deposit before buying.');
+    if ((currentUser.balance || 0) < product.deposit_amount) return showToast('Insufficient balance. Deposit first.');
     const action = isDaily ? 'Purchase' : 'Lock In';
     if (!confirm(`${action} ${productName} for ${formatNumber(product.deposit_amount)} UGX?`)) return;
-
     try {
         const now = new Date();
         const unlockAt = new Date(now);
         unlockAt.setDate(unlockAt.getDate() + (isDaily ? product.earning_days : product.lock_days));
-
         const invRes = await sbFetch('/rest/v1/investments', {
             method: 'POST',
             headers: { 'Prefer': 'return=representation' },
             body: JSON.stringify({
-                user_id: currentUser.id,
-                product_id: product.id,
-                product_name: product.model_name,
-                category: product.category,
-                deposit_amount: product.deposit_amount,
-                earning_type: product.earning_type,
-                lock_days: product.lock_days || 0,
-                return_amount: product.return_amount || 0,
-                daily_earning: product.daily_earning || 0,
-                earning_days: product.earning_days || 0,
-                days_credited: 0,
-                total_earned: 0,
-                purchased_at: now.toISOString(),
-                unlock_at: unlockAt.toISOString(),
-                next_payout_at: now.toISOString(),
-                status: 'active'
+                user_id: currentUser.id, product_id: product.id, product_name: product.model_name, category: product.category,
+                deposit_amount: product.deposit_amount, earning_type: product.earning_type, lock_days: product.lock_days || 0,
+                return_amount: product.return_amount || 0, daily_earning: product.daily_earning || 0, earning_days: product.earning_days || 0,
+                days_credited: 0, total_earned: 0, purchased_at: now.toISOString(), unlock_at: unlockAt.toISOString(),
+                next_payout_at: now.toISOString(), status: 'active'
             })
         });
-
-        if (!invRes.ok) throw new Error('Failed to create investment: ' + await invRes.text());
-
+        if (!invRes.ok) throw new Error('Failed to create investment');
         const newBalance = currentUser.balance - product.deposit_amount;
-        const upRes = await sbFetch(`/rest/v1/users?id=eq.${currentUser.id}`, {
+        await sbFetch(`/rest/v1/users?id=eq.${currentUser.id}`, {
             method: 'PATCH',
-            headers: { 'Prefer': 'return=representation' },
             body: JSON.stringify({ balance: newBalance, total_invested: (currentUser.total_invested || 0) + product.deposit_amount })
         });
-        if (!upRes.ok) throw new Error('Failed to update balance');
-
         currentUser.balance = newBalance;
         await loadUserInvestments();
         updateUserUI();
         renderProducts();
-        showToast(`✅ ${action} successful!`);
-    } catch (err) {
-        console.error(err);
-        showToast('Purchase failed: ' + err.message);
-    }
+        showToast('✅ ' + action + ' successful!');
+    } catch (err) { console.error(err); showToast('Purchase failed: ' + err.message); }
 }
 
 async function renderMyCars() {
     const c = document.getElementById('myCarsContainer');
     await loadUserInvestments();
-
     if (userInvestments.length === 0) {
-        c.innerHTML = `<div class="empty-state">
-            <div class="empty-state-icon">🚗</div>
-            <div class="empty-state-text">You haven't bought any cars yet.<br>Visit the Cars tab to get started.</div>
-        </div>`;
+        c.innerHTML = '<div class="empty-state"><div class="empty-state-icon">🚗</div><div class="empty-state-text">You haven\'t bought any cars yet.<br>Visit the Cars tab to get started.</div></div>';
         return;
     }
-
     c.innerHTML = userInvestments.map(inv => {
         const isDaily = inv.earning_type === 'daily';
         const purchased = new Date(inv.purchased_at);
@@ -717,40 +497,19 @@ async function renderMyCars() {
         const daysPassed = Math.min(Math.floor((now - purchased) / 86400000), totalDays);
         const daysLeft = Math.max(totalDays - daysPassed, 0);
         const isMatured = now >= unlock;
-
-        const totalEarned = inv.total_earned || 0;
-
         let btnHtml;
-        if (!isDaily && isMatured) {
-            btnHtml = `<button class="unlock-btn" onclick="handleUnlock('${inv.id}', '${inv.product_name.replace(/'/g,"\\'")}', ${inv.return_amount})">🔓 Unlock Now (${formatNumber(inv.return_amount)} UGX)</button>`;
-        } else if (isMatured) {
-            btnHtml = `<button class="locked-btn">✅ Completed</button>`;
-        } else {
-            btnHtml = `<button class="locked-btn">🔒 Locked — ${daysLeft} day${daysLeft !== 1 ? 's' : ''} remaining</button>`;
-        }
-
-        return `
-        <div class="mycar-card">
+        if (!isDaily && isMatured) btnHtml = `<button class="unlock-btn" onclick="handleUnlock('${inv.id}', '${inv.product_name.replace(/'/g,"\\'")}', ${inv.return_amount})">🔓 Unlock Now (${formatNumber(inv.return_amount)} UGX)</button>`;
+        else if (isMatured) btnHtml = '<button class="locked-btn">✅ Completed</button>';
+        else btnHtml = `<button class="locked-btn">🔒 Locked — ${daysLeft} day${daysLeft !== 1 ? 's' : ''} remaining</button>`;
+        return `<div class="mycar-card">
             <div class="mycar-header">
-                <div class="mycar-img">${inv.image_url ? `<img src="${inv.image_url}">` : '🚗'}</div>
-                <div class="mycar-info">
-                    <div class="mycar-name">${inv.product_name}</div>
-                    <div class="mycar-meta">${inv.category} • ${isDaily ? 'Daily Earnings' : 'Locked Plan'}</div>
-                </div>
+                <div class="mycar-img">${inv.image_url ? '<img src="'+inv.image_url+'">' : '🚗'}</div>
+                <div class="mycar-info"><div class="mycar-name">${inv.product_name}</div><div class="mycar-meta">${inv.category} • ${isDaily ? 'Daily Earnings' : 'Locked Plan'}</div></div>
             </div>
             <div class="mycar-stats">
-                <div class="mycar-stat">
-                    <div class="mycar-stat-label">Invested</div>
-                    <div class="mycar-stat-value">${formatNumber(inv.deposit_amount)}</div>
-                </div>
-                <div class="mycar-stat">
-                    <div class="mycar-stat-label">${isDaily ? 'Daily' : 'Return'}</div>
-                    <div class="mycar-stat-value">${isDaily ? formatNumber(inv.daily_earning) : formatNumber(inv.return_amount)}</div>
-                </div>
-                <div class="mycar-stat">
-                    <div class="mycar-stat-label">Earned</div>
-                    <div class="mycar-stat-value green">${formatNumber(totalEarned)}</div>
-                </div>
+                <div class="mycar-stat"><div class="mycar-stat-label">Invested</div><div class="mycar-stat-value">${formatNumber(inv.deposit_amount)}</div></div>
+                <div class="mycar-stat"><div class="mycar-stat-label">${isDaily ? 'Daily' : 'Return'}</div><div class="mycar-stat-value">${isDaily ? formatNumber(inv.daily_earning) : formatNumber(inv.return_amount)}</div></div>
+                <div class="mycar-stat"><div class="mycar-stat-label">Earned</div><div class="mycar-stat-value green">${formatNumber(inv.total_earned || 0)}</div></div>
             </div>
             ${btnHtml}
         </div>`;
@@ -759,31 +518,16 @@ async function renderMyCars() {
 
 async function handleUnlock(investmentId, productName, returnAmount) {
     if (!confirm(`Unlock ${productName}? This will credit ${formatNumber(returnAmount)} UGX to your balance.`)) return;
-
     try {
         const newBalance = (currentUser.balance || 0) + returnAmount;
-        const upRes = await sbFetch(`/rest/v1/users?id=eq.${currentUser.id}`, {
-            method: 'PATCH',
-            body: JSON.stringify({ balance: newBalance, total_earned: (currentUser.total_earned || 0) + returnAmount })
-        });
-        if (!upRes.ok) throw new Error('Balance update failed');
-
-        const invRes = await sbFetch(`/rest/v1/investments?id=eq.${investmentId}`, {
-            method: 'PATCH',
-            body: JSON.stringify({ status: 'completed', total_earned: returnAmount })
-        });
-        if (!invRes.ok) throw new Error('Investment update failed');
-
+        await sbFetch(`/rest/v1/users?id=eq.${currentUser.id}`, { method: 'PATCH', body: JSON.stringify({ balance: newBalance, total_earned: (currentUser.total_earned || 0) + returnAmount }) });
+        await sbFetch(`/rest/v1/investments?id=eq.${investmentId}`, { method: 'PATCH', body: JSON.stringify({ status: 'completed', total_earned: returnAmount }) });
         currentUser.balance = newBalance;
         currentUser.total_earned = (currentUser.total_earned || 0) + returnAmount;
-
         updateUserUI();
         await renderMyCars();
-        showToast(`✅ Unlocked! ${formatNumber(returnAmount)} UGX credited.`);
-    } catch (err) {
-        console.error(err);
-        showToast('Unlock failed: ' + err.message);
-    }
+        showToast('✅ Unlocked! ' + formatNumber(returnAmount) + ' UGX credited.');
+    } catch (err) { console.error(err); showToast('Unlock failed: ' + err.message); }
 }
 
 document.getElementById('categoryTabs').addEventListener('click', e => {
@@ -797,11 +541,9 @@ document.getElementById('categoryTabs').addEventListener('click', e => {
 function switchTab(tab, btn) {
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
     btn.classList.add('active');
-
     document.getElementById('homeView').style.display = (tab === 'home' || tab === 'cars') ? 'block' : 'none';
     document.getElementById('myCarsView').style.display = tab === 'mycars' ? 'block' : 'none';
     document.getElementById('profileView').style.display = tab === 'profile' ? 'block' : 'none';
-
     if (tab === 'mycars') renderMyCars();
 }
 
@@ -812,87 +554,43 @@ function quickAction(name) {
         document.getElementById('cashinModal').classList.add('show');
         return;
     }
-    showToast(`${name} — coming soon.`);
+    showToast(name + ' — coming soon.');
 }
-
-function closeCashin() {
-    document.getElementById('cashinModal').classList.remove('show');
-}
+function closeCashin() { document.getElementById('cashinModal').classList.remove('show'); }
 
 async function submitDeposit() {
     const amount = Number(document.getElementById('depositAmount').value);
     const phone = document.getElementById('depositPhone').value.trim();
-
     if (!amount || amount < 1000) return showToast('Minimum deposit is 1,000 UGX');
     if (!phone) return showToast('Enter your phone number');
-
     const btn = document.getElementById('depositBtn');
     btn.disabled = true; btn.textContent = 'Sending...';
-
     try {
         const res = await fetch('/api/deposit', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                userId: currentUser.id,
-                amount,
-                phone,
-                accessToken: currentUser.access_token
-            })
+            body: JSON.stringify({ userId: currentUser.id, amount, phone, accessToken: currentUser.access_token })
         });
-
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || 'Deposit failed');
-
         closeCashin();
         showToast('✅ Check your phone and approve the prompt.');
-
-        let attempts = 0;
-        const poll = setInterval(async () => {
-            attempts++;
-            const statusRes = await sbFetch(`/rest/v1/deposits?marzpay_reference=eq.${data.reference}&select=status`);
-            const rows = await statusRes.json();
-            if (rows.length > 0 && rows[0].status === 'approved') {
-                clearInterval(poll);
-                await loadUserProfile();
-                updateUserUI();
-                showToast('✅ Deposit successful! Balance updated.');
-            } else if (rows.length > 0 && rows[0].status === 'failed') {
-                clearInterval(poll);
-                showToast('❌ Deposit failed or was cancelled.');
-            } else if (attempts > 24) {
-                clearInterval(poll);
-                showToast('Deposit still pending. Check back later.');
-            }
-        }, 5000);
-
-    } catch (err) {
-        console.error(err);
-        showToast('Error: ' + err.message);
-    } finally {
-        btn.disabled = false; btn.textContent = 'Send Request';
-    }
+    } catch (err) { console.error(err); showToast('Error: ' + err.message); }
+    finally { btn.disabled = false; btn.textContent = 'Send Request'; }
 }
 
 async function loadConfig() {
     try {
         const res = await fetch('/api/config');
         const cfg = await res.json();
-        if (!cfg.supabaseUrl || !cfg.supabaseKey) {
-            throw new Error('Config missing — check Vercel env vars');
-        }
+        if (!cfg.supabaseUrl || !cfg.supabaseKey) throw new Error('Config missing');
         window.SUPABASE_URL = cfg.supabaseUrl;
         window.SUPABASE_ANON_KEY = cfg.supabaseKey;
-    } catch (err) {
-        console.error('Config load failed:', err);
-        alert('App config failed to load. Please refresh.');
-        throw err;
-    }
+    } catch (err) { console.error('Config load failed:', err); alert('Config failed: ' + err.message); throw err; }
 }
 
 async function init() {
     await loadConfig();
-
     const saved = localStorage.getItem('sb_session');
     if (saved) {
         try {
@@ -901,10 +599,7 @@ async function init() {
             await loadUserProfile();
             await enterApp();
             return;
-        } catch (e) {
-            console.error(e);
-            localStorage.removeItem('sb_session');
-        }
+        } catch (e) { console.error(e); localStorage.removeItem('sb_session'); }
     }
     document.getElementById('authScreen').style.display = 'flex';
 }
