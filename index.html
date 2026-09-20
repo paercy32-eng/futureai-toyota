@@ -128,6 +128,17 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
 .empty-state { text-align: center; padding: 60px 20px; }
 .empty-state-icon { font-size: 48px; margin-bottom: 12px; }
 .empty-state-text { color: #64748b; font-size: 14px; }
+
+/* MODAL */
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); display: none; align-items: flex-end; justify-content: center; z-index: 999; }
+.modal-overlay.show { display: flex; }
+.modal-box { background: #0a1e38; width: 100%; max-width: 500px; border-radius: 20px 20px 0 0; padding: 20px; border: 1px solid #143254; border-bottom: none; animation: slideUp 0.25s ease-out; }
+@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid #143254; }
+.modal-title { font-size: 18px; font-weight: 700; color: #fff; }
+.modal-close { background: #0f2a4a; border: none; color: #94a3b8; width: 32px; height: 32px; border-radius: 50%; font-size: 14px; cursor: pointer; }
+.modal-body { display: flex; flex-direction: column; gap: 14px; }
+.modal-note { font-size: 12px; color: #7aa3d0; background: #0f2a4a; border-radius: 8px; padding: 10px; text-align: center; line-height: 1.4; }
 </style>
 </head>
 <body>
@@ -345,27 +356,40 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
     </nav>
 </div>
 
+<!-- CASH IN MODAL -->
+<div id="cashinModal" class="modal-overlay">
+    <div class="modal-box">
+        <div class="modal-header">
+            <div class="modal-title">💰 Cash In</div>
+            <button class="modal-close" onclick="closeCashin()">✕</button>
+        </div>
+        <div class="modal-body">
+            <div class="form-group">
+                <label class="form-label">Amount (UGX)</label>
+                <input type="number" id="depositAmount" class="form-input" placeholder="e.g. 20000" min="1000">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Phone Number</label>
+                <input type="tel" id="depositPhone" class="form-input" placeholder="e.g. 0749302975">
+            </div>
+            <div class="modal-note">You'll receive a USSD prompt to approve this payment.</div>
+            <button class="auth-btn" id="depositBtn" onclick="submitDeposit()">Send Request</button>
+        </div>
+    </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
-// ==========================================
-// CONFIG — Loaded from /api/config at runtime
-// ==========================================
 window.SUPABASE_URL = '';
 window.SUPABASE_ANON_KEY = '';
 const FAKE_EMAIL_DOMAIN = 'toyota-uganda.local';
 
-// ==========================================
-// STATE
-// ==========================================
 let currentUser = null;
 let allProducts = [];
 let userInvestments = [];
 let currentCategory = 'All';
 
-// ==========================================
-// HELPERS
-// ==========================================
 function formatNumber(n) { return Number(n || 0).toLocaleString('en-UG'); }
 function phoneToEmail(phone) {
     let p = phone.replace(/\s+/g, '').replace(/^\+?256/, '').replace(/^0/, '');
@@ -382,9 +406,6 @@ function showError(id, msg) {
 }
 function hideError(id) { document.getElementById(id).classList.remove('show'); }
 
-// ==========================================
-// SUPABASE FETCH
-// ==========================================
 async function sbFetch(path, options = {}) {
     const token = currentUser?.access_token || window.SUPABASE_ANON_KEY;
     return fetch(`${window.SUPABASE_URL}${path}`, {
@@ -408,9 +429,6 @@ async function sbAuth(path, body) {
     return data;
 }
 
-// ==========================================
-// AUTH FORM TOGGLE
-// ==========================================
 function showSignup() {
     document.getElementById('signupForm').style.display = 'block';
     document.getElementById('signinForm').style.display = 'none';
@@ -422,9 +440,6 @@ function showSignin() {
     hideError('signupError');
 }
 
-// ==========================================
-// SIGN UP
-// ==========================================
 async function handleSignup() {
     hideError('signupError');
     const name = document.getElementById('signupName').value.trim();
@@ -472,9 +487,6 @@ async function handleSignup() {
     }
 }
 
-// ==========================================
-// SIGN IN
-// ==========================================
 async function handleSignin() {
     hideError('signinError');
     const phone = document.getElementById('signinPhone').value.trim();
@@ -499,9 +511,6 @@ async function handleSignin() {
     }
 }
 
-// ==========================================
-// SIGN OUT
-// ==========================================
 async function handleSignout() {
     try {
         await fetch(`${window.SUPABASE_URL}/auth/v1/logout`, {
@@ -514,9 +523,6 @@ async function handleSignout() {
     location.reload();
 }
 
-// ==========================================
-// LOAD DATA
-// ==========================================
 async function loadUserProfile() {
     const res = await sbFetch(`/rest/v1/users?id=eq.${currentUser.id}&select=*`);
     if (!res.ok) return;
@@ -538,9 +544,6 @@ async function loadUserInvestments() {
     userInvestments = await res.json();
 }
 
-// ==========================================
-// ENTER APP
-// ==========================================
 async function enterApp() {
     document.getElementById('authScreen').style.display = 'none';
     document.getElementById('appScreen').classList.add('active');
@@ -563,9 +566,6 @@ function updateUserUI() {
     document.getElementById('profileWithdrawn').textContent = formatNumber(currentUser.total_withdrawn) + ' UGX';
 }
 
-// ==========================================
-// FETCH PRODUCTS
-// ==========================================
 async function fetchProducts() {
     try {
         const res = await sbFetch('/rest/v1/products?is_active=eq.true&order=display_order.asc');
@@ -577,9 +577,6 @@ async function fetchProducts() {
     }
 }
 
-// ==========================================
-// RENDER PRODUCTS
-// ==========================================
 function renderProducts() {
     const c = document.getElementById('productsContainer');
     const filtered = currentCategory === 'All' ? allProducts : allProducts.filter(p => p.category === currentCategory);
@@ -590,7 +587,6 @@ function renderProducts() {
         const isDaily = p.earning_type === 'daily';
         const owned = userInvestments.find(i => i.product_id === p.id);
         const isOwned = !!owned;
-        const canAfford = (currentUser.balance || 0) >= p.deposit_amount;
 
         const badgeText = isDaily ? 'Daily' : 'Locked';
         const badgeClass = isDaily ? 'badge-daily' : 'badge-locked';
@@ -601,13 +597,13 @@ function renderProducts() {
         const stat2Val = isDaily ? `${p.earning_days} Days` : `${formatNumber(p.return_amount)} UGX`;
 
         let btnText, btnClass, btnDisabled;
-if (isOwned) {
-    btnText = isDaily ? 'Purchased' : 'Locked In';
-    btnClass = ''; btnDisabled = true;
-} else {
-    btnText = isDaily ? 'Purchase Now' : 'Lock In';
-    btnClass = ''; btnDisabled = false;
-}
+        if (isOwned) {
+            btnText = isDaily ? 'Purchased' : 'Locked In';
+            btnClass = ''; btnDisabled = true;
+        } else {
+            btnText = isDaily ? 'Purchase Now' : 'Lock In';
+            btnClass = ''; btnDisabled = false;
+        }
 
         return `
         <div class="product-card">
@@ -628,9 +624,6 @@ if (isOwned) {
     }).join('');
 }
 
-// ==========================================
-// PURCHASE HANDLER
-// ==========================================
 async function handlePurchase(productId, productName, isDaily) {
     const product = allProducts.find(p => p.id === productId);
     if (!product) return;
@@ -697,9 +690,6 @@ async function handlePurchase(productId, productName, isDaily) {
     }
 }
 
-// ==========================================
-// RENDER MY CARS
-// ==========================================
 async function renderMyCars() {
     const c = document.getElementById('myCarsContainer');
     await loadUserInvestments();
@@ -761,9 +751,6 @@ async function renderMyCars() {
     }).join('');
 }
 
-// ==========================================
-// UNLOCK HANDLER
-// ==========================================
 async function handleUnlock(investmentId, productName, returnAmount) {
     if (!confirm(`Unlock ${productName}? This will credit ${formatNumber(returnAmount)} UGX to your balance.`)) return;
 
@@ -793,9 +780,6 @@ async function handleUnlock(investmentId, productName, returnAmount) {
     }
 }
 
-// ==========================================
-// CATEGORY TABS
-// ==========================================
 document.getElementById('categoryTabs').addEventListener('click', e => {
     if (!e.target.classList.contains('tab')) return;
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -804,9 +788,6 @@ document.getElementById('categoryTabs').addEventListener('click', e => {
     renderProducts();
 });
 
-// ==========================================
-// BOTTOM NAV
-// ==========================================
 function switchTab(tab, btn) {
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
     btn.classList.add('active');
@@ -818,16 +799,75 @@ function switchTab(tab, btn) {
     if (tab === 'mycars') renderMyCars();
 }
 
-// ==========================================
-// QUICK ACTIONS
-// ==========================================
 function quickAction(name) {
+    if (name === 'Cash In') {
+        document.getElementById('depositAmount').value = '';
+        document.getElementById('depositPhone').value = currentUser.phone_number || '';
+        document.getElementById('cashinModal').classList.add('show');
+        return;
+    }
     showToast(`${name} — coming soon.`);
 }
 
-// ==========================================
-// INIT
-// ==========================================
+function closeCashin() {
+    document.getElementById('cashinModal').classList.remove('show');
+}
+
+async function submitDeposit() {
+    const amount = Number(document.getElementById('depositAmount').value);
+    const phone = document.getElementById('depositPhone').value.trim();
+
+    if (!amount || amount < 1000) return showToast('Minimum deposit is 1,000 UGX');
+    if (!phone) return showToast('Enter your phone number');
+
+    const btn = document.getElementById('depositBtn');
+    btn.disabled = true; btn.textContent = 'Sending...';
+
+    try {
+        const res = await fetch('/api/deposit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                userId: currentUser.id,
+                amount,
+                phone,
+                accessToken: currentUser.access_token
+            })
+        });
+
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Deposit failed');
+
+        closeCashin();
+        showToast('✅ Check your phone and approve the prompt.');
+
+        let attempts = 0;
+        const poll = setInterval(async () => {
+            attempts++;
+            const statusRes = await sbFetch(`/rest/v1/deposits?marzpay_reference=eq.${data.reference}&select=status`);
+            const rows = await statusRes.json();
+            if (rows.length > 0 && rows[0].status === 'approved') {
+                clearInterval(poll);
+                await loadUserProfile();
+                updateUserUI();
+                showToast('✅ Deposit successful! Balance updated.');
+            } else if (rows.length > 0 && rows[0].status === 'failed') {
+                clearInterval(poll);
+                showToast('❌ Deposit failed or was cancelled.');
+            } else if (attempts > 24) {
+                clearInterval(poll);
+                showToast('Deposit still pending. Check back later.');
+            }
+        }, 5000);
+
+    } catch (err) {
+        console.error(err);
+        showToast('Error: ' + err.message);
+    } finally {
+        btn.disabled = false; btn.textContent = 'Send Request';
+    }
+}
+
 async function loadConfig() {
     try {
         const res = await fetch('/api/config');
