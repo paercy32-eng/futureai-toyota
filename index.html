@@ -578,8 +578,8 @@ async function fetchProducts() {
         allProducts = await res.json();
       document.getElementById('productsContainer').innerHTML = '<div style="padding:20px;color:#fff;font-size:12px;">DEBUG: Loaded ' + allProducts.length + ' products. Status: ' + res.status + '</div>';  
     } catch (err) {
-        console.error(err);
-        document.getElementById('productsContainer').innerHTML = '<div class="error-msg">Failed to load cars.</div>';
+    console.error(err);
+    document.getElementById('productsContainer').innerHTML = '<div style="padding:20px;color:red;font-size:13px;">ERROR: ' + err.message + '</div>';
     }
 }
 
