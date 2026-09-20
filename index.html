@@ -601,16 +601,13 @@ function renderProducts() {
         const stat2Val = isDaily ? `${p.earning_days} Days` : `${formatNumber(p.return_amount)} UGX`;
 
         let btnText, btnClass, btnDisabled;
-        if (isOwned) {
-            btnText = isDaily ? 'Purchased' : 'Locked In';
-            btnClass = ''; btnDisabled = true;
-        } else if (!canAfford) {
-            btnText = 'Insufficient Balance';
-            btnClass = 'grey'; btnDisabled = true;
-        } else {
-            btnText = isDaily ? 'Purchase Now' : 'Lock In';
-            btnClass = ''; btnDisabled = false;
-        }
+if (isOwned) {
+    btnText = isDaily ? 'Purchased' : 'Locked In';
+    btnClass = ''; btnDisabled = true;
+} else {
+    btnText = isDaily ? 'Purchase Now' : 'Lock In';
+    btnClass = ''; btnDisabled = false;
+}
 
         return `
         <div class="product-card">
