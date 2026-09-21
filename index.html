@@ -245,7 +245,19 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
 </div>
 
 <div class="toast" id="toast"></div>
-
+<!-- CASH OUT MODAL -->
+<div id="cashoutModal" class="modal-overlay">
+    <div class="modal-box">
+        <div class="modal-header"><div class="modal-title">💸 Cash Out</div><button class="modal-close" onclick="closeCashout()">✕</button></div>
+        <div class="modal-body">
+            <div class="form-group"><label class="form-label">Amount (UGX)</label><input type="number" id="withdrawAmount" class="form-input" placeholder="Minimum 5,000" min="5000"></div>
+            <div class="form-group"><label class="form-label">Phone Number</label><input type="tel" id="withdrawPhone" class="form-input" placeholder="e.g. 0749302975"></div>
+            <div class="form-group"><label class="form-label">Full Name (as on Mobile Money)</label><input type="text" id="withdrawName" class="form-input" placeholder="e.g. John Doe"></div>
+            <div class="modal-note">A 16% fee applies. You will receive the amount minus the fee.</div>
+            <button class="auth-btn" id="withdrawBtn" onclick="submitWithdraw()">Submit Withdrawal</button>
+        </div>
+    </div>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
 <script>eruda.init();</script>
 
@@ -548,7 +560,76 @@ function quickAction(name) {
         document.getElementById('cashinModal').classList.add('show');
         return;
     }
+    if (name === 'Cash Out') {
+        document.getElementById('withdrawAmount').value = '';
+        document.getElementById('withdrawPhone').value = currentUser.phone_number || '';
+        document.getElementById('withdrawName').value = currentUser.full_name || '';
+        document.getElementById('cashoutModal').classList.add('show');
+        return;
+    }
     showToast(name + ' — coming soon.');
+}
+function closeCashout() { document.getElementById('cashoutModal').classList.remove('show'); }
+
+async function submitWithdraw() {
+    const amount = Number(document.getElementById('withdrawAmount').value);
+    const phone = document.getElementById('withdrawPhone').value.trim();
+    const fullName = document.getElementById('withdrawName').value.trim();
+
+    if (!amount || amount < 5000) return showToast('Minimum withdrawal is 5,000 UGX');
+    if (!phone) return showToast('Enter your phone number');
+    if (!fullName) return showToast('Enter your full name');
+    if ((currentUser.balance || 0) < amount) return showToast('Insufficient balance');
+
+    const btn = document.getElementById('withdrawBtn');
+    btn.disabled = true; btn.textContent = 'Submitting...';
+
+    try {
+        const fee = amount * 0.16;
+        const netAmount = amount - fee;
+
+        // 1. Deduct immediately from balance
+        const newBalance = Number(currentUser.balance) - amount;
+        await sbFetch(`/rest/v1/users?id=eq.${currentUser.id}`, {
+            method: 'PATCH',
+            body: JSON.stringify({ balance: newBalance })
+        });
+
+        // 2. Create the withdrawal row
+        const res = await sbFetch('/rest/v1/withdrawals', {
+            method: 'POST',
+            headers: { 'Prefer': 'return=representation' },
+            body: JSON.stringify({
+                user_id: currentUser.id,
+                amount: amount,
+                fee: fee,
+                net_amount: netAmount,
+                phone_number: phone,
+                full_name: fullName,
+                status: 'pending',
+                requested_at: new Date().toISOString()
+            })
+        });
+
+        if (!res.ok) {
+            // Rollback balance if insert fails
+            await sbFetch(`/rest/v1/users?id=eq.${currentUser.id}`, {
+                method: 'PATCH',
+                body: JSON.stringify({ balance: currentUser.balance })
+            });
+            throw new Error('Failed to create withdrawal');
+        }
+
+        currentUser.balance = newBalance;
+        updateUserUI();
+        closeCashout();
+        showToast('✅ Withdrawal submitted. Awaiting approval.');
+    } catch (err) {
+        console.error(err);
+        showToast('Error: ' + err.message);
+    } finally {
+        btn.disabled = false; btn.textContent = 'Submit Withdrawal';
+    }
 }
 function closeCashin() { document.getElementById('cashinModal').classList.remove('show'); }
 
