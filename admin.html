@@ -48,10 +48,13 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; }
 .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.75); display: none; align-items: center; justify-content: center; z-index: 999; padding: 20px; }
 .modal-overlay.show { display: flex; }
 .modal-box { background: #0a1e38; border: 1px solid #143254; border-radius: 14px; padding: 20px; width: 100%; max-width: 500px; max-height: 90vh; overflow-y: auto; }
-.img-preview { width: 100%; height: 140px; background: #0f2540; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 42px; color: #4a9eff; overflow: hidden; margin-bottom: 12px; }
+.img-preview { width: 100%; height: 160px; background: #0f2540; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 42px; color: #4a9eff; overflow: hidden; margin-bottom: 12px; }
 .img-preview img { width: 100%; height: 100%; object-fit: cover; }
-.product-thumb { width: 60px; height: 60px; background: #0f2540; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 24px; overflow: hidden; flex-shrink: 0; }
+.product-row { display: flex; gap: 12px; align-items: center; }
+.product-thumb { width: 64px; height: 64px; background: #0f2540; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 26px; overflow: hidden; flex-shrink: 0; }
 .product-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.product-actions { display: flex; flex-direction: column; gap: 4px; }
+.product-actions .btn { flex: none; padding: 6px 10px; font-size: 11px; white-space: nowrap; }
 </style>
 </head>
 <body>
@@ -91,6 +94,7 @@ let adminUser = null;
 let allUsers = [];
 let allWithdrawals = [];
 let allProducts = [];
+let editingProductId = null;
 
 function formatNumber(n) { return Number(n || 0).toLocaleString('en-UG'); }
 function showToast(msg, d = 2500) {
@@ -98,7 +102,7 @@ function showToast(msg, d = 2500) {
     t.textContent = msg; t.classList.add('show');
     setTimeout(() => t.classList.remove('show'), d);
 }
-function escapeHtml(s) { return String(s || '').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+function escapeHtml(s) { return String(s || '').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
 
 async function sbFetch(path, options = {}) {
     const sep = path.includes('?') ? '&' : '?';
@@ -158,7 +162,7 @@ async function loadProducts() {
 
 function switchTab(tab, el) {
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    el.classList.add('active');
+    if (el) el.classList.add('active');
     if (tab === 'dashboard') renderDashboard();
     if (tab === 'withdrawals') renderWithdrawals();
     if (tab === 'products') renderProducts();
@@ -175,22 +179,23 @@ async function renderDashboard() {
     const totalBalance = allUsers.reduce((s, u) => s + Number(u.balance || 0), 0);
     const totalDeposited = allUsers.reduce((s, u) => s + Number(u.total_deposited || 0), 0);
     const pendingWithdrawals = allWithdrawals.filter(w => w.status === 'pending').length;
-    const activeProducts = allProducts.filter(p => p.is_active).length;
+    const totalProducts = allProducts.length;
 
     c.innerHTML = `
         <div class="stats-grid">
             <div class="stat-box"><div class="stat-box-label">Total Users</div><div class="stat-box-value">${totalUsers}</div></div>
             <div class="stat-box"><div class="stat-box-label">Pending Withdrawals</div><div class="stat-box-value">${pendingWithdrawals}</div></div>
-            <div class="stat-box"><div class="stat-box-label">Total Balance (all users)</div><div class="stat-box-value">${formatNumber(totalBalance)} UGX</div></div>
+            <div class="stat-box"><div class="stat-box-label">Total Balance</div><div class="stat-box-value">${formatNumber(totalBalance)} UGX</div></div>
             <div class="stat-box"><div class="stat-box-label">Total Deposited</div><div class="stat-box-value">${formatNumber(totalDeposited)} UGX</div></div>
         </div>
+        <div class="stat-box"><div class="stat-box-label">Total Products</div><div class="stat-box-value">${totalProducts}</div></div>
     `;
 }
 
 async function renderWithdrawals() {
     const c = document.getElementById('content');
     c.innerHTML = '<div class="empty">Loading...</div>';
-    await loadWithdrawals();
+    await Promise.all([loadWithdrawals(), loadUsers()]);
 
     const pending = allWithdrawals.filter(w => w.status === 'pending');
     const other = allWithdrawals.filter(w => w.status !== 'pending');
@@ -202,12 +207,11 @@ async function renderWithdrawals() {
 
     let html = '';
     if (pending.length > 0) {
-        html += '<div class="card-title" style="margin-bottom:12px;">⏳ Pending (${pending.length})</div>';
+        html += `<div class="card-title" style="margin-bottom:12px;">⏳ Pending (${pending.length})</div>`;
         pending.forEach(w => {
-            const u = allUsers.find(u => u.id === w.user_id) || {};
             html += `
                 <div class="card">
-                    <div class="row"><span class="row-label">User</span><span class="row-value">${escapeHtml(w.full_name || u.full_name || '—')}</span></div>
+                    <div class="row"><span class="row-label">User</span><span class="row-value">${escapeHtml(w.full_name || '—')}</span></div>
                     <div class="row"><span class="row-label">Phone</span><span class="row-value">${escapeHtml(w.phone_number || '—')}</span></div>
                     <div class="row"><span class="row-label">Amount</span><span class="row-value">${formatNumber(w.amount)} UGX</span></div>
                     <div class="row"><span class="row-label">Fee (16%)</span><span class="row-value">${formatNumber(w.fee)} UGX</span></div>
@@ -222,7 +226,7 @@ async function renderWithdrawals() {
     }
 
     if (other.length > 0) {
-        html += '<div class="card-title" style="margin: 20px 0 12px;">History</div>';
+        html += `<div class="card-title" style="margin: 20px 0 12px;">History</div>`;
         other.forEach(w => {
             const badge = w.status === 'approved' ? 'badge-approved' : (w.status === 'rejected' ? 'badge-rejected' : 'badge-pending');
             html += `
@@ -234,17 +238,14 @@ async function renderWithdrawals() {
             `;
         });
     }
-
     c.innerHTML = html;
 }
 
 async function approveWithdrawal(id) {
-    if (!confirm('Approve this withdrawal? This will deduct the amount from the user\'s balance and mark it approved.')) return;
+    if (!confirm('Approve this withdrawal? This will deduct the amount from the user\'s balance.')) return;
     const w = allWithdrawals.find(x => x.id === id);
     if (!w) return;
-
     try {
-        // Deduct from user's balance
         const u = allUsers.find(u => u.id === w.user_id);
         if (u) {
             const newBalance = Number(u.balance || 0) - Number(w.amount);
@@ -254,23 +255,13 @@ async function approveWithdrawal(id) {
                 body: JSON.stringify({ balance: newBalance, total_withdrawn: newWithdrawn })
             });
         }
-
-        // Mark withdrawal as approved
         await sbFetch(`/rest/v1/withdrawals?id=eq.${id}`, {
             method: 'PATCH',
-            body: JSON.stringify({
-                status: 'approved',
-                approved_at: new Date().toISOString(),
-                approved_by: adminUser.id
-            })
+            body: JSON.stringify({ status: 'approved', approved_at: new Date().toISOString(), approved_by: adminUser.id })
         });
-
         showToast('✅ Withdrawal approved.');
         renderWithdrawals();
-    } catch (err) {
-        console.error(err);
-        showToast('Failed: ' + err.message);
-    }
+    } catch (err) { console.error(err); showToast('Failed: ' + err.message); }
 }
 
 async function rejectWithdrawal(id) {
@@ -282,9 +273,7 @@ async function rejectWithdrawal(id) {
         });
         showToast('❌ Withdrawal rejected.');
         renderWithdrawals();
-    } catch (err) {
-        showToast('Failed: ' + err.message);
-    }
+    } catch (err) { showToast('Failed: ' + err.message); }
 }
 
 async function renderProducts() {
@@ -299,14 +288,19 @@ async function renderProducts() {
     } else {
         allProducts.forEach(p => {
             html += `
-                <div class="card" style="display:flex;gap:12px;align-items:center;">
-                    <div class="product-thumb">${p.image_url ? '<img src="'+p.image_url+'">' : '🚗'}</div>
-                    <div style="flex:1;min-width:0;">
-                        <div style="font-weight:700;color:#fff;font-size:14px;margin-bottom:4px;">${escapeHtml(p.model_name)}</div>
-                        <div style="font-size:11px;color:#7aa3d0;">${p.category} • ${formatNumber(p.deposit_amount)} UGX</div>
-                        <div style="font-size:11px;color:${p.is_active?'#10b981':'#f87171'};margin-top:4px;">${p.is_active?'Active':'Inactive'}</div>
+                <div class="card">
+                    <div class="product-row">
+                        <div class="product-thumb">${p.image_url ? '<img src="'+p.image_url+'">' : '🚗'}</div>
+                        <div style="flex:1;min-width:0;">
+                            <div style="font-weight:700;color:#fff;font-size:14px;margin-bottom:4px;">${escapeHtml(p.model_name)}</div>
+                            <div style="font-size:11px;color:#7aa3d0;">${p.category} • ${formatNumber(p.deposit_amount)} UGX</div>
+                            <div style="font-size:11px;color:${p.is_active?'#10b981':'#f87171'};margin-top:4px;">${p.is_active?'Active':'Inactive'}</div>
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary" onclick="editProduct('${p.id}')">✏️ Edit</button>
+                            <button class="btn btn-reject" onclick="toggleProduct('${p.id}', ${p.is_active})">${p.is_active?'Disable':'Enable'}</button>
+                        </div>
                     </div>
-                    <button class="btn btn-reject" style="flex:0;padding:8px 12px;font-size:11px;" onclick="toggleProduct('${p.id}', ${p.is_active})">${p.is_active?'Disable':'Enable'}</button>
                 </div>
             `;
         });
@@ -314,39 +308,48 @@ async function renderProducts() {
     c.innerHTML = html;
 }
 
-function openProductModal() {
+function openProductModal(product = null) {
+    editingProductId = product ? product.id : null;
     const modal = document.getElementById('modalOverlay');
     const box = document.getElementById('modalBox');
+    const title = product ? 'Edit Product' : 'Add New Product';
+    const p = product || {};
+
     box.innerHTML = `
-        <div class="card-title">Add New Product</div>
+        <div class="card-title">${title}</div>
         <div class="form-group"><label class="form-label">Category</label>
             <select id="pCategory" class="form-select">
-                <option>RAV4</option><option>Camry</option><option>Corolla</option><option>Land Cruiser</option>
+                <option ${p.category==='RAV4'?'selected':''}>RAV4</option>
+                <option ${p.category==='Camry'?'selected':''}>Camry</option>
+                <option ${p.category==='Corolla'?'selected':''}>Corolla</option>
+                <option ${p.category==='Land Cruiser'?'selected':''}>Land Cruiser</option>
             </select>
         </div>
-        <div class="form-group"><label class="form-label">Model Name</label><input id="pModelName" class="form-input" placeholder="e.g. RAV4 (XA10)"></div>
-        <div class="form-group"><label class="form-label">Model Code</label><input id="pModelCode" class="form-input" placeholder="e.g. XA10"></div>
-        <div class="form-group"><label class="form-label">Deposit Amount (UGX)</label><input id="pDeposit" type="number" class="form-input" placeholder="20000"></div>
+        <div class="form-group"><label class="form-label">Model Name</label><input id="pModelName" class="form-input" value="${escapeHtml(p.model_name||'')}" placeholder="e.g. RAV4 (XA10)"></div>
+        <div class="form-group"><label class="form-label">Model Code</label><input id="pModelCode" class="form-input" value="${escapeHtml(p.model_code||'')}" placeholder="e.g. XA10"></div>
+        <div class="form-group"><label class="form-label">Deposit Amount (UGX)</label><input id="pDeposit" type="number" class="form-input" value="${p.deposit_amount||''}" placeholder="20000"></div>
         <div class="form-group"><label class="form-label">Earning Type</label>
             <select id="pEarningType" class="form-select">
-                <option value="lock">Lock (one-time return at end)</option>
-                <option value="daily">Daily (payout every 24h)</option>
+                <option value="lock" ${p.earning_type==='lock'?'selected':''}>Lock (one-time return at end)</option>
+                <option value="daily" ${p.earning_type==='daily'?'selected':''}>Daily (payout every 24h)</option>
             </select>
         </div>
-        <div class="form-group"><label class="form-label">Lock Days</label><input id="pLockDays" type="number" class="form-input" placeholder="10"></div>
-        <div class="form-group"><label class="form-label">Return Amount (UGX)</label><input id="pReturn" type="number" class="form-input" placeholder="40000"></div>
-        <div class="form-group"><label class="form-label">Daily Earning (UGX)</label><input id="pDaily" type="number" class="form-input" placeholder="0"></div>
-        <div class="form-group"><label class="form-label">Earning Days</label><input id="pDays" type="number" class="form-input" placeholder="0"></div>
-        <div class="form-group"><label class="form-label">Display Order</label><input id="pOrder" type="number" class="form-input" placeholder="99"></div>
-        <div class="form-group"><label class="form-label">Image</label><input type="file" id="pImage" accept="image/*" class="form-input"></div>
-        <div class="img-preview" id="imgPreview">🚗</div>
+        <div class="form-group"><label class="form-label">Lock Days</label><input id="pLockDays" type="number" class="form-input" value="${p.lock_days||''}" placeholder="10"></div>
+        <div class="form-group"><label class="form-label">Return Amount (UGX)</label><input id="pReturn" type="number" class="form-input" value="${p.return_amount||''}" placeholder="40000"></div>
+        <div class="form-group"><label class="form-label">Daily Earning (UGX)</label><input id="pDaily" type="number" class="form-input" value="${p.daily_earning||''}" placeholder="0"></div>
+        <div class="form-group"><label class="form-label">Earning Days</label><input id="pDays" type="number" class="form-input" value="${p.earning_days||''}" placeholder="0"></div>
+        <div class="form-group"><label class="form-label">Display Order</label><input id="pOrder" type="number" class="form-input" value="${p.display_order||99}" placeholder="99"></div>
+        <div class="form-group">
+            <label class="form-label">${product ? 'Change Image (optional)' : 'Upload Image'}</label>
+            <input type="file" id="pImage" accept="image/*" class="form-input">
+        </div>
+        <div class="img-preview" id="imgPreview">${p.image_url ? '<img src="'+p.image_url+'">' : '🚗'}</div>
         <div class="actions">
-            <button class="btn btn-primary" onclick="saveProduct()">Save Product</button>
+            <button class="btn btn-primary" onclick="saveProduct()">${product ? 'Update Product' : 'Save Product'}</button>
             <button class="btn btn-reject" onclick="closeModal()">Cancel</button>
         </div>
     `;
     modal.classList.add('show');
-
     document.getElementById('pImage').addEventListener('change', e => {
         const f = e.target.files[0];
         if (f) {
@@ -357,8 +360,14 @@ function openProductModal() {
     });
 }
 
+function editProduct(id) {
+    const p = allProducts.find(x => x.id === id);
+    if (p) openProductModal(p);
+}
+
 function closeModal() {
     document.getElementById('modalOverlay').classList.remove('show');
+    editingProductId = null;
 }
 
 async function saveProduct() {
@@ -396,20 +405,28 @@ async function saveProduct() {
         return_amount: Number(document.getElementById('pReturn').value) || 0,
         daily_earning: Number(document.getElementById('pDaily').value) || 0,
         earning_days: Number(document.getElementById('pDays').value) || 0,
-        display_order: Number(document.getElementById('pOrder').value) || 99,
-        is_active: true
+        display_order: Number(document.getElementById('pOrder').value) || 99
     };
     if (image_url) data.image_url = image_url;
 
     if (!data.model_name || !data.category) { showToast('Name and category are required'); return; }
 
     try {
-        const res = await sbFetch('/rest/v1/products', {
-            method: 'POST',
-            body: JSON.stringify(data)
-        });
+        let res;
+        if (editingProductId) {
+            res = await sbFetch(`/rest/v1/products?id=eq.${editingProductId}`, {
+                method: 'PATCH',
+                body: JSON.stringify(data)
+            });
+        } else {
+            data.is_active = true;
+            res = await sbFetch('/rest/v1/products', {
+                method: 'POST',
+                body: JSON.stringify(data)
+            });
+        }
         if (!res.ok) throw new Error(await res.text());
-        showToast('✅ Product added.');
+        showToast(editingProductId ? '✅ Product updated.' : '✅ Product added.');
         closeModal();
         renderProducts();
     } catch (err) {
