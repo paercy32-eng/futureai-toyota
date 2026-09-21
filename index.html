@@ -390,7 +390,28 @@ function updateUserUI() {
 
 async function fetchProducts() {
     try {
-        const res = await sbFetch('/rest/v1/products?is_active=eq.true&order=display_order.asc');
+        const testUrl = `${window.SUPABASE_URL}/rest/v1/products?is_active=eq.true&order=display_order.asc`;
+        alert('Attempting: ' + testUrl.substring(0, 60) + '...');
+        const testRes = await fetch(testUrl, {
+            headers: {
+                'apikey': window.SUPABASE_ANON_KEY,
+                'Authorization': 'Bearer ' + window.SUPABASE_ANON_KEY
+            }
+        });
+        alert('Status: ' + testRes.status);
+        if (!testRes.ok) {
+            const errText = await testRes.text();
+            alert('Error body: ' + errText.substring(0, 200));
+            throw new Error('Status ' + testRes.status);
+        }
+        allProducts = await testRes.json();
+        alert('Loaded: ' + allProducts.length + ' products');
+    } catch (err) {
+        console.error(err);
+        alert('CATCH: ' + err.message);
+        document.getElementById('productsContainer').innerHTML = '<div class="error-msg">' + err.message + '</div>';
+    }
+}
         if (!res.ok) throw new Error('Failed to fetch products');
         allProducts = await res.json();
     } catch (err) {
