@@ -273,10 +273,11 @@ function hideError(id) { document.getElementById(id).classList.remove('show'); }
 
 async function sbFetch(path, options = {}) {
     const token = currentUser?.access_token || window.SUPABASE_ANON_KEY;
-    return fetch(`${window.SUPABASE_URL}${path}`, {
+    const sep = path.includes('?') ? '&' : '?';
+    const urlWithKey = `${window.SUPABASE_URL}${path}${sep}apikey=${window.SUPABASE_ANON_KEY}`;
+    return fetch(urlWithKey, {
         ...options,
         headers: {
-            'apikey': window.SUPABASE_ANON_KEY,
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
             ...(options.headers || {})
