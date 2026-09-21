@@ -272,13 +272,15 @@ function showError(id, msg) { const el = document.getElementById(id); el.textCon
 function hideError(id) { document.getElementById(id).classList.remove('show'); }
 
 async function sbFetch(path, options = {}) {
-    const token = currentUser?.access_token || window.SUPABASE_ANON_KEY;
     const sep = path.includes('?') ? '&' : '?';
     const urlWithKey = `${window.SUPABASE_URL}${path}${sep}apikey=${window.SUPABASE_ANON_KEY}`;
+    console.log('=== SB REQUEST ===');
+    console.log('URL:', urlWithKey.substring(0, 150));
+    console.log('KEY:', window.SUPABASE_ANON_KEY.substring(0, 30) + '...' + window.SUPABASE_ANON_KEY.slice(-20));
+    console.log('KEY LENGTH:', window.SUPABASE_ANON_KEY.length);
     return fetch(urlWithKey, {
         ...options,
         headers: {
-            'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
             ...(options.headers || {})
         }
