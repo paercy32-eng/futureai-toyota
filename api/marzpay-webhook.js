@@ -2,46 +2,35 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
 
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
+    return res.status(200).json({ received: true, ignored: true });
   }
 
   try {
     const payload = req.body;
-    console.log('MarzPay webhook received:', JSON.stringify(payload));
+    console.log('=== MARZPAY COLLECTION WEBHOOK ===');
+    console.log(JSON.stringify(payload));
 
-    // Extract fields — MarzPay may send variations
-    const event = payload.event || payload.type || '';
-    const data = payload.data || payload;
+    const event = payload.event_type || payload.event || payload.type || '';
+    const data = payload.transaction || payload.data || payload;
 
-    const reference = data.reference || data.collection_reference || '';
+    const reference = data.reference || payload.reference || '';
     const status = (data.status || '').toLowerCase();
-    const providerTxId = data.provider_transaction_id || data.transaction_id || '';
-    const amount = Number(data.amount || 0);
+
+    console.log('Extracted reference:', reference, 'status:', status, 'event:', event);
 
     if (!reference) {
-      console.error('No reference in webhook payload');
-      return res.status(400).json({ error: 'Missing reference' });
+      // Always return 200 to stop MarzPay from retrying endlessly
+      return res.status(200).json({ received: true, warning: 'No reference found' });
     }
 
-    // Determine if this is a final successful or failed event
-    const isSuccess =
-      event === 'collection.completed' ||
-      status === 'completed' ||
-      status === 'successful' ||
-      status === 'success';
-
-    const isFailed =
-      event === 'collection.failed' ||
-      status === 'failed' ||
-      status === 'cancelled' ||
-      status === 'declined';
+    const isSuccess = event === 'collection.completed' || status === 'completed' || status === 'successful';
+    const isFailed = event === 'collection.failed' || status === 'failed' || status === 'cancelled';
 
     if (!isSuccess && !isFailed) {
-      console.log('Not a final status, ignoring:', status, event);
       return res.status(200).json({ received: true, ignored: true });
     }
 
-    // Find the deposit row in Supabase
+    // Find deposit
     const findRes = await fetch(
       `${process.env.SUPABASE_URL}/rest/v1/deposits?marzpay_reference=eq.${reference}&select=*`,
       {
@@ -51,25 +40,22 @@ export default async function handler(req, res) {
         }
       }
     );
-
     const deposits = await findRes.json();
 
     if (!deposits || deposits.length === 0) {
-      console.error('No matching deposit found for reference:', reference);
-      return res.status(404).json({ error: 'Deposit not found' });
+      console.error('No deposit for reference', reference);
+      return res.status(200).json({ received: true, warning: 'Deposit not found' });
     }
 
     const deposit = deposits[0];
 
-    // If already processed, ignore
     if (deposit.status === 'approved' || deposit.status === 'failed') {
-      console.log('Deposit already processed:', deposit.status);
       return res.status(200).json({ received: true, alreadyProcessed: true });
     }
 
     const newStatus = isSuccess ? 'approved' : 'failed';
 
-    // Update deposit status
+    // Update deposit
     await fetch(`${process.env.SUPABASE_URL}/rest/v1/deposits?id=eq.${deposit.id}`, {
       method: 'PATCH',
       headers: {
@@ -80,20 +66,15 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         status: newStatus,
-        marzpay_uuid: providerTxId || deposit.marzpay_uuid,
         completed_at: new Date().toISOString(),
         raw_response: payload
       })
     });
 
-    // If successful, credit the user's balance
+    // Credit user balance
     if (isSuccess) {
-      const userId = deposit.user_id;
-      const depositAmount = Number(deposit.amount);
-
-      // Get current user
       const userRes = await fetch(
-        `${process.env.SUPABASE_URL}/rest/v1/users?id=eq.${userId}&select=balance,total_deposited`,
+        `${process.env.SUPABASE_URL}/rest/v1/users?id=eq.${deposit.user_id}&select=balance,total_deposited`,
         {
           headers: {
             'apikey': process.env.SUPABASE_ANON_KEY,
@@ -104,12 +85,8 @@ export default async function handler(req, res) {
       const users = await userRes.json();
 
       if (users && users.length > 0) {
-        const currentBalance = Number(users[0].balance || 0);
-        const currentTotalDeposited = Number(users[0].total_deposited || 0);
-        const newBalance = currentBalance + depositAmount;
-        const newTotalDeposited = currentTotalDeposited + depositAmount;
-
-        await fetch(`${process.env.SUPABASE_URL}/rest/v1/users?id=eq.${userId}`, {
+        const u = users[0];
+        await fetch(`${process.env.SUPABASE_URL}/rest/v1/users?id=eq.${deposit.user_id}`, {
           method: 'PATCH',
           headers: {
             'apikey': process.env.SUPABASE_ANON_KEY,
@@ -118,21 +95,18 @@ export default async function handler(req, res) {
             'Prefer': 'return=minimal'
           },
           body: JSON.stringify({
-            balance: newBalance,
-            total_deposited: newTotalDeposited
+            balance: Number(u.balance || 0) + Number(deposit.amount),
+            total_deposited: Number(u.total_deposited || 0) + Number(deposit.amount)
           })
         });
-
-        console.log(`✅ Credited ${depositAmount} UGX to user ${userId}. New balance: ${newBalance}`);
+        console.log(`Credited ${deposit.amount} to user ${deposit.user_id}`);
       }
-    } else {
-      console.log(`❌ Deposit failed for user ${deposit.user_id}, reference ${reference}`);
     }
 
     return res.status(200).json({ received: true, status: newStatus });
-
   } catch (err) {
     console.error('Webhook error:', err);
-    return res.status(500).json({ error: err.message || 'Webhook handler error' });
+    // Always return 200 so MarzPay doesn't retry endlessly
+    return res.status(200).json({ received: true, error: err.message });
   }
-    }
+}
