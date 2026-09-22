@@ -242,26 +242,57 @@ async function renderWithdrawals() {
 }
 
 async function approveWithdrawal(id) {
-    if (!confirm('Approve this withdrawal? This will deduct the amount from the user\'s balance.')) return;
     const w = allWithdrawals.find(x => x.id === id);
     if (!w) return;
+
+    if (!confirm('Approve and send ' + formatNumber(w.amount) + ' UGX to ' + w.phone_number + '?')) return;
+
     try {
+        // Update withdrawal to 'processing' first
+        await sbFetch(`/rest/v1/withdrawals?id=eq.${id}`, {
+            method: 'PATCH',
+            body: JSON.stringify({ status: 'processing', approved_at: new Date().toISOString(), approved_by: adminUser.id })
+        });
+
+        // Call our backend /api/send-money
+        const res = await fetch('/api/send-money', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                withdrawalId: w.id,
+                phone: w.phone_number,
+                amount: w.net_amount, // send net (amount - fee)
+                fullName: w.full_name
+            })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            // Revert status back to pending on failure
+            await sbFetch(`/rest/v1/withdrawals?id=eq.${id}`, {
+                method: 'PATCH',
+                body: JSON.stringify({ status: 'pending' })
+            });
+            throw new Error(data.error || 'MarzPay send failed');
+        }
+
+        // Update user's total_withdrawn now (balance was already deducted at submission time)
         const u = allUsers.find(u => u.id === w.user_id);
         if (u) {
-            const newBalance = Number(u.balance || 0) - Number(w.amount);
             const newWithdrawn = Number(u.total_withdrawn || 0) + Number(w.amount);
             await sbFetch(`/rest/v1/users?id=eq.${w.user_id}`, {
                 method: 'PATCH',
-                body: JSON.stringify({ balance: newBalance, total_withdrawn: newWithdrawn })
+                body: JSON.stringify({ total_withdrawn: newWithdrawn })
             });
         }
-        await sbFetch(`/rest/v1/withdrawals?id=eq.${id}`, {
-            method: 'PATCH',
-            body: JSON.stringify({ status: 'approved', approved_at: new Date().toISOString(), approved_by: adminUser.id })
-        });
-        showToast('✅ Withdrawal approved.');
+
+        showToast('✅ Sent to MarzPay. Awaiting confirmation.');
         renderWithdrawals();
-    } catch (err) { console.error(err); showToast('Failed: ' + err.message); }
+    } catch (err) {
+        console.error(err);
+        showToast('Failed: ' + err.message);
+    }
 }
 
 async function rejectWithdrawal(id) {
