@@ -265,15 +265,33 @@ async function approveWithdrawal(id) {
 }
 
 async function rejectWithdrawal(id) {
-    if (!confirm('Reject this withdrawal?')) return;
+    if (!confirm('Reject this withdrawal? The amount will be refunded to the user\'s balance.')) return;
+    const w = allWithdrawals.find(x => x.id === id);
+    if (!w) return;
+
     try {
+        // Refund the user
+        const u = allUsers.find(u => u.id === w.user_id);
+        if (u) {
+            const newBalance = Number(u.balance || 0) + Number(w.amount);
+            await sbFetch(`/rest/v1/users?id=eq.${w.user_id}`, {
+                method: 'PATCH',
+                body: JSON.stringify({ balance: newBalance })
+            });
+        }
+
+        // Mark withdrawal as rejected
         await sbFetch(`/rest/v1/withdrawals?id=eq.${id}`, {
             method: 'PATCH',
             body: JSON.stringify({ status: 'rejected', approved_at: new Date().toISOString(), approved_by: adminUser.id })
         });
-        showToast('❌ Withdrawal rejected.');
+
+        showToast('❌ Rejected — balance refunded.');
         renderWithdrawals();
-    } catch (err) { showToast('Failed: ' + err.message); }
+    } catch (err) {
+        console.error(err);
+        showToast('Failed: ' + err.message);
+    }
 }
 
 async function renderProducts() {
