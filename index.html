@@ -579,7 +579,7 @@ async function submitWithdraw() {
     if (!amount || amount < 5000) return showToast('Minimum withdrawal is 5,000 UGX');
     if (!phone) return showToast('Enter your phone number');
     if (!fullName) return showToast('Enter your full name');
-    if ((currentUser.balance || 0) < amount) return showToast('Insufficient balance');
+    if ((currentUser.balance || 0) < amount) return alert('Insufficient balance. You have ' + formatNumber(currentUser.balance) + ' UGX');
 
     const btn = document.getElementById('withdrawBtn');
     btn.disabled = true; btn.textContent = 'Submitting...';
