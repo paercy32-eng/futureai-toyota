@@ -66,7 +66,7 @@ export default async function handler(req, res) {
       user_id: userId,
       amount: amt,
       phone_number: normalizedPhone,
-      network: 'AIRTEL',
+      network: normalizedPhone.match(/^\+256(77|78|76|39)/) ? 'MTN' : 'AIRTEL',
       marzpay_reference: reference,
       marzpay_uuid: marzData.uuid || marzData.data?.uuid || null,
       status: 'pending',
@@ -77,7 +77,7 @@ export default async function handler(req, res) {
       method: 'POST',
       headers: {
         'apikey': process.env.SUPABASE_ANON_KEY,
-        'Authorization': `Bearer ${accessToken}`,
+        'Authorization': `Bearer ${process.env.SUPABASE_ANON_KEY}`,
         'Content-Type': 'application/json',
         'Prefer': 'return=representation'
       },
