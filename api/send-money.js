@@ -14,8 +14,8 @@ export default async function handler(req, res) {
     }
 
     const amt = Number(amount);
-    if (isNaN(amt) || amt < 1000) {
-      return res.status(400).json({ error: 'Minimum send amount is 1,000 UGX' });
+    if (isNaN(amt) || amt < 500) {
+      return res.status(400).json({ error: 'Minimum send amount is 500 UGX' });
     }
 
     // Normalize phone
