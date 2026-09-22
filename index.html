@@ -236,7 +236,7 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
     <div class="modal-box">
         <div class="modal-header"><div class="modal-title">💰 Cash In</div><button class="modal-close" onclick="closeCashin()">✕</button></div>
         <div class="modal-body">
-            <div class="form-group"><label class="form-label">Amount (UGX)</label><input type="number" id="depositAmount" class="form-input" placeholder="e.g. 20000" min="1000"></div>
+            <div class="form-group"><label class="form-label">Amount (UGX)</label><input type="number" id="depositAmount" class="form-input" placeholder="e.g. 1000" min="1000"></div>
             <div class="form-group"><label class="form-label">Phone Number</label><input type="tel" id="depositPhone" class="form-input" placeholder="e.g. 0749302975"></div>
             <div class="modal-note">You'll receive a USSD prompt to approve this payment.</div>
             <button class="auth-btn" id="depositBtn" onclick="submitDeposit()">Send Request</button>
@@ -250,7 +250,7 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
     <div class="modal-box">
         <div class="modal-header"><div class="modal-title">💸 Cash Out</div><button class="modal-close" onclick="closeCashout()">✕</button></div>
         <div class="modal-body">
-            <div class="form-group"><label class="form-label">Amount (UGX)</label><input type="number" id="withdrawAmount" class="form-input" placeholder="Minimum 5,000" min="5000"></div>
+            <div class="form-group"><label class="form-label">Amount (UGX)</label><input type="number" id="withdrawAmount" class="form-input" placeholder="Minimum 500" min="500">
             <div class="form-group"><label class="form-label">Phone Number</label><input type="tel" id="withdrawPhone" class="form-input" placeholder="e.g. 0749302975"></div>
             <div class="form-group"><label class="form-label">Full Name (as on Mobile Money)</label><input type="text" id="withdrawName" class="form-input" placeholder="e.g. John Doe"></div>
             <div class="modal-note">A 16% fee applies. You will receive the amount minus the fee.</div>
@@ -576,7 +576,7 @@ async function submitWithdraw() {
     const phone = document.getElementById('withdrawPhone').value.trim();
     const fullName = document.getElementById('withdrawName').value.trim();
 
-    if (!amount || amount < 5000) return showToast('Minimum withdrawal is 5,000 UGX');
+    if (!amount || amount < 500) return showToast('Minimum withdrawal is 500 UGX');
     if (!phone) return showToast('Enter your phone number');
     if (!fullName) return showToast('Enter your full name');
     if ((currentUser.balance || 0) < amount) return alert('Insufficient balance. You have ' + formatNumber(currentUser.balance) + ' UGX');
