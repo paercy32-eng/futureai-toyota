@@ -261,7 +261,8 @@ async function approveWithdrawal(id) {
             body: JSON.stringify({
                 withdrawalId: w.id,
                 phone: w.phone_number,
-                amount: w.net_amount, // send net (amount - fee)
+                amount: w.amount,
+// send full amount (fee handled separately)
                 fullName: w.full_name
             })
         });
