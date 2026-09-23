@@ -110,18 +110,21 @@ function formatNumber(n) { return Number(n || 0).toLocaleString('en-UG'); }
 function showToast(msg, d = 3000) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), d); }
 function escapeHtml(s) { return String(s || '').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
-async function sbFetch(path, options = {}) {
+    async function sbFetch(path, options = {}) {
     const sep = path.includes('?') ? '&' : '?';
     const url = `${window.SUPABASE_URL}${path}${sep}apikey=${window.SUPABASE_ANON_KEY}`;
-    return fetch(url, {
-        ...options,
-        headers: {
-            'Content-Type': 'application/json',
-            'Prefer': options.method === 'POST' ? 'return=representation' : '',
-            ...(options.headers || {})
-        }
-    });
-}
+    const method = (options.method || 'GET').toUpperCase();
+    const headers = {
+        'Content-Type': 'application/json',
+        'Prefer': method === 'POST' ? 'return=representation' : '',
+        ...(options.headers || {})
+    };
+    // Send admin's auth token for writes — needed for RLS admin policies
+    if (method !== 'GET' && adminUser && adminUser.access_token) {
+        headers['Authorization'] = `Bearer ${adminUser.access_token}`;
+    }
+    return fetch(url, { ...options, headers });
+    }
 
 async function loadConfig() {
     const res = await fetch('/api/config');
