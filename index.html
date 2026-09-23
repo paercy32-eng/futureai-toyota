@@ -475,7 +475,6 @@ if (refRes.ok) {
             })
         });
         if (!res.ok) console.error('User row insert:', await res.text());
-
         localStorage.setItem('sb_session', JSON.stringify(authData));
         currentUser = { ...authData.user, access_token: authData.access_token };
         await loadUserProfile();
