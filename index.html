@@ -983,6 +983,7 @@ function quickAction(name) {
         return;
     }
     if (name === 'Referrals' || name === 'Invite') { switchTabByName('referrals'); return; }
+  if (name === 'Reward') { openRewards(); return; }
     showToast(name + ' — coming soon.');
 }
 
