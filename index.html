@@ -418,13 +418,14 @@ function isWithinWithdrawHours() { const h = new Date().getHours(); const m = ne
 async function sbFetch(path, options = {}) {
     const sep = path.includes('?') ? '&' : '?';
     const url = `${window.SUPABASE_URL}${path}${sep}apikey=${window.SUPABASE_ANON_KEY}`;
+    const method = (options.method || 'GET').toUpperCase();
     const headers = {
         'Content-Type': 'application/json',
-        'Prefer': options.method === 'POST' ? 'return=representation' : '',
+        'Prefer': method === 'POST' ? 'return=representation' : '',
         ...(options.headers || {})
     };
-    // Include user's access token if logged in — needed for RLS-protected writes
-    if (currentUser && currentUser.access_token) {
+    // Only send user token for writes (POST/PATCH/DELETE) — avoids stale-token 401 on reads
+    if (method !== 'GET' && currentUser && currentUser.access_token) {
         headers['Authorization'] = `Bearer ${currentUser.access_token}`;
     }
     return fetch(url, { ...options, headers });
