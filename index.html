@@ -34,40 +34,25 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
 .app-container.active { display: block; }
 .top-header { background: #071a30; padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #143254; position: sticky; top: 0; z-index: 100; }
 .brand { display: flex; align-items: center; gap: 10px; }
-.brand-mark { width: 34px; height: 34px; background: linear-gradient(135deg, #0066FF 0%, #0044CC 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 900; font-size: 17px; }
+.brand-mark { width: 34px; height: 34px; background: linear-gradient(135deg, #0066FF 0%, #0044CC 100%); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #FFB800; font-weight: 900; font-size: 17px; }
 .brand-name { font-size: 16px; font-weight: 800; color: #fff; letter-spacing: 0.5px; }
 .brand-name span { color: #FFB800; }
-.icon-btn { width: 38px; height: 38px; background: #0F2540; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: none; font-size: 17px; color: #FFB800; cursor: pointer; }
+.icon-btn { width: 38px; height: 38px; background: #0F2540; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: none; font-size: 17px; color: #FFB800; cursor: pointer; font-weight: 900; }
 
-/* HERO */
-.hero { background: linear-gradient(135deg, #0a2544 0%, #0d3b6f 100%); padding: 22px 20px 26px; position: relative; overflow: hidden; }
-.hero-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 18px; }
-.hero-greet { font-size: 12px; color: #7AA3D0; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px; }
-.hero-name { font-size: 26px; font-weight: 800; color: #FFFFFF; letter-spacing: -0.5px; }
-.hero-tagline { text-align: right; font-size: 10px; font-weight: 800; color: #FFB800; letter-spacing: 1.5px; line-height: 1.4; }
-.hero-tagline span { display: block; }
-.wallet-row { display: flex; gap: 10px; }
-.wallet-card { flex: 1; background: rgba(10,30,55,0.75); border: 1px solid rgba(0,102,255,0.25); border-radius: 12px; padding: 14px; display: flex; align-items: center; gap: 12px; }
-.wallet-icon { width: 42px; height: 42px; background: linear-gradient(135deg, #0066FF 0%, #0044CC 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: #FFB800; font-weight: 900; }
-.wallet-info { flex: 1; }
-.wallet-label { font-size: 10px; color: #7AA3D0; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; }
-.wallet-value { font-size: 16px; font-weight: 900; color: #FFB800; margin-top: 3px; letter-spacing: -0.3px; }
+/* HOME */
+.home-video-container { margin: 16px 18px; border-radius: 16px; overflow: hidden; background: #0A1E38; border: 1px solid #143254; }
+.home-video-container video { width: 100%; display: block; }
+.video-placeholder { height: 200px; display: flex; align-items: center; justify-content: center; color: #4A6A8F; font-size: 14px; font-weight: 700; letter-spacing: 1px; }
 
-/* ADMIN MESSAGE BANNER */
+.welcome-card { margin: 0 18px 16px; background: linear-gradient(135deg, #0a2544 0%, #0d3b6f 100%); border-radius: 16px; padding: 20px; position: relative; overflow: hidden; }
+.welcome-greet { font-size: 12px; color: #7AA3D0; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+.welcome-name { font-size: 26px; font-weight: 900; color: #FFFFFF; letter-spacing: -0.5px; }
+
 .admin-banner { margin: 14px 18px; background: linear-gradient(135deg, rgba(0,102,255,0.15), rgba(255,184,0,0.1)); border: 1px solid rgba(255,184,0,0.3); border-radius: 12px; padding: 14px; display: flex; gap: 10px; align-items: flex-start; }
 .admin-banner-icon { width: 34px; height: 34px; background: rgba(255,184,0,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #FFB800; font-size: 16px; font-weight: 900; flex-shrink: 0; }
 .admin-banner-content { flex: 1; }
 .admin-banner-title { font-size: 13px; font-weight: 800; color: #FFB800; margin-bottom: 2px; }
 .admin-banner-text { font-size: 12px; color: #B8D0EA; line-height: 1.4; }
-
-/* QUICK */
-.quick-section { padding: 18px; }
-.quick-title { font-size: 12px; color: #7AA3D0; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 800; margin-bottom: 14px; }
-.quick-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-.quick-btn { background: #0A1E38; border: 1px solid #143254; border-radius: 14px; padding: 14px 6px; display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; transition: transform 0.1s; }
-.quick-btn:active { transform: scale(0.96); }
-.quick-icon { width: 40px; height: 40px; background: linear-gradient(135deg, #0066FF 0%, #0044CC 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #FFB800; font-weight: 900; }
-.quick-label { font-size: 11px; color: #B8D0EA; font-weight: 700; text-align: center; }
 
 /* CATEGORY TABS */
 .category-tabs { display: flex; gap: 8px; padding: 14px 18px; overflow-x: auto; background: #071a30; border-bottom: 1px solid #143254; position: sticky; top: 63px; z-index: 99; }
@@ -78,14 +63,14 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
 /* PRODUCTS */
 .products-container { padding: 14px; display: flex; flex-direction: column; gap: 12px; }
 .product-card { background: #0A1E38; border-radius: 14px; border: 1px solid #143254; display: flex; overflow: hidden; }
-.product-image { width: 110px; height: 110px; flex-shrink: 0; background: #0F2540; display: flex; align-items: center; justify-content: center; font-size: 24px; color: #4A6A8F; font-weight: 900; position: relative; }
+.product-image { width: 150px; height: 150px; flex-shrink: 0; background: #0F2540; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #4A6A8F; font-weight: 900; position: relative; }
 .product-image img { width: 100%; height: 100%; object-fit: cover; }
 .product-badge { position: absolute; top: 6px; left: 6px; padding: 3px 8px; border-radius: 4px; font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
 .badge-locked { background: linear-gradient(135deg, #0066FF 0%, #0044CC 100%); color: #FFB800; }
 .badge-daily { background: linear-gradient(135deg, #10B981 0%, #059669 100%); color: #FFFFFF; }
 .product-details { flex: 1; padding: 12px 14px; display: flex; flex-direction: column; justify-content: space-between; min-width: 0; }
-.product-name { font-size: 15px; font-weight: 800; color: #FFFFFF; margin-bottom: 8px; }
-.product-stats { display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px; }
+.product-name { font-size: 15px; font-weight: 800; color: #FFFFFF; margin-bottom: 6px; }
+.product-stats { display: flex; flex-direction: column; gap: 3px; margin-bottom: 8px; }
 .stat-row { display: flex; justify-content: space-between; font-size: 12px; }
 .stat-label { color: #7AA3D0; font-weight: 600; }
 .stat-value { color: #FFFFFF; font-weight: 700; }
@@ -96,7 +81,7 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
 /* MY CARS */
 .mycar-card { background: #0A1E38; border-radius: 14px; border: 1px solid #143254; padding: 14px; }
 .mycar-header { display: flex; gap: 12px; margin-bottom: 12px; }
-.mycar-img { width: 70px; height: 70px; background: #0F2540; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 15px; color: #4A6A8F; overflow: hidden; font-weight: 900; }
+.mycar-img { width: 70px; height: 70px; background: #0F2540; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #4A6A8F; overflow: hidden; font-weight: 900; }
 .mycar-img img { width: 100%; height: 100%; object-fit: cover; }
 .mycar-info { flex: 1; }
 .mycar-name { font-size: 15px; font-weight: 800; color: #FFFFFF; margin-bottom: 4px; }
@@ -122,7 +107,7 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
 .invitation-label { font-size: 11px; color: #7AA3D0; text-transform: uppercase; letter-spacing: 1px; font-weight: 800; margin-bottom: 8px; }
 .copy-row { display: flex; gap: 8px; margin-bottom: 14px; }
 .copy-row:last-child { margin-bottom: 0; }
-.copy-input { flex: 1; padding: 12px 14px; background: #0F2540; border: 1px solid #143254; border-radius: 8px; color: #FFB800; font-size: 13px; font-weight: 700; outline: none; overflow: hidden; text-overflow: ellipsis; }
+.copy-input { flex: 1; padding: 12px 14px; background: #0F2540; border: 1px solid #143254; border-radius: 8px; color: #FFB800; font-size: 13px; font-weight: 700; outline: none; }
 .copy-btn { padding: 12px 18px; background: linear-gradient(135deg, #FFB800 0%, #D99A00 100%); color: #0A1E38; border: none; border-radius: 8px; font-size: 12px; font-weight: 900; cursor: pointer; letter-spacing: 0.5px; }
 .level-tabs { display: flex; gap: 8px; margin-bottom: 14px; overflow-x: auto; }
 .level-tabs::-webkit-scrollbar { display: none; }
@@ -136,28 +121,46 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
 .level-stat-value.white { color: #FFFFFF; }
 
 /* PROFILE */
-.profile-hero { background: linear-gradient(135deg, #0a2544 0%, #0d3b6f 100%); padding: 24px 20px 30px; text-align: center; }
-.profile-avatar { width: 76px; height: 76px; background: linear-gradient(135deg, #0066FF 0%, #0044CC 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: 900; color: #FFB800; margin: 0 auto 12px; }
-.profile-name { font-size: 20px; font-weight: 900; color: #FFFFFF; }
-.profile-phone { font-size: 13px; color: #7AA3D0; margin-top: 4px; }
-.profile-badge { display: inline-block; margin-top: 10px; padding: 4px 12px; background: rgba(255,184,0,0.15); border: 1px solid rgba(255,184,0,0.4); border-radius: 20px; font-size: 10px; font-weight: 800; color: #FFB800; letter-spacing: 1px; }
-.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 18px; }
+.profile-hero { background: linear-gradient(135deg, #0a2544 0%, #0d3b6f 100%); padding: 22px 18px; text-align: center; }
+.profile-name-big { font-size: 22px; font-weight: 900; color: #FFFFFF; margin-bottom: 4px; }
+.profile-phone-big { font-size: 13px; color: #7AA3D0; }
+
+.profile-actions { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; padding: 18px; }
+.profile-action-btn { background: linear-gradient(135deg, #0066FF 0%, #0044CC 100%); border: none; border-radius: 12px; padding: 16px 8px; display: flex; flex-direction: column; align-items: center; gap: 8px; color: #FFFFFF; font-weight: 800; font-size: 12px; cursor: pointer; }
+.profile-action-icon { font-size: 14px; font-weight: 900; color: #FFB800; }
+.profile-action-label { font-size: 12px; }
+
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 18px 18px; }
 .stat-box { background: #0A1E38; border: 1px solid #143254; border-radius: 12px; padding: 14px; }
 .stat-box-label { font-size: 10px; color: #7AA3D0; text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px; margin-bottom: 6px; }
 .stat-box-value { font-size: 16px; font-weight: 900; color: #FFB800; }
 .stat-box-value.white { color: #FFFFFF; }
 .menu-list { padding: 0 18px 18px; display: flex; flex-direction: column; gap: 8px; }
 .menu-item { background: #0A1E38; border: 1px solid #143254; border-radius: 12px; padding: 14px; display: flex; align-items: center; gap: 12px; cursor: pointer; }
-.menu-icon { width: 36px; height: 36px; background: #0F2540; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 13px; color: #FFB800; font-weight: 900; }
+.menu-icon { width: 36px; height: 36px; background: #0F2540; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #FFB800; font-weight: 900; }
 .menu-text { flex: 1; font-size: 14px; color: #e2e8f0; font-weight: 700; }
 .menu-arrow { color: #4A6A8F; font-size: 18px; }
 .signout-btn { width: calc(100% - 36px); margin: 0 18px 18px; padding: 14px; background: rgba(220,38,38,0.15); border: 1px solid rgba(220,38,38,0.4); color: #fca5a5; border-radius: 10px; font-size: 14px; font-weight: 800; cursor: pointer; }
+
+/* HISTORY */
+.history-page { padding: 18px; }
+.history-tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+.history-tab { flex: 1; padding: 12px; border-radius: 10px; background: #0F2540; border: 1px solid #143254; color: #7AA3D0; font-size: 13px; font-weight: 800; cursor: pointer; text-align: center; }
+.history-tab.active { background: linear-gradient(135deg, #0066FF 0%, #0044CC 100%); color: #FFFFFF; border-color: transparent; }
+.history-item { background: #0A1E38; border: 1px solid #143254; border-radius: 12px; padding: 14px; margin-bottom: 10px; }
+.history-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px; }
+.history-row-label { color: #7AA3D0; }
+.history-row-value { color: #FFFFFF; font-weight: 700; }
+.status-badge { display: inline-block; padding: 3px 10px; border-radius: 6px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
+.status-success { background: rgba(16,185,129,0.15); color: #10b981; }
+.status-pending { background: rgba(251,191,36,0.15); color: #fbbf24; }
+.status-failed { background: rgba(220,38,38,0.15); color: #f87171; }
 
 /* BOTTOM NAV */
 .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #071a30; border-top: 1px solid #143254; display: flex; justify-content: space-around; padding: 8px 0; z-index: 100; }
 .nav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 6px 14px; background: none; border: none; color: #4A6A8F; font-size: 10px; font-weight: 800; cursor: pointer; }
 .nav-item.active { color: #FFB800; }
-.nav-icon { font-size: 20px; font-weight: 900; }
+.nav-icon { font-size: 16px; font-weight: 900; }
 
 /* MISC */
 .loading { text-align: center; padding: 40px 20px; color: #7AA3D0; font-size: 14px; }
@@ -165,7 +168,7 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
 .toast { position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%); background: #0F2540; border: 1px solid #0066FF; color: white; padding: 12px 20px; border-radius: 10px; font-size: 13px; font-weight: 600; z-index: 9999; opacity: 0; transition: opacity 0.3s; pointer-events: none; max-width: 90%; text-align: center; }
 .toast.show { opacity: 1; }
 .empty-state { text-align: center; padding: 60px 20px; }
-.empty-state-icon { font-size: 40px; margin-bottom: 12px; color: #4A6A8F; font-weight: 900; }
+.empty-state-icon { font-size: 14px; margin-bottom: 12px; color: #4A6A8F; font-weight: 900; letter-spacing: 2px; }
 .empty-state-text { color: #7AA3D0; font-size: 14px; }
 .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); display: none; align-items: flex-end; justify-content: center; z-index: 999; }
 .modal-overlay.show { display: flex; }
@@ -175,6 +178,7 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
 .modal-close { background: #0F2540; border: none; color: #7AA3D0; width: 32px; height: 32px; border-radius: 50%; font-size: 14px; cursor: pointer; font-weight: 900; }
 .modal-body { display: flex; flex-direction: column; gap: 14px; }
 .modal-note { font-size: 12px; color: #FFB800; background: rgba(255,184,0,0.08); border: 1px solid rgba(255,184,0,0.2); border-radius: 8px; padding: 10px; text-align: center; line-height: 1.4; }
+.gift-code-display { text-align: center; font-size: 28px; font-weight: 900; color: #FFB800; letter-spacing: 4px; padding: 20px; background: #0F2540; border: 1px dashed #FFB800; border-radius: 12px; margin-bottom: 12px; }
 </style>
 </head>
 <body>
@@ -220,35 +224,19 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
     <div id="homeView">
         <header class="top-header">
             <div class="brand"><div class="brand-mark">T</div><div class="brand-name">TOYOTA <span>UGANDA</span></div></div>
-            <button class="icon-btn">!</button>
+            <button class="icon-btn" onclick="openGiftModal()">G</button>
         </header>
 
         <div id="adminBannerContainer"></div>
 
-        <section class="hero">
-            <div class="hero-top">
-                <div><div class="hero-greet">Welcome back</div><div class="hero-name" id="userName">User</div></div>
-                <div class="hero-tagline"><span>DRIVE</span><span>YOUR</span><span>FUTURE</span></div>
-            </div>
-            <div class="wallet-row">
-                <div class="wallet-card"><div class="wallet-icon">B</div><div class="wallet-info"><div class="wallet-label">Balance</div><div class="wallet-value" id="userBalance">0 UGX</div></div></div>
-                <div class="wallet-card"><div class="wallet-icon">E</div><div class="wallet-info"><div class="wallet-label">Total Earned</div><div class="wallet-value" id="userEarned">0 UGX</div></div></div>
-            </div>
-        </section>
+        <div class="welcome-card">
+            <div class="welcome-greet">Welcome back</div>
+            <div class="welcome-name" id="userName">User</div>
+        </div>
 
-        <section class="quick-section">
-            <div class="quick-title">Quick Actions</div>
-            <div class="quick-grid">
-                <div class="quick-btn" onclick="quickAction('Cash In')"><div class="quick-icon">IN</div><div class="quick-label">Cash In</div></div>
-                <div class="quick-btn" onclick="quickAction('Cash Out')"><div class="quick-icon">OUT</div><div class="quick-label">Cash Out</div></div>
-                <div class="quick-btn" onclick="quickAction('Transactions')"><div class="quick-icon">H</div><div class="quick-label">History</div></div>
-                <div class="quick-btn" onclick="quickAction('Invite')"><div class="quick-icon">+</div><div class="quick-label">Invite</div></div>
-                <div class="quick-btn" onclick="quickAction('Referrals')"><div class="quick-icon">R</div><div class="quick-label">Referrals</div></div>
-                <div class="quick-btn" onclick="quickAction('VIP Task')"><div class="quick-icon">V</div><div class="quick-label">VIP Task</div></div>
-                <div class="quick-btn" onclick="quickAction('Reward')"><div class="quick-icon">G</div><div class="quick-label">Reward</div></div>
-                <div class="quick-btn" onclick="quickAction('Settings')"><div class="quick-icon">S</div><div class="quick-label">Settings</div></div>
-            </div>
-        </section>
+        <div class="home-video-container" id="homeVideoContainer">
+            <div class="video-placeholder">LIVE TOYOTA SHOWCASE</div>
+        </div>
 
         <nav class="category-tabs" id="categoryTabs">
             <button class="tab active" data-category="All">All</button>
@@ -275,27 +263,15 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
             </div>
 
             <div class="stats-top">
-                <div class="stats-top-card">
-                    <div class="stats-top-label">Total Income</div>
-                    <div class="stats-top-value" id="refTotalIncome">UGX 0</div>
-                </div>
-                <div class="stats-top-card">
-                    <div class="stats-top-label">Total Invitations</div>
-                    <div class="stats-top-value" id="refTotalInvites">0</div>
-                </div>
+                <div class="stats-top-card"><div class="stats-top-label">Total Income</div><div class="stats-top-value" id="refTotalIncome">UGX 0</div></div>
+                <div class="stats-top-card"><div class="stats-top-label">Total Invitations</div><div class="stats-top-value" id="refTotalInvites">0</div></div>
             </div>
 
             <div class="invitation-card">
                 <div class="invitation-label">Invitation Code</div>
-                <div class="copy-row">
-                    <input type="text" class="copy-input" id="refCodeInput" readonly>
-                    <button class="copy-btn" onclick="copyRefCode()">COPY</button>
-                </div>
+                <div class="copy-row"><input type="text" class="copy-input" id="refCodeInput" readonly><button class="copy-btn" onclick="copyRefCode()">COPY</button></div>
                 <div class="invitation-label">Invitation Link</div>
-                <div class="copy-row">
-                    <input type="text" class="copy-input" id="refLinkInput" readonly>
-                    <button class="copy-btn" onclick="copyRefLink()">COPY</button>
-                </div>
+                <div class="copy-row"><input type="text" class="copy-input" id="refLinkInput" readonly><button class="copy-btn" onclick="copyRefLink()">COPY</button></div>
             </div>
 
             <div class="level-tabs">
@@ -315,27 +291,53 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
         </div>
     </div>
 
+    <!-- HISTORY -->
+    <div id="historyView" style="display:none;">
+        <header class="top-header"><div class="brand"><div class="brand-mark">T</div><div class="brand-name">MY <span>HISTORY</span></div></div></header>
+        <div class="history-page">
+            <div class="history-tabs">
+                <div class="history-tab active" onclick="switchHistory('deposits', this)">Deposits</div>
+                <div class="history-tab" onclick="switchHistory('withdrawals', this)">Withdrawals</div>
+            </div>
+            <div id="historyContent"></div>
+        </div>
+    </div>
+
     <!-- PROFILE -->
     <div id="profileView" style="display:none;">
         <header class="top-header"><div class="brand"><div class="brand-mark">T</div><div class="brand-name">MY <span>PROFILE</span></div></div></header>
         <div class="profile-hero">
-            <div class="profile-avatar" id="profileAvatar">U</div>
-            <div class="profile-name" id="profileName">User</div>
-            <div class="profile-phone" id="profilePhone">+256 ...</div>
-            <div class="profile-badge">MEMBER</div>
+            <div class="profile-name-big" id="profileName">User</div>
+            <div class="profile-phone-big" id="profilePhone">+256 ...</div>
         </div>
+
+        <div class="profile-actions">
+            <button class="profile-action-btn" onclick="quickAction('Cash In')">
+                <span class="profile-action-icon">IN</span>
+                <span class="profile-action-label">Cash In</span>
+            </button>
+            <button class="profile-action-btn" onclick="quickAction('Cash Out')">
+                <span class="profile-action-icon">OUT</span>
+                <span class="profile-action-label">Cash Out</span>
+            </button>
+            <button class="profile-action-btn" onclick="openHistory()">
+                <span class="profile-action-icon">H</span>
+                <span class="profile-action-label">History</span>
+            </button>
+        </div>
+
         <div class="stats-grid">
             <div class="stat-box"><div class="stat-box-label">Balance</div><div class="stat-box-value" id="profileBalance">0 UGX</div></div>
             <div class="stat-box"><div class="stat-box-label">Total Earned</div><div class="stat-box-value" id="profileEarned">0 UGX</div></div>
             <div class="stat-box"><div class="stat-box-label">Deposited</div><div class="stat-box-value white" id="profileDeposited">0 UGX</div></div>
             <div class="stat-box"><div class="stat-box-label">Withdrawn</div><div class="stat-box-value white" id="profileWithdrawn">0 UGX</div></div>
         </div>
+
         <div class="menu-list">
             <div class="menu-item" onclick="switchTabByName('referrals')"><div class="menu-icon">R</div><div class="menu-text">My Referrals</div><div class="menu-arrow">›</div></div>
-            <div class="menu-item" onclick="quickAction('VIP Task')"><div class="menu-icon">V</div><div class="menu-text">VIP Task</div><div class="menu-arrow">›</div></div>
+            <div class="menu-item" onclick="openJoinTelegram()"><div class="menu-icon">T</div><div class="menu-text">Join Telegram</div><div class="menu-arrow">›</div></div>
             <div class="menu-item" onclick="quickAction('Reward')"><div class="menu-icon">G</div><div class="menu-text">Rewards</div><div class="menu-arrow">›</div></div>
-            <div class="menu-item" onclick="quickAction('Support')"><div class="menu-icon">?</div><div class="menu-text">Support</div><div class="menu-arrow">›</div></div>
-            <div class="menu-item" onclick="quickAction('Settings')"><div class="menu-icon">S</div><div class="menu-text">Settings</div><div class="menu-arrow">›</div></div>
+            <div class="menu-item" onclick="openSupport()"><div class="menu-icon">?</div><div class="menu-text">Customer Care</div><div class="menu-arrow">›</div></div>
         </div>
         <button class="signout-btn" onclick="handleSignout()">Sign Out</button>
     </div>
@@ -353,7 +355,7 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
     <div class="modal-box">
         <div class="modal-header"><div class="modal-title">Cash In</div><button class="modal-close" onclick="closeCashin()">X</button></div>
         <div class="modal-body">
-            <div class="form-group"><label class="form-label">Amount (UGX)</label><input type="number" id="depositAmount" class="form-input" placeholder="Minimum 1,000" min="1000"></div>
+            <div class="form-group"><label class="form-label">Amount (UGX)</label><input type="number" id="depositAmount" class="form-input" placeholder="Minimum 15,000" min="15000"></div>
             <div class="form-group"><label class="form-label">Phone Number</label><input type="tel" id="depositPhone" class="form-input" placeholder="e.g. 0749302975"></div>
             <div class="modal-note">You'll receive a USSD prompt to approve this payment.</div>
             <button class="auth-btn" id="depositBtn" onclick="submitDeposit()">Send Request</button>
@@ -365,32 +367,45 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
 <div id="cashoutModal" class="modal-overlay">
     <div class="modal-box">
         <div class="modal-header"><div class="modal-title">Cash Out</div><button class="modal-close" onclick="closeCashout()">X</button></div>
+        <div class="modal-body" id="cashoutBody"></div>
+    </div>
+</div>
+
+<!-- GIFT CODE MODAL -->
+<div id="giftModal" class="modal-overlay">
+    <div class="modal-box">
+        <div class="modal-header"><div class="modal-title">Redeem Gift Code</div><button class="modal-close" onclick="closeGift()">X</button></div>
         <div class="modal-body">
-            <div class="form-group"><label class="form-label">Amount (UGX)</label><input type="number" id="withdrawAmount" class="form-input" placeholder="Minimum 500" min="500"></div>
-            <div class="form-group"><label class="form-label">Phone Number</label><input type="tel" id="withdrawPhone" class="form-input" placeholder="e.g. 0749302975"></div>
-            <div class="form-group"><label class="form-label">Full Name (as on Mobile Money)</label><input type="text" id="withdrawName" class="form-input" placeholder="Your full name"></div>
-            <div class="modal-note">A 16% fee applies. You'll receive the amount minus the fee.</div>
-            <button class="auth-btn" id="withdrawBtn" onclick="submitWithdraw()">Submit Withdrawal</button>
+            <div class="modal-note">Enter a valid gift code. Codes expire in 5 minutes. First come, first served.</div>
+            <div class="form-group"><label class="form-label">Gift Code</label><input type="text" id="giftCodeInput" class="form-input" placeholder="Enter code" style="text-transform: uppercase;"></div>
+            <button class="auth-btn" id="giftBtn" onclick="claimGiftCode()">Claim</button>
         </div>
     </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/eruda"></script>
-<script>eruda.init();</script>
-
 <script>
 window.SUPABASE_URL = '';
 window.SUPABASE_ANON_KEY = '';
 const FAKE_EMAIL_DOMAIN = 'toyota-uganda.local';
+const MIN_DEPOSIT = 15000;
+const MIN_WITHDRAW = 5000;
+const WELCOME_BONUS = 5000;
+const WITHDRAW_FEE_RATE = 0.15;
+const TELEGRAM_INVITE_URL = 'https://t.me/YourTelegramGroup';
+const SUPPORT_TELEGRAM_URL = 'https://t.me/YourSupport';
 
 let currentUser = null;
 let allProducts = [];
 let userInvestments = [];
 let currentCategory = 'All';
 let currentLevel = 1;
+let currentHistoryTab = 'deposits';
 let allReferralData = { level1: [], level2: [], level3: [] };
+let userDeposits = [];
+let userWithdrawals = [];
+let userBind = null;
 
 function formatNumber(n) { return Number(n || 0).toLocaleString('en-UG'); }
 function escapeHtml(s) { return String(s || '').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
@@ -398,6 +413,7 @@ function phoneToEmail(phone) { let p = phone.replace(/\s+/g,'').replace(/^\+?256
 function showToast(msg, d = 2500) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), d); }
 function showError(id, msg) { const el = document.getElementById(id); el.textContent = msg; el.classList.add('show'); }
 function hideError(id) { document.getElementById(id).classList.remove('show'); }
+function isWithinWithdrawHours() { const h = new Date().getHours(); const m = new Date().getMinutes(); const mins = h*60+m; return mins >= (9*60+30) && mins < 18*60; }
 
 async function sbFetch(path, options = {}) {
     const sep = path.includes('?') ? '&' : '?';
@@ -405,11 +421,7 @@ async function sbFetch(path, options = {}) {
     return fetch(url, { ...options, headers: { 'Content-Type': 'application/json', ...(options.headers || {}) } });
 }
 async function sbAuth(path, body) {
-    const res = await fetch(`${window.SUPABASE_URL}/auth/v1${path}`, {
-        method: 'POST',
-        headers: { 'apikey': window.SUPABASE_ANON_KEY, 'Content-Type': 'application/json' },
-        body: JSON.stringify(body)
-    });
+    const res = await fetch(`${window.SUPABASE_URL}/auth/v1${path}`, { method: 'POST', headers: { 'apikey': window.SUPABASE_ANON_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
     const data = await res.json();
     if (!res.ok) throw new Error(data.error_description || data.msg || 'Auth failed');
     return data;
@@ -436,52 +448,35 @@ async function handleSignup() {
         const authData = await sbAuth('/signup', { email, password });
         if (!authData.access_token) throw new Error('Signup failed. Check "Confirm email" is OFF in Supabase.');
 
-        // Look up referrer if code provided
         let referredBy = null;
         if (refCode) {
-            
             try {
-    const refRes = await fetch(`${window.SUPABASE_URL}/rest/v1/rpc/find_referrer_id`, {
-        method: 'POST',
-        headers: {
-            'apikey': window.SUPABASE_ANON_KEY,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ code: refCode })
-    });
-    console.log('RPC status:', refRes.status);
-    const refText = await refRes.text();
-    console.log('RPC response:', refText);
-    if (refRes.ok && refText) {
-        const refId = JSON.parse(refText);
-        if (refId) referredBy = refId;
-    }
-} catch (rpcErr) {
-    console.error('RPC failed:', rpcErr);
-            }
-        }        
+                const refRes = await fetch(`${window.SUPABASE_URL}/rest/v1/rpc/find_referrer_id`, {
+                    method: 'POST',
+                    headers: { 'apikey': window.SUPABASE_ANON_KEY, 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ code: refCode })
+                });
+                if (refRes.ok) {
+                    const refText = await refRes.text();
+                    if (refText && refText !== 'null') {
+                        const refId = JSON.parse(refText);
+                        if (refId) referredBy = refId;
+                    }
+                }
+            } catch (e) { console.error('RPC error:', e); }
+        }
 
         const newCode = 'REF' + Math.random().toString(36).substring(2, 8).toUpperCase();
 
-        const res = await fetch(`${window.SUPABASE_URL}/rest/v1/users`, {
+        await fetch(`${window.SUPABASE_URL}/rest/v1/users`, {
             method: 'POST',
-            headers: {
-                'apikey': window.SUPABASE_ANON_KEY,
-                'Authorization': `Bearer ${authData.access_token}`,
-                'Content-Type': 'application/json',
-                'Prefer': 'return=representation'
-            },
+            headers: { 'apikey': window.SUPABASE_ANON_KEY, 'Authorization': `Bearer ${authData.access_token}`, 'Content-Type': 'application/json', 'Prefer': 'return=representation' },
             body: JSON.stringify({
-                id: authData.user.id,
-                full_name: name,
-                phone_number: phone,
-                password: 'managed-by-auth',
-                balance: 0,
-                referral_code: newCode,
-                referred_by: referredBy
+                id: authData.user.id, full_name: name, phone_number: phone, password: 'managed-by-auth',
+                balance: WELCOME_BONUS, referral_code: newCode, referred_by: referredBy
             })
         });
-        if (!res.ok) console.error('User row insert:', await res.text());
+
         localStorage.setItem('sb_session', JSON.stringify(authData));
         currentUser = { ...authData.user, access_token: authData.access_token };
         await loadUserProfile();
@@ -499,10 +494,8 @@ async function handleSignin() {
     const phone = document.getElementById('signinPhone').value.trim();
     const password = document.getElementById('signinPassword').value;
     if (!phone || !password) return showError('signinError', 'Please fill in all fields.');
-
     const btn = document.getElementById('signinBtn');
     btn.disabled = true; btn.textContent = 'Signing in...';
-
     try {
         const email = phoneToEmail(phone);
         const authData = await sbAuth('/token?grant_type=password', { email, password });
@@ -510,19 +503,11 @@ async function handleSignin() {
         currentUser = { ...authData.user, access_token: authData.access_token };
         await loadUserProfile();
         await enterApp();
-    } catch (err) {
-        console.error(err);
-        showError('signinError', 'Invalid phone or password.');
-    } finally {
-        btn.disabled = false; btn.textContent = 'Sign In';
-    }
+    } catch (err) { console.error(err); showError('signinError', 'Invalid phone or password.'); }
+    finally { btn.disabled = false; btn.textContent = 'Sign In'; }
 }
 
-async function handleSignout() {
-    localStorage.removeItem('sb_session');
-    currentUser = null; userInvestments = [];
-    location.reload();
-}
+async function handleSignout() { localStorage.removeItem('sb_session'); currentUser = null; userInvestments = []; location.reload(); }
 
 async function loadUserProfile() {
     const res = await sbFetch(`/rest/v1/users?id=eq.${currentUser.id}&select=*`);
@@ -545,7 +530,20 @@ async function loadUserInvestments() {
     if (!res.ok) { userInvestments = []; return; }
     userInvestments = await res.json();
 }
-
+async function loadUserBind() {
+    const res = await sbFetch(`/rest/v1/user_binds?user_id=eq.${currentUser.id}&select=*`);
+    if (!res.ok) { userBind = null; return; }
+    const rows = await res.json();
+    userBind = rows.length > 0 ? rows[0] : null;
+}
+async function loadHomeVideo() {
+    const res = await sbFetch('/rest/v1/app_settings?key=eq.home_video_url&select=value');
+    if (!res.ok) return;
+    const rows = await res.json();
+    if (rows.length > 0 && rows[0].value) {
+        document.getElementById('homeVideoContainer').innerHTML = `<video src="${rows[0].value}" autoplay muted loop playsinline></video>`;
+    }
+}
 async function loadAdminBanner() {
     const res = await sbFetch('/rest/v1/admin_messages?is_active=eq.true&order=created_at.desc&limit=1');
     if (!res.ok) return;
@@ -567,17 +565,14 @@ async function enterApp() {
     document.getElementById('authScreen').style.display = 'none';
     document.getElementById('appScreen').classList.add('active');
     updateUserUI();
-    await Promise.all([fetchProducts(), loadUserInvestments(), loadAdminBanner()]);
+    await Promise.all([fetchProducts(), loadUserInvestments(), loadHomeVideo(), loadAdminBanner(), loadUserBind()]);
     renderProducts();
 }
 
 function updateUserUI() {
     document.getElementById('userName').textContent = currentUser.full_name || 'User';
-    document.getElementById('userBalance').textContent = formatNumber(currentUser.balance) + ' UGX';
-    document.getElementById('userEarned').textContent = formatNumber(currentUser.total_earned) + ' UGX';
     document.getElementById('profileName').textContent = currentUser.full_name || 'User';
     document.getElementById('profilePhone').textContent = currentUser.phone_number || '';
-    document.getElementById('profileAvatar').textContent = (currentUser.full_name || 'U')[0].toUpperCase();
     document.getElementById('profileBalance').textContent = formatNumber(currentUser.balance) + ' UGX';
     document.getElementById('profileEarned').textContent = formatNumber(currentUser.total_earned) + ' UGX';
     document.getElementById('profileDeposited').textContent = formatNumber(currentUser.total_deposited) + ' UGX';
@@ -599,7 +594,6 @@ function renderProducts() {
     const c = document.getElementById('productsContainer');
     const filtered = currentCategory === 'All' ? allProducts : allProducts.filter(p => p.category === currentCategory);
     if (filtered.length === 0) { c.innerHTML = '<div class="loading">No cars in this category.</div>'; return; }
-
     c.innerHTML = filtered.map(p => {
         const isDaily = p.earning_type === 'daily';
         const owned = (userInvestments || []).find(i => i.product_id === p.id);
@@ -610,11 +604,9 @@ function renderProducts() {
         const stat1Val = isDaily ? formatNumber(p.daily_earning) + ' UGX' : p.lock_days + ' Days';
         const stat2Lbl = isDaily ? 'Duration' : 'Return';
         const stat2Val = isDaily ? p.earning_days + ' Days' : formatNumber(p.return_amount) + ' UGX';
-
         let btnText, btnDisabled;
         if (isOwned) { btnText = isDaily ? 'Purchased' : 'Locked In'; btnDisabled = true; }
         else { btnText = isDaily ? 'Purchase Now' : 'Lock In'; btnDisabled = false; }
-
         return `<div class="product-card">
             <div class="product-image"><span class="product-badge ${badgeClass}">${badgeText}</span>${p.image_url ? '<img src="'+p.image_url+'">' : 'CAR'}</div>
             <div class="product-details">
@@ -633,23 +625,18 @@ function renderProducts() {
 async function handlePurchase(productId, productName, isDaily) {
     const product = allProducts.find(p => p.id === productId);
     if (!product) return;
-
     const depRes = await sbFetch(`/rest/v1/deposits?user_id=eq.${currentUser.id}&status=eq.approved&select=id&limit=1`);
     const deposits = await depRes.json();
     if (!deposits || deposits.length === 0) return showToast('You need an approved deposit before buying.');
     if ((currentUser.balance || 0) < product.deposit_amount) return showToast('Insufficient balance. Deposit first.');
-
     const action = isDaily ? 'Purchase' : 'Lock In';
     if (!confirm(`${action} ${productName} for ${formatNumber(product.deposit_amount)} UGX?`)) return;
-
     try {
         const now = new Date();
         const unlockAt = new Date(now);
         unlockAt.setDate(unlockAt.getDate() + (isDaily ? product.earning_days : product.lock_days));
-
         const invRes = await sbFetch('/rest/v1/investments', {
-            method: 'POST',
-            headers: { 'Prefer': 'return=representation' },
+            method: 'POST', headers: { 'Prefer': 'return=representation' },
             body: JSON.stringify({
                 user_id: currentUser.id, product_id: product.id, product_name: product.model_name, category: product.category,
                 deposit_amount: product.deposit_amount, earning_type: product.earning_type, lock_days: product.lock_days || 0,
@@ -659,13 +646,8 @@ async function handlePurchase(productId, productName, isDaily) {
             })
         });
         if (!invRes.ok) throw new Error('Failed to create investment');
-
         const newBalance = currentUser.balance - product.deposit_amount;
-        await sbFetch(`/rest/v1/users?id=eq.${currentUser.id}`, {
-            method: 'PATCH',
-            body: JSON.stringify({ balance: newBalance, total_invested: (currentUser.total_invested || 0) + product.deposit_amount })
-        });
-
+        await sbFetch(`/rest/v1/users?id=eq.${currentUser.id}`, { method: 'PATCH', body: JSON.stringify({ balance: newBalance, total_invested: (currentUser.total_invested || 0) + product.deposit_amount }) });
         currentUser.balance = newBalance;
         await loadUserInvestments();
         updateUserUI();
@@ -690,12 +672,10 @@ async function renderMyCars() {
         const daysPassed = Math.min(Math.floor((now - purchased) / 86400000), totalDays);
         const daysLeft = Math.max(totalDays - daysPassed, 0);
         const isMatured = now >= unlock;
-
         let btnHtml;
         if (!isDaily && isMatured) btnHtml = `<button class="unlock-btn" onclick="handleUnlock('${inv.id}', '${inv.product_name.replace(/'/g,"\\'")}', ${inv.return_amount})">Unlock Now (${formatNumber(inv.return_amount)} UGX)</button>`;
         else if (isMatured) btnHtml = '<button class="locked-btn">Completed</button>';
         else btnHtml = `<button class="locked-btn">${daysLeft} day${daysLeft !== 1 ? 's' : ''} remaining</button>`;
-
         return `<div class="mycar-card">
             <div class="mycar-header">
                 <div class="mycar-img">${inv.image_url ? '<img src="'+inv.image_url+'">' : 'CAR'}</div>
@@ -712,7 +692,7 @@ async function renderMyCars() {
 }
 
 async function handleUnlock(investmentId, productName, returnAmount) {
-    if (!confirm(`Unlock ${productName}? This will credit ${formatNumber(returnAmount)} UGX to your balance.`)) return;
+    if (!confirm(`Unlock ${productName}? This will credit ${formatNumber(returnAmount)} UGX.`)) return;
     try {
         const newBalance = (currentUser.balance || 0) + returnAmount;
         await sbFetch(`/rest/v1/users?id=eq.${currentUser.id}`, { method: 'PATCH', body: JSON.stringify({ balance: newBalance, total_earned: (currentUser.total_earned || 0) + returnAmount }) });
@@ -726,12 +706,9 @@ async function handleUnlock(investmentId, productName, returnAmount) {
 }
 
 async function loadReferralData() {
-    // Load all users referred by current user (level 1)
     const l1Res = await sbFetch(`/rest/v1/users?referred_by=eq.${currentUser.id}&select=id,full_name,phone_number,total_invested`);
     const l1 = l1Res.ok ? await l1Res.json() : [];
     allReferralData.level1 = l1;
-
-    // Level 2: users referred by level 1
     let l2 = [];
     if (l1.length > 0) {
         const l1Ids = l1.map(u => u.id).join(',');
@@ -739,8 +716,6 @@ async function loadReferralData() {
         l2 = l2Res.ok ? await l2Res.json() : [];
     }
     allReferralData.level2 = l2;
-
-    // Level 3: users referred by level 2
     let l3 = [];
     if (l2.length > 0) {
         const l2Ids = l2.map(u => u.id).join(',');
@@ -748,13 +723,8 @@ async function loadReferralData() {
         l3 = l3Res.ok ? await l3Res.json() : [];
     }
     allReferralData.level3 = l3;
-
-    // Referral earnings
     const earnRes = await sbFetch(`/rest/v1/referral_earnings?user_id=eq.${currentUser.id}&select=level,amount`);
-    const earnings = earnRes.ok ? await earnRes.json() : [];
-    allReferralData.earnings = earnings;
-
-    // Render
+    allReferralData.earnings = earnRes.ok ? await earnRes.json() : [];
     renderReferralPage();
 }
 
@@ -763,52 +733,196 @@ function renderReferralPage() {
     const l2 = allReferralData.level2 || [];
     const l3 = allReferralData.level3 || [];
     const earnings = allReferralData.earnings || [];
-
     const totalInvites = l1.length + l2.length + l3.length;
     const totalIncome = earnings.reduce((s, e) => s + Number(e.amount || 0), 0);
-
     document.getElementById('refTotalIncome').textContent = 'UGX ' + formatNumber(totalIncome);
     document.getElementById('refTotalInvites').textContent = totalInvites;
-
     const refCode = currentUser.referral_code || 'REFXXXXX';
     const refLink = `https://futureai-toyota.vercel.app/?ref=${refCode}&signup=1`;
     document.getElementById('refCodeInput').value = refCode;
     document.getElementById('refLinkInput').value = refLink;
-
-    // Level specific data
     let levelUsers = [], levelEarnings = 0;
     if (currentLevel === 1) { levelUsers = l1; levelEarnings = earnings.filter(e => e.level === 1).reduce((s, e) => s + Number(e.amount || 0), 0); }
     if (currentLevel === 2) { levelUsers = l2; levelEarnings = earnings.filter(e => e.level === 2).reduce((s, e) => s + Number(e.amount || 0), 0); }
     if (currentLevel === 3) { levelUsers = l3; levelEarnings = earnings.filter(e => e.level === 3).reduce((s, e) => s + Number(e.amount || 0), 0); }
-
     const validCount = levelUsers.filter(u => Number(u.total_invested || 0) > 0).length;
     const teamInvest = levelUsers.reduce((s, u) => s + Number(u.total_invested || 0), 0);
-
     document.getElementById('lvlTotalInvite').textContent = levelUsers.length;
     document.getElementById('lvlValidInvite').textContent = validCount;
     document.getElementById('lvlTotalIncome').textContent = 'UGX ' + formatNumber(levelEarnings);
     document.getElementById('lvlTeamInvest').textContent = 'UGX ' + formatNumber(teamInvest);
 }
 
-function switchLevel(level, el) {
-    currentLevel = level;
-    document.querySelectorAll('.level-tab').forEach(t => t.classList.remove('active'));
+function switchLevel(level, el) { currentLevel = level; document.querySelectorAll('.level-tab').forEach(t => t.classList.remove('active')); el.classList.add('active'); renderReferralPage(); }
+function copyRefCode() { const input = document.getElementById('refCodeInput'); input.select(); document.execCommand('copy'); showToast('Code copied!'); }
+function copyRefLink() { const input = document.getElementById('refLinkInput'); input.select(); document.execCommand('copy'); showToast('Link copied!'); }
+
+async function openHistory() {
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.getElementById('homeView').style.display = 'none';
+    document.getElementById('myCarsView').style.display = 'none';
+    document.getElementById('referralsView').style.display = 'none';
+    document.getElementById('profileView').style.display = 'none';
+    document.getElementById('historyView').style.display = 'block';
+    await loadHistoryData();
+    switchHistory('deposits', document.querySelector('.history-tab.active'));
+}
+
+async function loadHistoryData() {
+    const depRes = await sbFetch(`/rest/v1/deposits?user_id=eq.${currentUser.id}&select=*&order=created_at.desc`);
+    userDeposits = depRes.ok ? await depRes.json() : [];
+    const wRes = await sbFetch(`/rest/v1/withdrawals?user_id=eq.${currentUser.id}&select=*&order=requested_at.desc`);
+    userWithdrawals = wRes.ok ? await wRes.json() : [];
+}
+
+function switchHistory(tab, el) {
+    currentHistoryTab = tab;
+    document.querySelectorAll('.history-tab').forEach(t => t.classList.remove('active'));
     el.classList.add('active');
-    renderReferralPage();
+    renderHistoryContent();
 }
 
-function copyRefCode() {
-    const input = document.getElementById('refCodeInput');
-    input.select();
-    document.execCommand('copy');
-    showToast('Referral code copied!');
+function renderHistoryContent() {
+    const c = document.getElementById('historyContent');
+    if (currentHistoryTab === 'deposits') {
+        if (userDeposits.length === 0) { c.innerHTML = '<div class="empty-state"><div class="empty-state-text">No deposits yet.</div></div>'; return; }
+        c.innerHTML = userDeposits.map(d => {
+            let statusText = 'Pending', statusClass = 'status-pending';
+            if (d.status === 'approved') { statusText = 'Successful'; statusClass = 'status-success'; }
+            else if (d.status === 'failed') { statusText = 'Failed'; statusClass = 'status-failed'; }
+            return `<div class="history-item">
+                <div class="history-row"><span class="history-row-label">Amount</span><span class="history-row-value">${formatNumber(d.amount)} UGX</span></div>
+                <div class="history-row"><span class="history-row-label">Phone</span><span class="history-row-value">${escapeHtml(d.phone_number || '—')}</span></div>
+                <div class="history-row"><span class="history-row-label">Date</span><span class="history-row-value">${new Date(d.created_at).toLocaleString()}</span></div>
+                <div class="history-row"><span class="history-row-label">Status</span><span class="status-badge ${statusClass}">${statusText}</span></div>
+            </div>`;
+        }).join('');
+    } else {
+        if (userWithdrawals.length === 0) { c.innerHTML = '<div class="empty-state"><div class="empty-state-text">No withdrawals yet.</div></div>'; return; }
+        c.innerHTML = userWithdrawals.map(w => {
+            let statusText = 'Processing', statusClass = 'status-pending';
+            if (w.status === 'approved' || w.status === 'completed') { statusText = 'Successful'; statusClass = 'status-success'; }
+            else if (w.status === 'rejected' || w.status === 'failed') { statusText = 'Rejected'; statusClass = 'status-failed'; }
+            return `<div class="history-item">
+                <div class="history-row"><span class="history-row-label">Amount</span><span class="history-row-value">${formatNumber(w.amount)} UGX</span></div>
+                <div class="history-row"><span class="history-row-label">Fee</span><span class="history-row-value">${formatNumber(w.fee)} UGX</span></div>
+                <div class="history-row"><span class="history-row-label">Net</span><span class="history-row-value">${formatNumber(w.net_amount)} UGX</span></div>
+                <div class="history-row"><span class="history-row-label">Date</span><span class="history-row-value">${new Date(w.requested_at).toLocaleString()}</span></div>
+                <div class="history-row"><span class="history-row-label">Status</span><span class="status-badge ${statusClass}">${statusText}</span></div>
+            </div>`;
+        }).join('');
+    }
 }
 
-function copyRefLink() {
-    const input = document.getElementById('refLinkInput');
-    input.select();
-    document.execCommand('copy');
-    showToast('Referral link copied!');
+function openGiftModal() {
+    document.getElementById('giftCodeInput').value = '';
+    document.getElementById('giftModal').classList.add('show');
+}
+function closeGift() { document.getElementById('giftModal').classList.remove('show'); }
+
+async function claimGiftCode() {
+    const code = document.getElementById('giftCodeInput').value.trim().toUpperCase();
+    if (!code) return showToast('Enter a code');
+    const btn = document.getElementById('giftBtn');
+    btn.disabled = true; btn.textContent = 'Claiming...';
+    try {
+        const res = await fetch(`${window.SUPABASE_URL}/rest/v1/rpc/claim_gift_code`, {
+            method: 'POST',
+            headers: { 'apikey': window.SUPABASE_ANON_KEY, 'Authorization': `Bearer ${currentUser.access_token}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ p_code: code })
+        });
+        const data = await res.json();
+        if (!res.ok || !data.success) throw new Error(data.error || 'Claim failed');
+        showToast('Claimed ' + formatNumber(data.amount) + ' UGX!');
+        closeGift();
+        await loadUserProfile();
+        updateUserUI();
+    } catch (err) { console.error(err); showToast(err.message || 'Failed to claim'); }
+    finally { btn.disabled = false; btn.textContent = 'Claim'; }
+}
+
+function openJoinTelegram() { window.open(TELEGRAM_INVITE_URL, '_blank'); }
+function openSupport() { window.open(SUPPORT_TELEGRAM_URL, '_blank'); }
+
+async function openCashout() {
+    await loadUserBind();
+    const body = document.getElementById('cashoutBody');
+
+    if (!userBind) {
+        body.innerHTML = `
+            <div class="modal-note">First, bind your mobile money account. This will be used for all future withdrawals.</div>
+            <div class="form-group"><label class="form-label">Recipient Number</label><input type="tel" id="bindNumber" class="form-input" placeholder="e.g. 0749302975"></div>
+            <div class="form-group"><label class="form-label">Full Name (as on Mobile Money)</label><input type="text" id="bindName" class="form-input" placeholder="Your full name"></div>
+            <button class="auth-btn" onclick="bindAccount()">Bind Account</button>
+        `;
+        return;
+    }
+
+    const hasInvested = Number(currentUser.total_invested || 0) > 0;
+    const hasApprovedDeposit = userDeposits.some(d => d.status === 'approved');
+    if (!hasApprovedDeposit) {
+        body.innerHTML = `<div class="modal-note" style="border-color: rgba(220,38,38,0.3); color: #fca5a5;">You need an approved deposit before withdrawing.</div>`;
+        return;
+    }
+    if (!hasInvested) {
+        body.innerHTML = `<div class="modal-note" style="border-color: rgba(220,38,38,0.3); color: #fca5a5;">You must own a purchased car to be able to withdraw.</div>`;
+        return;
+    }
+    if (!isWithinWithdrawHours()) {
+        body.innerHTML = `<div class="modal-note" style="border-color: rgba(220,38,38,0.3); color: #fca5a5;">Withdrawals are only available between 9:30 AM and 6:00 PM.</div>`;
+        return;
+    }
+
+    body.innerHTML = `
+        <div class="row"><span class="row-label">Recipient</span><span class="row-value">${escapeHtml(userBind.recipient_number)}</span></div>
+        <div class="row"><span class="row-label">Name</span><span class="row-value">${escapeHtml(userBind.recipient_name)}</span></div>
+        <div class="form-group" style="margin-top:14px;"><label class="form-label">Amount (UGX)</label><input type="number" id="withdrawAmount" class="form-input" placeholder="Minimum ${formatNumber(MIN_WITHDRAW)}" min="${MIN_WITHDRAW}"></div>
+        <div class="modal-note">A 15% fee applies. You'll receive the amount minus the fee. Hours: 9:30 AM - 6:00 PM.</div>
+        <button class="auth-btn" id="withdrawBtn" onclick="submitWithdraw()">Submit Withdrawal</button>
+    `;
+}
+
+async function bindAccount() {
+    const num = document.getElementById('bindNumber').value.trim();
+    const name = document.getElementById('bindName').value.trim();
+    if (!num) return showToast('Enter recipient number');
+    if (!name) return showToast('Enter full name');
+    try {
+        await sbFetch('/rest/v1/user_binds', {
+            method: 'POST',
+            body: JSON.stringify({ user_id: currentUser.id, recipient_number: num, recipient_name: name })
+        });
+        showToast('Account bound successfully');
+        await loadUserBind();
+        openCashout();
+    } catch (err) { showToast('Failed: ' + err.message); }
+}
+
+async function submitWithdraw() {
+    const amount = Number(document.getElementById('withdrawAmount').value);
+    if (!amount || amount < MIN_WITHDRAW) return showToast('Minimum withdrawal is ' + formatNumber(MIN_WITHDRAW) + ' UGX');
+    if ((currentUser.balance || 0) < amount) return showToast('Insufficient balance');
+    const btn = document.getElementById('withdrawBtn');
+    btn.disabled = true; btn.textContent = 'Submitting...';
+    try {
+        const fee = amount * WITHDRAW_FEE_RATE;
+        const netAmount = amount - fee;
+        const newBalance = Number(currentUser.balance) - amount;
+        await sbFetch(`/rest/v1/users?id=eq.${currentUser.id}`, { method: 'PATCH', body: JSON.stringify({ balance: newBalance }) });
+        const res = await sbFetch('/rest/v1/withdrawals', {
+            method: 'POST', headers: { 'Prefer': 'return=representation' },
+            body: JSON.stringify({ user_id: currentUser.id, amount, fee, net_amount: netAmount, phone_number: userBind.recipient_number, full_name: userBind.recipient_name, status: 'pending', requested_at: new Date().toISOString() })
+        });
+        if (!res.ok) {
+            await sbFetch(`/rest/v1/users?id=eq.${currentUser.id}`, { method: 'PATCH', body: JSON.stringify({ balance: currentUser.balance }) });
+            throw new Error('Failed to create withdrawal');
+        }
+        currentUser.balance = newBalance;
+        updateUserUI();
+        closeCashout();
+        showToast('Withdrawal submitted. Awaiting approval.');
+    } catch (err) { console.error(err); showToast('Error: ' + err.message); }
+    finally { btn.disabled = false; btn.textContent = 'Submit Withdrawal'; }
 }
 
 function quickAction(name) {
@@ -819,16 +933,11 @@ function quickAction(name) {
         return;
     }
     if (name === 'Cash Out') {
-        document.getElementById('withdrawAmount').value = '';
-        document.getElementById('withdrawPhone').value = currentUser.phone_number || '';
-        document.getElementById('withdrawName').value = currentUser.full_name || '';
         document.getElementById('cashoutModal').classList.add('show');
+        openCashout();
         return;
     }
-    if (name === 'Referrals' || name === 'Invite') {
-        switchTabByName('referrals');
-        return;
-    }
+    if (name === 'Referrals' || name === 'Invite') { switchTabByName('referrals'); return; }
     showToast(name + ' — coming soon.');
 }
 
@@ -838,70 +947,18 @@ function closeCashout() { document.getElementById('cashoutModal').classList.remo
 async function submitDeposit() {
     const amount = Number(document.getElementById('depositAmount').value);
     const phone = document.getElementById('depositPhone').value.trim();
-    if (!amount || amount < 1000) return showToast('Minimum deposit is 1,000 UGX');
+    if (!amount || amount < MIN_DEPOSIT) return showToast('Minimum deposit is ' + formatNumber(MIN_DEPOSIT) + ' UGX');
     if (!phone) return showToast('Enter your phone number');
-
     const btn = document.getElementById('depositBtn');
     btn.disabled = true; btn.textContent = 'Sending...';
-
     try {
-        const res = await fetch('/api/deposit', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ userId: currentUser.id, amount, phone, accessToken: currentUser.access_token })
-        });
+        const res = await fetch('/api/deposit', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ userId: currentUser.id, amount, phone, accessToken: currentUser.access_token }) });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || 'Deposit failed');
         closeCashin();
         showToast('Check your phone and approve the USSD prompt.');
     } catch (err) { console.error(err); showToast('Error: ' + err.message); }
     finally { btn.disabled = false; btn.textContent = 'Send Request'; }
-}
-
-async function submitWithdraw() {
-    const amount = Number(document.getElementById('withdrawAmount').value);
-    const phone = document.getElementById('withdrawPhone').value.trim();
-    const fullName = document.getElementById('withdrawName').value.trim();
-
-    if (!amount || amount < 500) return showToast('Minimum withdrawal is 500 UGX');
-    if (!phone) return showToast('Enter your phone number');
-    if (!fullName) return showToast('Enter your full name');
-    if ((currentUser.balance || 0) < amount) return showToast('Insufficient balance');
-
-    const btn = document.getElementById('withdrawBtn');
-    btn.disabled = true; btn.textContent = 'Submitting...';
-
-    try {
-        const fee = amount * 0.16;
-        const netAmount = amount - fee;
-        const newBalance = Number(currentUser.balance) - amount;
-
-        await sbFetch(`/rest/v1/users?id=eq.${currentUser.id}`, {
-            method: 'PATCH',
-            body: JSON.stringify({ balance: newBalance })
-        });
-
-        const res = await sbFetch('/rest/v1/withdrawals', {
-            method: 'POST',
-            headers: { 'Prefer': 'return=representation' },
-            body: JSON.stringify({
-                user_id: currentUser.id, amount, fee, net_amount: netAmount,
-                phone_number: phone, full_name: fullName,
-                status: 'pending', requested_at: new Date().toISOString()
-            })
-        });
-
-        if (!res.ok) {
-            await sbFetch(`/rest/v1/users?id=eq.${currentUser.id}`, { method: 'PATCH', body: JSON.stringify({ balance: currentUser.balance }) });
-            throw new Error('Failed to create withdrawal');
-        }
-
-        currentUser.balance = newBalance;
-        updateUserUI();
-        closeCashout();
-        showToast('Withdrawal submitted. Awaiting approval.');
-    } catch (err) { console.error(err); showToast('Error: ' + err.message); }
-    finally { btn.disabled = false; btn.textContent = 'Submit Withdrawal'; }
 }
 
 document.getElementById('categoryTabs').addEventListener('click', e => {
@@ -917,25 +974,21 @@ function switchTab(tab, btn) {
     if (btn) btn.classList.add('active');
     document.getElementById('homeView').style.display = (tab === 'home' || tab === 'cars') ? 'block' : 'none';
     document.getElementById('myCarsView').style.display = tab === 'mycars' ? 'block' : 'none';
-    document.getElementById('referralsView').style.display = tab === 'referrals' ? 'block' : 'none';
+    document.getElementById('referralsView').style.display = 'none';
+    document.getElementById('historyView').style.display = 'none';
     document.getElementById('profileView').style.display = tab === 'profile' ? 'block' : 'none';
-
     if (tab === 'mycars') renderMyCars();
     if (tab === 'referrals') loadReferralData();
 }
 
 function switchTabByName(name) {
-    const navBtns = document.querySelectorAll('.nav-item');
-    navBtns.forEach(n => n.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
     document.getElementById('homeView').style.display = 'none';
     document.getElementById('myCarsView').style.display = 'none';
     document.getElementById('referralsView').style.display = 'none';
+    document.getElementById('historyView').style.display = 'none';
     document.getElementById('profileView').style.display = 'none';
-
-    if (name === 'referrals') {
-        document.getElementById('referralsView').style.display = 'block';
-        loadReferralData();
-    }
+    if (name === 'referrals') { document.getElementById('referralsView').style.display = 'block'; loadReferralData(); }
 }
 
 async function loadConfig() {
@@ -950,20 +1003,11 @@ async function loadConfig() {
 
 async function init() {
     await loadConfig();
-
     const urlParams = new URLSearchParams(window.location.search);
     const refFromUrl = urlParams.get('ref');
     const signupMode = urlParams.get('signup') === '1';
-
-    // Pre-fill referral code from URL if present
-    if (refFromUrl) {
-        const el = document.getElementById('signupReferral');
-        if (el) el.value = refFromUrl.toUpperCase();
-    }
-
+    if (refFromUrl) { const el = document.getElementById('signupReferral'); if (el) el.value = refFromUrl.toUpperCase(); }
     const saved = localStorage.getItem('sb_session');
-
-    // If referral signup link and user is logged in → force sign out
     if (signupMode && saved) {
         if (confirm('You are currently signed in. Sign out to create a new account with this referral code?')) {
             localStorage.removeItem('sb_session');
@@ -971,15 +1015,7 @@ async function init() {
             return;
         }
     }
-
-    // If referral signup link → always show signup form
-    if (signupMode) {
-        document.getElementById('authScreen').style.display = 'flex';
-        showSignup();
-        return;
-    }
-
-    // Otherwise, auto-login if session exists
+    if (signupMode) { document.getElementById('authScreen').style.display = 'flex'; showSignup(); return; }
     if (saved) {
         try {
             const session = JSON.parse(saved);
@@ -994,4 +1030,4 @@ async function init() {
 init();
 </script>
 </body>
-    </html>
+                    </html>
