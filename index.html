@@ -440,18 +440,25 @@ async function handleSignup() {
         let referredBy = null;
         if (refCode) {
             
-            const refRes = await fetch(`${window.SUPABASE_URL}/rest/v1/rpc/find_referrer_id`, {
-    method: 'POST',
-    headers: {
-        'apikey': window.SUPABASE_ANON_KEY,
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ code: refCode })
-});
-if (refRes.ok) {
-    const refId = await refRes.json();
-    if (refId) referredBy = refId;
-}
+            try {
+    const refRes = await fetch(`${window.SUPABASE_URL}/rest/v1/rpc/find_referrer_id`, {
+        method: 'POST',
+        headers: {
+            'apikey': window.SUPABASE_ANON_KEY,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ code: refCode })
+    });
+    console.log('RPC status:', refRes.status);
+    const refText = await refRes.text();
+    console.log('RPC response:', refText);
+    if (refRes.ok && refText) {
+        const refId = JSON.parse(refText);
+        if (refId) referredBy = refId;
+    }
+} catch (rpcErr) {
+    console.error('RPC failed:', rpcErr);
+            }
         }        
 
         const newCode = 'REF' + Math.random().toString(36).substring(2, 8).toUpperCase();
