@@ -771,7 +771,7 @@ function renderReferralPage() {
     document.getElementById('refTotalInvites').textContent = totalInvites;
 
     const refCode = currentUser.referral_code || 'REFXXXXX';
-    const refLink = `https://futureai-toyota.vercel.app/?ref=${refCode}`;
+    const refLink = `https://futureai-toyota.vercel.app/?ref=${refCode}&signup=1`;
     document.getElementById('refCodeInput').value = refCode;
     document.getElementById('refLinkInput').value = refLink;
 
@@ -951,15 +951,35 @@ async function loadConfig() {
 async function init() {
     await loadConfig();
 
-    // Pre-fill referral code from URL if present
     const urlParams = new URLSearchParams(window.location.search);
     const refFromUrl = urlParams.get('ref');
+    const signupMode = urlParams.get('signup') === '1';
+
+    // Pre-fill referral code from URL if present
     if (refFromUrl) {
         const el = document.getElementById('signupReferral');
         if (el) el.value = refFromUrl.toUpperCase();
     }
 
     const saved = localStorage.getItem('sb_session');
+
+    // If referral signup link and user is logged in → force sign out
+    if (signupMode && saved) {
+        if (confirm('You are currently signed in. Sign out to create a new account with this referral code?')) {
+            localStorage.removeItem('sb_session');
+            location.href = '/?ref=' + (refFromUrl || '') + '&signup=1';
+            return;
+        }
+    }
+
+    // If referral signup link → always show signup form
+    if (signupMode) {
+        document.getElementById('authScreen').style.display = 'flex';
+        showSignup();
+        return;
+    }
+
+    // Otherwise, auto-login if session exists
     if (saved) {
         try {
             const session = JSON.parse(saved);
