@@ -418,7 +418,16 @@ function isWithinWithdrawHours() { const h = new Date().getHours(); const m = ne
 async function sbFetch(path, options = {}) {
     const sep = path.includes('?') ? '&' : '?';
     const url = `${window.SUPABASE_URL}${path}${sep}apikey=${window.SUPABASE_ANON_KEY}`;
-    return fetch(url, { ...options, headers: { 'Content-Type': 'application/json', ...(options.headers || {}) } });
+    const headers = {
+        'Content-Type': 'application/json',
+        'Prefer': options.method === 'POST' ? 'return=representation' : '',
+        ...(options.headers || {})
+    };
+    // Include user's access token if logged in — needed for RLS-protected writes
+    if (currentUser && currentUser.access_token) {
+        headers['Authorization'] = `Bearer ${currentUser.access_token}`;
+    }
+    return fetch(url, { ...options, headers });
 }
 async function sbAuth(path, body) {
     const res = await fetch(`${window.SUPABASE_URL}/auth/v1${path}`, { method: 'POST', headers: { 'apikey': window.SUPABASE_ANON_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
