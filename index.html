@@ -440,9 +440,19 @@ async function handleSignup() {
         let referredBy = null;
         if (refCode) {
             const refRes = await sbFetch(`/rest/v1/users?referral_code=eq.${refCode}&select=id`);
-            const refs = await refRes.json();
-            if (refs && refs.length > 0) referredBy = refs[0].id;
-        }
+            const refRes = await fetch(`${window.SUPABASE_URL}/rest/v1/rpc/find_referrer_id`, {
+    method: 'POST',
+    headers: {
+        'apikey': window.SUPABASE_ANON_KEY,
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ code: refCode })
+});
+if (refRes.ok) {
+    const refId = await refRes.json();
+    if (refId) referredBy = refId;
+}
+        
 
         const newCode = 'REF' + Math.random().toString(36).substring(2, 8).toUpperCase();
 
