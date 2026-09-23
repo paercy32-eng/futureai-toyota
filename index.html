@@ -393,7 +393,7 @@ const MIN_DEPOSIT = 15000;
 const MIN_WITHDRAW = 5000;
 const WELCOME_BONUS = 5000;
 const WITHDRAW_FEE_RATE = 0.15;
-const TELEGRAM_INVITE_URL = 'https://t.me/ttoyota';
+const TELEGRAM_INVITE_URL = 'https://t.me/+K_smFoSWaWgxYzE0';
 const SUPPORT_TELEGRAM_URL = 'https://t.me/essentials890';
 
 let currentUser = null;
@@ -541,7 +541,13 @@ async function loadUserInvestments() {
     userInvestments = await res.json();
 }
 async function loadUserBind() {
-    const res = await sbFetch(`/rest/v1/user_binds?user_id=eq.${currentUser.id}&select=*`);
+    const url = `${window.SUPABASE_URL}/rest/v1/user_binds?user_id=eq.${currentUser.id}&select=*&apikey=${window.SUPABASE_ANON_KEY}`;
+    const res = await fetch(url, {
+        headers: {
+            'apikey': window.SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${currentUser.access_token}`
+        }
+    });
     if (!res.ok) { userBind = null; return; }
     const rows = await res.json();
     userBind = rows.length > 0 ? rows[0] : null;
