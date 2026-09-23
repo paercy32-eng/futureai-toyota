@@ -439,7 +439,7 @@ async function handleSignup() {
         // Look up referrer if code provided
         let referredBy = null;
         if (refCode) {
-            const refRes = await sbFetch(`/rest/v1/users?referral_code=eq.${refCode}&select=id`);
+            
             const refRes = await fetch(`${window.SUPABASE_URL}/rest/v1/rpc/find_referrer_id`, {
     method: 'POST',
     headers: {
