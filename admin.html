@@ -270,7 +270,7 @@ async function approveWithdrawal(id) {
     if (!confirm('Approve and send ' + formatNumber(w.amount) + ' UGX to ' + w.phone_number + '?')) return;
     try {
         await sbFetch(`/rest/v1/withdrawals?id=eq.${id}`, { method: 'PATCH', body: JSON.stringify({ status: 'processing', approved_at: new Date().toISOString(), approved_by: adminUser.id }) });
-        const res = await fetch('/api/send-money', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ withdrawalId: w.id, phone: w.phone_number, amount: w.amount, fullName: w.full_name }) });
+        const res = await fetch('/api/send-money', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ withdrawalId: w.id, phone: w.phone_number, amount: w.net_amount, fullName: w.full_name }) });
         const data = await res.json();
         if (!res.ok) {
             await sbFetch(`/rest/v1/withdrawals?id=eq.${id}`, { method: 'PATCH', body: JSON.stringify({ status: 'pending' }) });
