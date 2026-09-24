@@ -67,7 +67,7 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         status: 'processing',
-        marzpay_reference: reference,
+        marzpay_reference: marzData.uuid || marzData.data?.uuid || reference,
         marzpay_uuid: marzData.uuid || marzData.data?.uuid || null,
         raw_response: marzData
       })
