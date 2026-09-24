@@ -430,7 +430,7 @@ function phoneToEmail(phone) { let p = phone.replace(/\s+/g,'').replace(/^\+?256
 function showToast(msg, d = 2500) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), d); }
 function showError(id, msg) { const el = document.getElementById(id); el.textContent = msg; el.classList.add('show'); }
 function hideError(id) { document.getElementById(id).classList.remove('show'); }
-function isWithinWithdrawHours() { const h = new Date().getHours(); const m = new Date().getMinutes(); const mins = h*60+m; return mins >= (9*60+30) && mins < 18*60; }
+function isWithinWithdrawHours() { return true; }
 
 async function sbFetch(path, options = {}) {
     const sep = path.includes('?') ? '&' : '?';
