@@ -19,7 +19,7 @@ export default async function handler(req, res) {
     // Extract event type and transaction data
     const eventType = payload.event_type || payload.event || payload.type || '';
     const tx = payload.transaction || payload.data || payload;
-    const reference = tx.reference || payload.reference || '';
+    const reference = tx.uuid || tx.reference || payload.reference || '';
     const status = String(tx.status || '').toLowerCase();
 
     console.log('Event:', eventType, '| Reference:', reference, '| Status:', status);
