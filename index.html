@@ -8,7 +8,7 @@
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
 body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 80px; }
 
-/* AUTH */
+/* ============ AUTH ============ */
 .auth-screen { min-height: 100vh; display: flex; flex-direction: column; padding: 40px 24px; background: linear-gradient(180deg, #061428 0%, #0a2141 100%); }
 .auth-brand { text-align: center; margin-bottom: 32px; }
 .auth-brand-title { font-size: 26px; font-weight: 900; color: #FFFFFF; letter-spacing: 2px; margin-bottom: 6px; }
@@ -22,14 +22,14 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
 .form-input { width: 100%; padding: 14px 16px; background: #0F2540; border: 1px solid #143254; border-radius: 10px; color: #fff; font-size: 15px; outline: none; }
 .form-input:focus { border-color: #0066FF; }
 .form-input::placeholder { color: #4A6A8F; }
-.auth-btn { width: 100%; padding: 15px; background: linear-gradient(135deg, #0066FF 0%, #0044CC 100%); color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer; margin-top: 8px; letter-spacing: 0.5px; }
+.auth-btn { width: 100%; padding: 15px; background: linear-gradient(135deg, #0066FF 0%, #0044CC 100%); color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer; margin-top: 8px; }
 .auth-btn:disabled { opacity: 0.5; }
 .auth-switch { text-align: center; font-size: 13px; color: #7AA3D0; margin-top: 20px; }
 .auth-switch a { color: #FFB800; font-weight: 700; cursor: pointer; }
 .auth-error { background: rgba(220,38,38,0.15); border: 1px solid rgba(220,38,38,0.4); color: #fca5a5; padding: 12px; border-radius: 8px; font-size: 13px; text-align: center; display: none; margin-bottom: 12px; }
 .auth-error.show { display: block; }
 
-/* APP */
+/* ============ APP ============ */
 .app-container { display: none; }
 .app-container.active { display: block; }
 .top-header { background: #071a30; padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #143254; position: sticky; top: 0; z-index: 100; }
@@ -43,11 +43,9 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
 .home-video-container { margin: 16px 18px; border-radius: 16px; overflow: hidden; background: #0A1E38; border: 1px solid #143254; }
 .home-video-container video { width: 100%; display: block; }
 .video-placeholder { height: 200px; display: flex; align-items: center; justify-content: center; color: #4A6A8F; font-size: 14px; font-weight: 700; letter-spacing: 1px; }
-
-.welcome-card { margin: 0 18px 16px; background: linear-gradient(135deg, #0a2544 0%, #0d3b6f 100%); border-radius: 16px; padding: 20px; position: relative; overflow: hidden; }
+.welcome-card { margin: 0 18px 16px; background: linear-gradient(135deg, #0a2544 0%, #0d3b6f 100%); border-radius: 16px; padding: 20px; }
 .welcome-greet { font-size: 12px; color: #7AA3D0; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
-.welcome-name { font-size: 26px; font-weight: 900; color: #FFFFFF; letter-spacing: -0.5px; }
-
+.welcome-name { font-size: 26px; font-weight: 900; color: #FFFFFF; }
 .admin-banner { margin: 14px 18px; background: linear-gradient(135deg, rgba(0,102,255,0.15), rgba(255,184,0,0.1)); border: 1px solid rgba(255,184,0,0.3); border-radius: 12px; padding: 14px; display: flex; gap: 10px; align-items: flex-start; }
 .admin-banner-icon { width: 34px; height: 34px; background: rgba(255,184,0,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #FFB800; font-size: 16px; font-weight: 900; flex-shrink: 0; }
 .admin-banner-content { flex: 1; }
@@ -65,7 +63,7 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
 .product-card { background: #0A1E38; border-radius: 14px; border: 1px solid #143254; display: flex; overflow: hidden; }
 .product-image { width: 150px; height: 150px; flex-shrink: 0; background: #0F2540; display: flex; align-items: center; justify-content: center; font-size: 14px; color: #4A6A8F; font-weight: 900; position: relative; }
 .product-image img { width: 100%; height: 100%; object-fit: cover; }
-.product-badge { position: absolute; top: 6px; left: 6px; padding: 3px 8px; border-radius: 4px; font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
+.product-badge { position: absolute; top: 6px; left: 6px; padding: 3px 8px; border-radius: 4px; font-size: 9px; font-weight: 800; text-transform: uppercase; }
 .badge-locked { background: linear-gradient(135deg, #0066FF 0%, #0044CC 100%); color: #FFB800; }
 .badge-daily { background: linear-gradient(135deg, #10B981 0%, #059669 100%); color: #FFFFFF; }
 .product-details { flex: 1; padding: 12px 14px; display: flex; flex-direction: column; justify-content: space-between; min-width: 0; }
@@ -75,7 +73,7 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
 .stat-label { color: #7AA3D0; font-weight: 600; }
 .stat-value { color: #FFFFFF; font-weight: 700; }
 .stat-value.gold { color: #FFB800; font-weight: 800; }
-.buy-btn { width: 100%; padding: 10px; background: linear-gradient(135deg, #0066FF 0%, #0044CC 100%); color: #FFFFFF; border: none; border-radius: 8px; font-size: 13px; font-weight: 800; cursor: pointer; letter-spacing: 0.3px; }
+.buy-btn { width: 100%; padding: 10px; background: linear-gradient(135deg, #0066FF 0%, #0044CC 100%); color: #FFFFFF; border: none; border-radius: 8px; font-size: 13px; font-weight: 800; cursor: pointer; }
 .buy-btn:disabled { background: linear-gradient(135deg, #10B981 0%, #059669 100%); cursor: default; }
 
 /* MY CARS */
@@ -97,18 +95,18 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
 /* REFERRALS */
 .referral-page { padding: 18px; }
 .referral-header { text-align: center; margin-bottom: 20px; }
-.referral-title { font-size: 24px; font-weight: 900; color: #FFFFFF; letter-spacing: 1px; margin-bottom: 4px; }
+.referral-title { font-size: 24px; font-weight: 900; color: #FFFFFF; margin-bottom: 4px; }
 .referral-sub { font-size: 12px; color: #7AA3D0; }
 .stats-top { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px; }
 .stats-top-card { background: linear-gradient(135deg, #0F2540, #0A1E38); border: 1px solid rgba(255,184,0,0.25); border-radius: 12px; padding: 16px; text-align: center; }
-.stats-top-label { font-size: 10px; color: #7AA3D0; text-transform: uppercase; letter-spacing: 1px; font-weight: 800; margin-bottom: 8px; }
-.stats-top-value { font-size: 22px; font-weight: 900; color: #FFB800; letter-spacing: -0.5px; }
+.stats-top-label { font-size: 10px; color: #7AA3D0; text-transform: uppercase; font-weight: 800; margin-bottom: 8px; }
+.stats-top-value { font-size: 22px; font-weight: 900; color: #FFB800; }
 .invitation-card { background: #0A1E38; border: 1px solid #143254; border-radius: 12px; padding: 16px; margin-bottom: 16px; }
-.invitation-label { font-size: 11px; color: #7AA3D0; text-transform: uppercase; letter-spacing: 1px; font-weight: 800; margin-bottom: 8px; }
+.invitation-label { font-size: 11px; color: #7AA3D0; text-transform: uppercase; font-weight: 800; margin-bottom: 8px; }
 .copy-row { display: flex; gap: 8px; margin-bottom: 14px; }
 .copy-row:last-child { margin-bottom: 0; }
 .copy-input { flex: 1; padding: 12px 14px; background: #0F2540; border: 1px solid #143254; border-radius: 8px; color: #FFB800; font-size: 13px; font-weight: 700; outline: none; }
-.copy-btn { padding: 12px 18px; background: linear-gradient(135deg, #FFB800 0%, #D99A00 100%); color: #0A1E38; border: none; border-radius: 8px; font-size: 12px; font-weight: 900; cursor: pointer; letter-spacing: 0.5px; }
+.copy-btn { padding: 12px 18px; background: linear-gradient(135deg, #FFB800 0%, #D99A00 100%); color: #0A1E38; border: none; border-radius: 8px; font-size: 12px; font-weight: 900; cursor: pointer; }
 .level-tabs { display: flex; gap: 8px; margin-bottom: 14px; overflow-x: auto; }
 .level-tabs::-webkit-scrollbar { display: none; }
 .level-tab { padding: 10px 16px; border-radius: 10px; background: #0F2540; border: 1px solid #143254; font-size: 12px; font-weight: 800; color: #7AA3D0; white-space: nowrap; cursor: pointer; }
@@ -116,7 +114,7 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
 .level-content { background: #0A1E38; border: 1px solid #143254; border-radius: 12px; padding: 16px; }
 .level-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .level-stat { background: #0F2540; border-radius: 10px; padding: 14px; text-align: center; }
-.level-stat-label { font-size: 10px; color: #7AA3D0; text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px; margin-bottom: 6px; }
+.level-stat-label { font-size: 10px; color: #7AA3D0; text-transform: uppercase; font-weight: 800; margin-bottom: 6px; }
 .level-stat-value { font-size: 18px; font-weight: 900; color: #FFB800; }
 .level-stat-value.white { color: #FFFFFF; }
 
@@ -124,15 +122,12 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
 .profile-hero { background: linear-gradient(135deg, #0a2544 0%, #0d3b6f 100%); padding: 22px 18px; text-align: center; }
 .profile-name-big { font-size: 22px; font-weight: 900; color: #FFFFFF; margin-bottom: 4px; }
 .profile-phone-big { font-size: 13px; color: #7AA3D0; }
-
 .profile-actions { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; padding: 18px; }
 .profile-action-btn { background: linear-gradient(135deg, #0066FF 0%, #0044CC 100%); border: none; border-radius: 12px; padding: 16px 8px; display: flex; flex-direction: column; align-items: center; gap: 8px; color: #FFFFFF; font-weight: 800; font-size: 12px; cursor: pointer; }
 .profile-action-icon { font-size: 14px; font-weight: 900; color: #FFB800; }
-.profile-action-label { font-size: 12px; }
-
 .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 18px 18px; }
 .stat-box { background: #0A1E38; border: 1px solid #143254; border-radius: 12px; padding: 14px; }
-.stat-box-label { font-size: 10px; color: #7AA3D0; text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px; margin-bottom: 6px; }
+.stat-box-label { font-size: 10px; color: #7AA3D0; text-transform: uppercase; font-weight: 800; margin-bottom: 6px; }
 .stat-box-value { font-size: 16px; font-weight: 900; color: #FFB800; }
 .stat-box-value.white { color: #FFFFFF; }
 .menu-list { padding: 0 18px 18px; display: flex; flex-direction: column; gap: 8px; }
@@ -151,7 +146,7 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
 .history-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px; }
 .history-row-label { color: #7AA3D0; }
 .history-row-value { color: #FFFFFF; font-weight: 700; }
-.status-badge { display: inline-block; padding: 3px 10px; border-radius: 6px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
+.status-badge { display: inline-block; padding: 3px 10px; border-radius: 6px; font-size: 10px; font-weight: 800; text-transform: uppercase; }
 .status-success { background: rgba(16,185,129,0.15); color: #10b981; }
 .status-pending { background: rgba(251,191,36,0.15); color: #fbbf24; }
 .status-failed { background: rgba(220,38,38,0.15); color: #f87171; }
@@ -160,7 +155,7 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
 .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #071a30; border-top: 1px solid #143254; display: flex; justify-content: space-around; padding: 8px 0; z-index: 100; }
 .nav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 6px 14px; background: none; border: none; color: #4A6A8F; font-size: 10px; font-weight: 800; cursor: pointer; }
 .nav-item.active { color: #FFB800; }
-.nav-svg { width: 22px; height: 22px; fill: none; stroke: #FFB800; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.nav-svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
 /* MISC */
 .loading { text-align: center; padding: 40px 20px; color: #7AA3D0; font-size: 14px; }
@@ -178,7 +173,10 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
 .modal-close { background: #0F2540; border: none; color: #7AA3D0; width: 32px; height: 32px; border-radius: 50%; font-size: 14px; cursor: pointer; font-weight: 900; }
 .modal-body { display: flex; flex-direction: column; gap: 14px; }
 .modal-note { font-size: 12px; color: #FFB800; background: rgba(255,184,0,0.08); border: 1px solid rgba(255,184,0,0.2); border-radius: 8px; padding: 10px; text-align: center; line-height: 1.4; }
-.gift-code-display { text-align: center; font-size: 28px; font-weight: 900; color: #FFB800; letter-spacing: 4px; padding: 20px; background: #0F2540; border: 1px dashed #FFB800; border-radius: 12px; margin-bottom: 12px; }
+.row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #143254; font-size: 13px; }
+.row:last-child { border-bottom: none; }
+.row-label { color: #7AA3D0; }
+.row-value { color: #fff; font-weight: 700; }
 </style>
 </head>
 <body>
@@ -226,25 +224,20 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
             <div class="brand"><div class="brand-mark">T</div><div class="brand-name">TOYOTA <span>UGANDA</span></div></div>
             <button class="icon-btn" onclick="openGiftModal()">G</button>
         </header>
-
         <div id="adminBannerContainer"></div>
-
         <div class="welcome-card">
             <div class="welcome-greet">Welcome back</div>
             <div class="welcome-name" id="userName">User</div>
         </div>
-
         <div class="home-video-container" id="homeVideoContainer">
             <div class="video-placeholder">LIVE TOYOTA SHOWCASE</div>
         </div>
-
         <nav class="category-tabs" id="categoryTabs">
             <button class="tab active" data-category="All">All</button>
             <button class="tab" data-category="RAV4">RAV4</button>
             <button class="tab" data-category="Corolla">Corolla</button>
             <button class="tab" data-category="Land Cruiser">Land Cruiser</button>
         </nav>
-
         <main class="products-container" id="productsContainer"><div class="loading">Loading cars...</div></main>
     </div>
 
@@ -261,25 +254,21 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
                 <div class="referral-title">My Team</div>
                 <div class="referral-sub">Invite friends & earn commissions</div>
             </div>
-
             <div class="stats-top">
                 <div class="stats-top-card"><div class="stats-top-label">Total Income</div><div class="stats-top-value" id="refTotalIncome">UGX 0</div></div>
                 <div class="stats-top-card"><div class="stats-top-label">Total Invitations</div><div class="stats-top-value" id="refTotalInvites">0</div></div>
             </div>
-
             <div class="invitation-card">
                 <div class="invitation-label">Invitation Code</div>
                 <div class="copy-row"><input type="text" class="copy-input" id="refCodeInput" readonly><button class="copy-btn" onclick="copyRefCode()">COPY</button></div>
                 <div class="invitation-label">Invitation Link</div>
                 <div class="copy-row"><input type="text" class="copy-input" id="refLinkInput" readonly><button class="copy-btn" onclick="copyRefLink()">COPY</button></div>
             </div>
-
             <div class="level-tabs">
                 <div class="level-tab active" onclick="switchLevel(1, this)">Level 1 (25%)</div>
                 <div class="level-tab" onclick="switchLevel(2, this)">Level 2 (2%)</div>
                 <div class="level-tab" onclick="switchLevel(3, this)">Level 3 (1%)</div>
             </div>
-
             <div class="level-content">
                 <div class="level-grid">
                     <div class="level-stat"><div class="level-stat-label">Total Invite</div><div class="level-stat-value" id="lvlTotalInvite">0</div></div>
@@ -310,7 +299,6 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
             <div class="profile-name-big" id="profileName">User</div>
             <div class="profile-phone-big" id="profilePhone">+256 ...</div>
         </div>
-
         <div class="profile-actions">
             <button class="profile-action-btn" onclick="quickAction('Cash In')">
                 <span class="profile-action-icon">IN</span>
@@ -325,39 +313,39 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
                 <span class="profile-action-label">History</span>
             </button>
         </div>
-
         <div class="stats-grid">
             <div class="stat-box"><div class="stat-box-label">Balance</div><div class="stat-box-value" id="profileBalance">0 UGX</div></div>
             <div class="stat-box"><div class="stat-box-label">Total Earned</div><div class="stat-box-value" id="profileEarned">0 UGX</div></div>
             <div class="stat-box"><div class="stat-box-label">Deposited</div><div class="stat-box-value white" id="profileDeposited">0 UGX</div></div>
             <div class="stat-box"><div class="stat-box-label">Withdrawn</div><div class="stat-box-value white" id="profileWithdrawn">0 UGX</div></div>
         </div>
-
         <div class="menu-list">
             <div class="menu-item" onclick="switchTabByName('referrals')"><div class="menu-icon">R</div><div class="menu-text">My Referrals</div><div class="menu-arrow">›</div></div>
             <div class="menu-item" onclick="openJoinTelegram()"><div class="menu-icon">T</div><div class="menu-text">Join Telegram</div><div class="menu-arrow">›</div></div>
-            <div class="menu-item" onclick="quickAction('Reward')"><div class="menu-icon">G</div><div class="menu-text">Rewards</div><div class="menu-arrow">›</div></div>
+            <div class="menu-item" onclick="openRewards()"><div class="menu-icon">G</div><div class="menu-text">Rewards</div><div class="menu-arrow">›</div></div>
             <div class="menu-item" onclick="openBindModal()"><div class="menu-icon">B</div><div class="menu-text">Bind Account</div><div class="menu-arrow">›</div></div>
+        </div>
         <button class="signout-btn" onclick="handleSignout()">Sign Out</button>
     </div>
 
+    <!-- BOTTOM NAV -->
     <nav class="bottom-nav">
-    <button class="nav-item active" onclick="switchTab('home', this)">
-        <svg class="nav-svg" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        <span>Home</span>
-    </button>
-    <button class="nav-item" onclick="switchTab('cars', this)">
-        <svg class="nav-svg" viewBox="0 0 24 24"><path d="M5 17h14l-1.5-5.5A2 2 0 0 0 15.6 10H8.4a2 2 0 0 0-1.9 1.5L5 17z"/><circle cx="7.5" cy="17.5" r="1.5"/><circle cx="16.5" cy="17.5" r="1.5"/></svg>
-        <span>Cars</span>
-    </button>
-    <button class="nav-item" onclick="switchTab('mycars', this)">
-        <svg class="nav-svg" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h6"/></svg>
-        <span>My Cars</span>
-    </button>
-    <button class="nav-item" onclick="switchTab('profile', this)">
-        <svg class="nav-svg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-        <span>Profile</span>
-    </button>
+        <button class="nav-item active" onclick="switchTab('home', this)">
+            <svg class="nav-svg" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            <span>Home</span>
+        </button>
+        <button class="nav-item" onclick="switchTab('cars', this)">
+            <svg class="nav-svg" viewBox="0 0 24 24"><path d="M5 17h14l-1.5-5.5A2 2 0 0 0 15.6 10H8.4a2 2 0 0 0-1.9 1.5L5 17z"/><circle cx="7.5" cy="17.5" r="1.5"/><circle cx="16.5" cy="17.5" r="1.5"/></svg>
+            <span>Cars</span>
+        </button>
+        <button class="nav-item" onclick="switchTab('mycars', this)">
+            <svg class="nav-svg" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h6"/></svg>
+            <span>My Cars</span>
+        </button>
+        <button class="nav-item" onclick="switchTab('profile', this)">
+            <svg class="nav-svg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            <span>Profile</span>
+        </button>
     </nav>
 </div>
 
@@ -393,6 +381,17 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
         </div>
     </div>
 </div>
+
+<!-- REWARDS MODAL -->
+<div id="rewardsModal" class="modal-overlay">
+    <div class="modal-box">
+        <div class="modal-header"><div class="modal-title">Rewards</div><button class="modal-close" onclick="closeRewards()">X</button></div>
+        <div class="modal-body" id="rewardsBody">
+            <div class="loading">Loading...</div>
+        </div>
+    </div>
+</div>
+
 <!-- BIND ACCOUNT MODAL -->
 <div id="bindModal" class="modal-overlay">
     <div class="modal-box">
@@ -400,6 +399,7 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
         <div class="modal-body" id="bindBody"></div>
     </div>
 </div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -410,7 +410,7 @@ const MIN_DEPOSIT = 15000;
 const MIN_WITHDRAW = 5000;
 const WELCOME_BONUS = 5000;
 const WITHDRAW_FEE_RATE = 0.15;
-const TELEGRAM_INVITE_URL = 'https://t.me/+K_smFoSWaWgxYzE0';
+const TELEGRAM_INVITE_URL = 'https://t.me/+K_smFoSwWgxYzE0';
 const SUPPORT_TELEGRAM_URL = 'https://t.me/essentials890';
 
 let currentUser = null;
@@ -441,12 +441,12 @@ async function sbFetch(path, options = {}) {
         'Prefer': method === 'POST' ? 'return=representation' : '',
         ...(options.headers || {})
     };
-    // Only send user token for writes (POST/PATCH/DELETE) — avoids stale-token 401 on reads
     if (method !== 'GET' && currentUser && currentUser.access_token) {
         headers['Authorization'] = `Bearer ${currentUser.access_token}`;
     }
     return fetch(url, { ...options, headers });
 }
+
 async function sbAuth(path, body) {
     const res = await fetch(`${window.SUPABASE_URL}/auth/v1${path}`, { method: 'POST', headers: { 'apikey': window.SUPABASE_ANON_KEY, 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
     const data = await res.json();
@@ -463,18 +463,14 @@ async function handleSignup() {
     const phone = document.getElementById('signupPhone').value.trim();
     const password = document.getElementById('signupPassword').value;
     const refCode = document.getElementById('signupReferral').value.trim().toUpperCase();
-
     if (!name || !phone || !password) return showError('signupError', 'Please fill in all fields.');
     if (password.length < 6) return showError('signupError', 'Password must be at least 6 characters.');
-
     const btn = document.getElementById('signupBtn');
     btn.disabled = true; btn.textContent = 'Creating...';
-
     try {
         const email = phoneToEmail(phone);
         const authData = await sbAuth('/signup', { email, password });
-        if (!authData.access_token) throw new Error('Signup failed. Check "Confirm email" is OFF in Supabase.');
-
+        if (!authData.access_token) throw new Error('Signup failed.');
         let referredBy = null;
         if (refCode) {
             try {
@@ -490,30 +486,20 @@ async function handleSignup() {
                         if (refId) referredBy = refId;
                     }
                 }
-            } catch (e) { console.error('RPC error:', e); }
+            } catch (e) { console.error(e); }
         }
-
         const newCode = 'REF' + Math.random().toString(36).substring(2, 8).toUpperCase();
-
         await fetch(`${window.SUPABASE_URL}/rest/v1/users`, {
             method: 'POST',
             headers: { 'apikey': window.SUPABASE_ANON_KEY, 'Authorization': `Bearer ${authData.access_token}`, 'Content-Type': 'application/json', 'Prefer': 'return=representation' },
-            body: JSON.stringify({
-                id: authData.user.id, full_name: name, phone_number: phone, password: 'managed-by-auth',
-                balance: WELCOME_BONUS, referral_code: newCode, referred_by: referredBy
-            })
+            body: JSON.stringify({ id: authData.user.id, full_name: name, phone_number: phone, password: 'managed-by-auth', balance: WELCOME_BONUS, referral_code: newCode, referred_by: referredBy })
         });
-
         localStorage.setItem('sb_session', JSON.stringify(authData));
         currentUser = { ...authData.user, access_token: authData.access_token };
         await loadUserProfile();
         await enterApp();
-    } catch (err) {
-        console.error(err);
-        showError('signupError', err.message || 'Signup failed.');
-    } finally {
-        btn.disabled = false; btn.textContent = 'Register Now';
-    }
+    } catch (err) { console.error(err); showError('signupError', err.message || 'Signup failed.'); }
+    finally { btn.disabled = false; btn.textContent = 'Register Now'; }
 }
 
 async function handleSignin() {
@@ -552,23 +538,21 @@ async function loadUserProfile() {
         currentUser.referral_code = u.referral_code;
     }
 }
+
 async function loadUserInvestments() {
     const res = await sbFetch(`/rest/v1/investments?user_id=eq.${currentUser.id}&status=eq.active&select=*`);
     if (!res.ok) { userInvestments = []; return; }
     userInvestments = await res.json();
 }
+
 async function loadUserBind() {
     const url = `${window.SUPABASE_URL}/rest/v1/user_binds?user_id=eq.${currentUser.id}&select=*&apikey=${window.SUPABASE_ANON_KEY}`;
-    const res = await fetch(url, {
-        headers: {
-            'apikey': window.SUPABASE_ANON_KEY,
-            'Authorization': `Bearer ${currentUser.access_token}`
-        }
-    });
+    const res = await fetch(url, { headers: { 'apikey': window.SUPABASE_ANON_KEY, 'Authorization': `Bearer ${currentUser.access_token}` } });
     if (!res.ok) { userBind = null; return; }
     const rows = await res.json();
     userBind = rows.length > 0 ? rows[0] : null;
 }
+
 async function loadHomeVideo() {
     const res = await sbFetch('/rest/v1/app_settings?key=eq.home_video_url&select=value');
     if (!res.ok) return;
@@ -577,6 +561,7 @@ async function loadHomeVideo() {
         document.getElementById('homeVideoContainer').innerHTML = `<video src="${rows[0].value}" autoplay muted loop playsinline></video>`;
     }
 }
+
 async function loadAdminBanner() {
     const res = await sbFetch('/rest/v1/admin_messages?is_active=eq.true&order=created_at.desc&limit=1');
     if (!res.ok) return;
@@ -589,8 +574,7 @@ async function loadAdminBanner() {
                     <div class="admin-banner-title">${escapeHtml(msgs[0].title)}</div>
                     <div class="admin-banner-text">${escapeHtml(msgs[0].body)}</div>
                 </div>
-            </div>
-        `;
+            </div>`;
     }
 }
 
@@ -615,10 +599,9 @@ function updateUserUI() {
 async function fetchProducts() {
     try {
         const res = await sbFetch('/rest/v1/products?is_active=eq.true&order=display_order.asc');
-        if (!res.ok) throw new Error('Failed to fetch products');
+        if (!res.ok) throw new Error('Failed');
         allProducts = await res.json();
     } catch (err) {
-        console.error(err);
         document.getElementById('productsContainer').innerHTML = '<div class="error-msg">Failed to load cars.</div>';
     }
 }
@@ -670,15 +653,9 @@ async function handlePurchase(productId, productName, isDaily) {
         unlockAt.setDate(unlockAt.getDate() + (isDaily ? product.earning_days : product.lock_days));
         const invRes = await sbFetch('/rest/v1/investments', {
             method: 'POST', headers: { 'Prefer': 'return=representation' },
-            body: JSON.stringify({
-                user_id: currentUser.id, product_id: product.id, product_name: product.model_name, category: product.category,
-                deposit_amount: product.deposit_amount, earning_type: product.earning_type, lock_days: product.lock_days || 0,
-                return_amount: product.return_amount || 0, daily_earning: product.daily_earning || 0, earning_days: product.earning_days || 0,
-                days_credited: 0, total_earned: 0, purchased_at: now.toISOString(), unlock_at: unlockAt.toISOString(),
-                next_payout_at: now.toISOString(), status: 'active'
-            })
+            body: JSON.stringify({ user_id: currentUser.id, product_id: product.id, product_name: product.model_name, category: product.category, deposit_amount: product.deposit_amount, earning_type: product.earning_type, lock_days: product.lock_days || 0, return_amount: product.return_amount || 0, daily_earning: product.daily_earning || 0, earning_days: product.earning_days || 0, days_credited: 0, total_earned: 0, purchased_at: now.toISOString(), unlock_at: unlockAt.toISOString(), next_payout_at: now.toISOString(), status: 'active' })
         });
-        if (!invRes.ok) throw new Error('Failed to create investment');
+        if (!invRes.ok) throw new Error('Failed');
         const newBalance = currentUser.balance - product.deposit_amount;
         await sbFetch(`/rest/v1/users?id=eq.${currentUser.id}`, { method: 'PATCH', body: JSON.stringify({ balance: newBalance, total_invested: (currentUser.total_invested || 0) + product.deposit_amount }) });
         currentUser.balance = newBalance;
@@ -686,14 +663,14 @@ async function handlePurchase(productId, productName, isDaily) {
         updateUserUI();
         renderProducts();
         showToast(action + ' successful!');
-    } catch (err) { console.error(err); showToast('Purchase failed: ' + err.message); }
+    } catch (err) { showToast('Purchase failed: ' + err.message); }
 }
 
 async function renderMyCars() {
     const c = document.getElementById('myCarsContainer');
     await loadUserInvestments();
     if (userInvestments.length === 0) {
-        c.innerHTML = '<div class="empty-state"><div class="empty-state-icon">CAR</div><div class="empty-state-text">You haven\'t bought any cars yet.<br>Visit the Cars tab to get started.</div></div>';
+        c.innerHTML = '<div class="empty-state"><div class="empty-state-icon">CAR</div><div class="empty-state-text">You haven\'t bought any cars yet.</div></div>';
         return;
     }
     c.innerHTML = userInvestments.map(inv => {
@@ -725,7 +702,7 @@ async function renderMyCars() {
 }
 
 async function handleUnlock(investmentId, productName, returnAmount) {
-    if (!confirm(`Unlock ${productName}? This will credit ${formatNumber(returnAmount)} UGX.`)) return;
+    if (!confirm(`Unlock ${productName}?`)) return;
     try {
         const newBalance = (currentUser.balance || 0) + returnAmount;
         await sbFetch(`/rest/v1/users?id=eq.${currentUser.id}`, { method: 'PATCH', body: JSON.stringify({ balance: newBalance, total_earned: (currentUser.total_earned || 0) + returnAmount }) });
@@ -734,99 +711,9 @@ async function handleUnlock(investmentId, productName, returnAmount) {
         currentUser.total_earned = (currentUser.total_earned || 0) + returnAmount;
         updateUserUI();
         await renderMyCars();
-        showToast('Unlocked! ' + formatNumber(returnAmount) + ' UGX credited.');
-    } catch (err) { console.error(err); showToast('Unlock failed: ' + err.message); }
+        showToast('Unlocked!');
+    } catch (err) { showToast('Unlock failed: ' + err.message); }
 }
-
-    async function openBindModal() {
-    document.getElementById('bindModal').classList.add('show');
-    const body = document.getElementById('bindBody');
-    body.innerHTML = '<div class="loading">Loading...</div>';
-    await loadUserBind();
-    if (userBind) {
-        body.innerHTML = `
-            <div class="modal-note">Your account is bound. You can update it below.</div>
-            <div class="row"><span class="row-label">Current Number</span><span class="row-value">${escapeHtml(userBind.recipient_number)}</span></div>
-            <div class="row" style="margin-bottom:14px;"><span class="row-label">Current Name</span><span class="row-value">${escapeHtml(userBind.recipient_name)}</span></div>
-            <div class="form-group"><label class="form-label">New Recipient Number</label><input type="tel" id="bindNumber" class="form-input" placeholder="e.g. 0749302975"></div>
-            <div class="form-group"><label class="form-label">New Full Name</label><input type="text" id="bindName" class="form-input" placeholder="Your full name"></div>
-            <button class="auth-btn" onclick="updateBind()">Update Account</button>
-        `;
-    } else {
-        body.innerHTML = `
-            <div class="modal-note">Bind your mobile money account. This will be used for all withdrawals.</div>
-            <div class="form-group"><label class="form-label">Recipient Number</label><input type="tel" id="bindNumber" class="form-input" placeholder="e.g. 0749302975"></div>
-            <div class="form-group"><label class="form-label">Full Name (as on Mobile Money)</label><input type="text" id="bindName" class="form-input" placeholder="Your full name"></div>
-            <button class="auth-btn" onclick="bindAccount()">Bind Account</button>
-        `;
-    }
-}
-
-function closeBind() { document.getElementById('bindModal').classList.remove('show'); }
-
-async function updateBind() {
-    const num = document.getElementById('bindNumber').value.trim();
-    const name = document.getElementById('bindName').value.trim();
-    if (!num && !name) return showToast('Enter new number or name');
-    try {
-        const updates = {};
-        if (num) updates.recipient_number = num;
-        if (name) updates.recipient_name = name;
-        const url = `${window.SUPABASE_URL}/rest/v1/user_binds?user_id=eq.${currentUser.id}&apikey=${window.SUPABASE_ANON_KEY}`;
-        await fetch(url, {
-            method: 'PATCH',
-            headers: {
-                'apikey': window.SUPABASE_ANON_KEY,
-                'Authorization': `Bearer ${currentUser.access_token}`,
-                'Content-Type': 'application/json',
-                'Prefer': 'return=minimal'
-            },
-            body: JSON.stringify(updates)
-        });
-        showToast('Account updated');
-        await loadUserBind();
-        closeBind();
-    } catch (err) { showToast('Failed: ' + err.message); }
-}
-
-function openJoinTelegram() { window.open(TELEGRAM_INVITE_URL, '_blank'); }
-function openSupport() { window.open(SUPPORT_TELEGRAM_URL, '_blank'); }
-
-async function openRewards() {
-    document.getElementById('rewardsModal').classList.add('show');
-    const body = document.getElementById('rewardsBody');
-    body.innerHTML = '<div class="loading">Loading...</div>';
-    try {
-        const refRes = await sbFetch(`/rest/v1/users?referred_by=eq.${currentUser.id}&select=id,total_invested`);
-        const referred = refRes.ok ? await refRes.json() : [];
-        const validCount = referred.filter(u => Number(u.total_invested || 0) > 0).length;
-        const claimsRes = await sbFetch(`/rest/v1/reward_claims?user_id=eq.${currentUser.id}&select=milestone,amount`);
-        const claims = claimsRes.ok ? await claimsRes.json() : [];
-        const claimedMilestones = claims.map(c => c.milestone);
-        const tiers = [
-            { count: 10, reward: 5000 }, { count: 20, reward: 10000 }, { count: 40, reward: 15000 },
-            { count: 60, reward: 20000 }, { count: 100, reward: 40000 }, { count: 200, reward: 70000 }
-        ];
-        let html = `<div class="modal-note" style="margin-bottom:14px;">Earn rewards when your team hits these milestones.</div>
-        <div style="text-align:center;margin-bottom:16px;font-size:20px;font-weight:900;color:#FFB800;">Your Valid Invites: ${validCount}</div>`;
-        tiers.forEach(t => {
-            const reached = validCount >= t.count;
-            const claimed = claimedMilestones.includes(t.count);
-            const statusColor = claimed ? '#10b981' : (reached ? '#FFB800' : '#7AA3D0');
-            const statusText = claimed ? 'CLAIMED' : (reached ? 'REACHED' : 'LOCKED');
-            html += `<div class="history-item" style="margin-bottom:8px;">
-                <div class="history-row"><span class="history-row-label">${t.count} valid invites</span><span class="history-row-value" style="color:${statusColor};">${formatNumber(t.reward)} UGX</span></div>
-                <div class="history-row"><span class="history-row-label">Progress</span><span class="history-row-value">${Math.min(validCount, t.count)}/${t.count} • ${statusText}</span></div>
-            </div>`;
-        });
-        body.innerHTML = html;
-    } catch (err) {
-        body.innerHTML = '<div class="loading">Failed to load rewards.</div>';
-    }
-}
-
-function closeRewards() { document.getElementById('rewardsModal').classList.remove('show'); }
-function openHistory() { switchTabByName('history'); }
 
 async function loadReferralData() {
     const l1Res = await sbFetch(`/rest/v1/users?referred_by=eq.${currentUser.id}&select=id,full_name,phone_number,total_invested`);
@@ -880,15 +767,18 @@ function switchLevel(level, el) { currentLevel = level; document.querySelectorAl
 function copyRefCode() { const input = document.getElementById('refCodeInput'); input.select(); document.execCommand('copy'); showToast('Code copied!'); }
 function copyRefLink() { const input = document.getElementById('refLinkInput'); input.select(); document.execCommand('copy'); showToast('Link copied!'); }
 
-async function openHistory() {
+function openHistory() {
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
     document.getElementById('homeView').style.display = 'none';
     document.getElementById('myCarsView').style.display = 'none';
     document.getElementById('referralsView').style.display = 'none';
     document.getElementById('profileView').style.display = 'none';
     document.getElementById('historyView').style.display = 'block';
-    await loadHistoryData();
-    switchHistory('deposits', document.querySelector('.history-tab.active'));
+    loadHistoryData().then(() => {
+        document.querySelectorAll('.history-tab').forEach(t => t.classList.remove('active'));
+        document.querySelector('.history-tab').classList.add('active');
+        renderHistoryContent();
+    });
 }
 
 async function loadHistoryData() {
@@ -928,7 +818,6 @@ function renderHistoryContent() {
             else if (w.status === 'rejected' || w.status === 'failed') { statusText = 'Rejected'; statusClass = 'status-failed'; }
             return `<div class="history-item">
                 <div class="history-row"><span class="history-row-label">Amount</span><span class="history-row-value">${formatNumber(w.amount)} UGX</span></div>
-                <div class="history-row"><span class="history-row-label">Fee</span><span class="history-row-value">${formatNumber(w.fee)} UGX</span></div>
                 <div class="history-row"><span class="history-row-label">Net</span><span class="history-row-value">${formatNumber(w.net_amount)} UGX</span></div>
                 <div class="history-row"><span class="history-row-label">Date</span><span class="history-row-value">${new Date(w.requested_at).toLocaleString()}</span></div>
                 <div class="history-row"><span class="history-row-label">Status</span><span class="status-badge ${statusClass}">${statusText}</span></div>
@@ -937,10 +826,7 @@ function renderHistoryContent() {
     }
 }
 
-function openGiftModal() {
-    document.getElementById('giftCodeInput').value = '';
-    document.getElementById('giftModal').classList.add('show');
-}
+function openGiftModal() { document.getElementById('giftCodeInput').value = ''; document.getElementById('giftModal').classList.add('show'); }
 function closeGift() { document.getElementById('giftModal').classList.remove('show'); }
 
 async function claimGiftCode() {
@@ -960,35 +846,30 @@ async function claimGiftCode() {
         closeGift();
         await loadUserProfile();
         updateUserUI();
-    } catch (err) { console.error(err); showToast(err.message || 'Failed to claim'); }
+    } catch (err) { showToast(err.message || 'Failed'); }
     finally { btn.disabled = false; btn.textContent = 'Claim'; }
 }
+
+function openJoinTelegram() { window.open(TELEGRAM_INVITE_URL, '_blank'); }
+function openSupport() { window.open(SUPPORT_TELEGRAM_URL, '_blank'); }
+
 async function openRewards() {
     document.getElementById('rewardsModal').classList.add('show');
     const body = document.getElementById('rewardsBody');
     body.innerHTML = '<div class="loading">Loading...</div>';
-
     try {
         const refRes = await sbFetch(`/rest/v1/users?referred_by=eq.${currentUser.id}&select=id,total_invested`);
         const referred = refRes.ok ? await refRes.json() : [];
         const validCount = referred.filter(u => Number(u.total_invested || 0) > 0).length;
-
         const claimsRes = await sbFetch(`/rest/v1/reward_claims?user_id=eq.${currentUser.id}&select=milestone,amount`);
         const claims = claimsRes.ok ? await claimsRes.json() : [];
         const claimedMilestones = claims.map(c => c.milestone);
-
         const tiers = [
-            { count: 10, reward: 5000 },
-            { count: 20, reward: 10000 },
-            { count: 40, reward: 15000 },
-            { count: 60, reward: 20000 },
-            { count: 100, reward: 40000 },
-            { count: 200, reward: 70000 }
+            { count: 10, reward: 5000 }, { count: 20, reward: 10000 }, { count: 40, reward: 15000 },
+            { count: 60, reward: 20000 }, { count: 100, reward: 40000 }, { count: 200, reward: 70000 }
         ];
-
-        let html = `<div class="modal-note" style="margin-bottom:14px;">Earn rewards when your team hits these milestones. Only counting users who have purchased.</div>
+        let html = `<div class="modal-note" style="margin-bottom:14px;">Earn rewards when your team hits these milestones.</div>
         <div style="text-align:center;margin-bottom:16px;font-size:20px;font-weight:900;color:#FFB800;">Your Valid Invites: ${validCount}</div>`;
-
         tiers.forEach(t => {
             const reached = validCount >= t.count;
             const claimed = claimedMilestones.includes(t.count);
@@ -999,55 +880,48 @@ async function openRewards() {
                 <div class="history-row"><span class="history-row-label">Progress</span><span class="history-row-value">${Math.min(validCount, t.count)}/${t.count} • ${statusText}</span></div>
             </div>`;
         });
-
         body.innerHTML = html;
-    } catch (err) {
-        console.error(err);
-        body.innerHTML = '<div class="loading">Failed to load rewards.</div>';
-    }
+    } catch (err) { body.innerHTML = '<div class="loading">Failed to load.</div>'; }
 }
-
 function closeRewards() { document.getElementById('rewardsModal').classList.remove('show'); }
 
-function openJoinTelegram() { window.open(TELEGRAM_INVITE_URL, '_blank'); }
-function openSupport() { window.open(SUPPORT_TELEGRAM_URL, '_blank'); }
-
-async function openCashout() {
+async function openBindModal() {
+    document.getElementById('bindModal').classList.add('show');
+    const body = document.getElementById('bindBody');
+    body.innerHTML = '<div class="loading">Loading...</div>';
     await loadUserBind();
-    const body = document.getElementById('cashoutBody');
-
-    if (!userBind) {
+    if (userBind) {
         body.innerHTML = `
-            <div class="modal-note">First, bind your mobile money account. This will be used for all future withdrawals.</div>
+            <div class="modal-note">Your account is bound. You can update it below.</div>
+            <div class="row"><span class="row-label">Current Number</span><span class="row-value">${escapeHtml(userBind.recipient_number)}</span></div>
+            <div class="row" style="margin-bottom:14px;"><span class="row-label">Current Name</span><span class="row-value">${escapeHtml(userBind.recipient_name)}</span></div>
+            <div class="form-group"><label class="form-label">New Recipient Number</label><input type="tel" id="bindNumber" class="form-input" placeholder="e.g. 0749302975"></div>
+            <div class="form-group"><label class="form-label">New Full Name</label><input type="text" id="bindName" class="form-input" placeholder="Your full name"></div>
+            <button class="auth-btn" onclick="updateBind()">Update Account</button>`;
+    } else {
+        body.innerHTML = `
+            <div class="modal-note">Bind your mobile money account. This will be used for all withdrawals.</div>
             <div class="form-group"><label class="form-label">Recipient Number</label><input type="tel" id="bindNumber" class="form-input" placeholder="e.g. 0749302975"></div>
-            <div class="form-group"><label class="form-label">Full Name (as on Mobile Money)</label><input type="text" id="bindName" class="form-input" placeholder="Your full name"></div>
-            <button class="auth-btn" onclick="bindAccount()">Bind Account</button>
-        `;
-        return;
+            <div class="form-group"><label class="form-label">Full Name</label><input type="text" id="bindName" class="form-input" placeholder="Your full name"></div>
+            <button class="auth-btn" onclick="bindAccount()">Bind Account</button>`;
     }
+}
+function closeBind() { document.getElementById('bindModal').classList.remove('show'); }
 
-    const hasInvested = Number(currentUser.total_invested || 0) > 0;
-    const hasApprovedDeposit = userDeposits.some(d => d.status === 'approved');
-    if (!hasApprovedDeposit) {
-        body.innerHTML = `<div class="modal-note" style="border-color: rgba(220,38,38,0.3); color: #fca5a5;">You need an approved deposit before withdrawing.</div>`;
-        return;
-    }
-    if (!hasInvested) {
-        body.innerHTML = `<div class="modal-note" style="border-color: rgba(220,38,38,0.3); color: #fca5a5;">You must own a purchased car to be able to withdraw.</div>`;
-        return;
-    }
-    if (!isWithinWithdrawHours()) {
-        body.innerHTML = `<div class="modal-note" style="border-color: rgba(220,38,38,0.3); color: #fca5a5;">Withdrawals are only available between 9:30 AM and 6:00 PM.</div>`;
-        return;
-    }
-
-    body.innerHTML = `
-        <div class="row"><span class="row-label">Recipient</span><span class="row-value">${escapeHtml(userBind.recipient_number)}</span></div>
-        <div class="row"><span class="row-label">Name</span><span class="row-value">${escapeHtml(userBind.recipient_name)}</span></div>
-        <div class="form-group" style="margin-top:14px;"><label class="form-label">Amount (UGX)</label><input type="number" id="withdrawAmount" class="form-input" placeholder="Minimum ${formatNumber(MIN_WITHDRAW)}" min="${MIN_WITHDRAW}"></div>
-        <div class="modal-note">A 15% fee applies. You'll receive the amount minus the fee. Hours: 9:30 AM - 6:00 PM.</div>
-        <button class="auth-btn" id="withdrawBtn" onclick="submitWithdraw()">Submit Withdrawal</button>
-    `;
+async function updateBind() {
+    const num = document.getElementById('bindNumber').value.trim();
+    const name = document.getElementById('bindName').value.trim();
+    if (!num && !name) return showToast('Enter new number or name');
+    try {
+        const updates = {};
+        if (num) updates.recipient_number = num;
+        if (name) updates.recipient_name = name;
+        const url = `${window.SUPABASE_URL}/rest/v1/user_binds?user_id=eq.${currentUser.id}&apikey=${window.SUPABASE_ANON_KEY}`;
+        await fetch(url, { method: 'PATCH', headers: { 'apikey': window.SUPABASE_ANON_KEY, 'Authorization': `Bearer ${currentUser.access_token}`, 'Content-Type': 'application/json', 'Prefer': 'return=minimal' }, body: JSON.stringify(updates) });
+        showToast('Account updated');
+        await loadUserBind();
+        closeBind();
+    } catch (err) { showToast('Failed: ' + err.message); }
 }
 
 async function bindAccount() {
@@ -1056,19 +930,50 @@ async function bindAccount() {
     if (!num) return showToast('Enter recipient number');
     if (!name) return showToast('Enter full name');
     try {
-        await sbFetch('/rest/v1/user_binds', {
-            method: 'POST',
-            body: JSON.stringify({ user_id: currentUser.id, recipient_number: num, recipient_name: name })
-        });
-        showToast('Account bound successfully');
+        const url = `${window.SUPABASE_URL}/rest/v1/user_binds?apikey=${window.SUPABASE_ANON_KEY}`;
+        const res = await fetch(url, { method: 'POST', headers: { 'apikey': window.SUPABASE_ANON_KEY, 'Authorization': `Bearer ${currentUser.access_token}`, 'Content-Type': 'application/json', 'Prefer': 'return=representation' }, body: JSON.stringify({ user_id: currentUser.id, recipient_number: num, recipient_name: name }) });
+        if (!res.ok) throw new Error(await res.text());
+        showToast('Account bound');
         await loadUserBind();
-        openCashout();
+        closeBind();
     } catch (err) { showToast('Failed: ' + err.message); }
+}
+
+async function openCashout() {
+    await loadUserBind();
+    await loadUserInvestments();
+    const body = document.getElementById('cashoutBody');
+
+    if (!userBind) {
+        body.innerHTML = `<div class="modal-note" style="border-color: rgba(255,184,0,0.3);">Bind your account first. Go to Profile → Bind Account.</div>
+            <button class="auth-btn" onclick="closeCashout(); openBindModal();">Bind Account</button>`;
+        return;
+    }
+    const hasInvested = Number(currentUser.total_invested || 0) > 0 || (userInvestments && userInvestments.length > 0);
+    const hasApprovedDeposit = userDeposits.some(d => d.status === 'approved');
+    if (!hasApprovedDeposit) {
+        body.innerHTML = `<div class="modal-note" style="border-color: rgba(220,38,38,0.3); color: #fca5a5;">You need an approved deposit before withdrawing.</div>`;
+        return;
+    }
+    if (!hasInvested) {
+        body.innerHTML = `<div class="modal-note" style="border-color: rgba(220,38,38,0.3); color: #fca5a5;">You must own a purchased car to withdraw.</div>`;
+        return;
+    }
+    if (!isWithinWithdrawHours()) {
+        body.innerHTML = `<div class="modal-note" style="border-color: rgba(220,38,38,0.3); color: #fca5a5;">Withdrawals are only available between 9:30 AM and 6:00 PM.</div>`;
+        return;
+    }
+    body.innerHTML = `
+        <div class="row"><span class="row-label">Recipient</span><span class="row-value">${escapeHtml(userBind.recipient_number)}</span></div>
+        <div class="row"><span class="row-label">Name</span><span class="row-value">${escapeHtml(userBind.recipient_name)}</span></div>
+        <div class="form-group" style="margin-top:14px;"><label class="form-label">Amount (UGX)</label><input type="number" id="withdrawAmount" class="form-input" placeholder="Minimum ${formatNumber(MIN_WITHDRAW)}" min="${MIN_WITHDRAW}"></div>
+        <div class="modal-note">15% fee. Hours: 9:30 AM - 6:00 PM.</div>
+        <button class="auth-btn" id="withdrawBtn" onclick="submitWithdraw()">Submit Withdrawal</button>`;
 }
 
 async function submitWithdraw() {
     const amount = Number(document.getElementById('withdrawAmount').value);
-    if (!amount || amount < MIN_WITHDRAW) return showToast('Minimum withdrawal is ' + formatNumber(MIN_WITHDRAW) + ' UGX');
+    if (!amount || amount < MIN_WITHDRAW) return showToast('Minimum ' + formatNumber(MIN_WITHDRAW) + ' UGX');
     if ((currentUser.balance || 0) < amount) return showToast('Insufficient balance');
     const btn = document.getElementById('withdrawBtn');
     btn.disabled = true; btn.textContent = 'Submitting...';
@@ -1077,36 +982,21 @@ async function submitWithdraw() {
         const netAmount = amount - fee;
         const newBalance = Number(currentUser.balance) - amount;
         await sbFetch(`/rest/v1/users?id=eq.${currentUser.id}`, { method: 'PATCH', body: JSON.stringify({ balance: newBalance }) });
-        const res = await sbFetch('/rest/v1/withdrawals', {
-            method: 'POST', headers: { 'Prefer': 'return=representation' },
-            body: JSON.stringify({ user_id: currentUser.id, amount, fee, net_amount: netAmount, phone_number: userBind.recipient_number, full_name: userBind.recipient_name, status: 'pending', requested_at: new Date().toISOString() })
-        });
-        if (!res.ok) {
-            await sbFetch(`/rest/v1/users?id=eq.${currentUser.id}`, { method: 'PATCH', body: JSON.stringify({ balance: currentUser.balance }) });
-            throw new Error('Failed to create withdrawal');
-        }
+        const res = await sbFetch('/rest/v1/withdrawals', { method: 'POST', headers: { 'Prefer': 'return=representation' }, body: JSON.stringify({ user_id: currentUser.id, amount, fee, net_amount: netAmount, phone_number: userBind.recipient_number, full_name: userBind.recipient_name, status: 'pending', requested_at: new Date().toISOString() }) });
+        if (!res.ok) { await sbFetch(`/rest/v1/users?id=eq.${currentUser.id}`, { method: 'PATCH', body: JSON.stringify({ balance: currentUser.balance }) }); throw new Error('Failed'); }
         currentUser.balance = newBalance;
         updateUserUI();
         closeCashout();
-        showToast('Withdrawal submitted. Awaiting approval.');
-    } catch (err) { console.error(err); showToast('Error: ' + err.message); }
+        showToast('Withdrawal submitted.');
+    } catch (err) { showToast('Error: ' + err.message); }
     finally { btn.disabled = false; btn.textContent = 'Submit Withdrawal'; }
 }
 
 function quickAction(name) {
-    if (name === 'Cash In') {
-        document.getElementById('depositAmount').value = '';
-        document.getElementById('depositPhone').value = currentUser.phone_number || '';
-        document.getElementById('cashinModal').classList.add('show');
-        return;
-    }
-    if (name === 'Cash Out') {
-        document.getElementById('cashoutModal').classList.add('show');
-        openCashout();
-        return;
-    }
+    if (name === 'Cash In') { document.getElementById('depositAmount').value = ''; document.getElementById('depositPhone').value = currentUser.phone_number || ''; document.getElementById('cashinModal').classList.add('show'); return; }
+    if (name === 'Cash Out') { document.getElementById('cashoutModal').classList.add('show'); openCashout(); return; }
     if (name === 'Referrals' || name === 'Invite') { switchTabByName('referrals'); return; }
-  if (name === 'Reward') { openRewards(); return; }
+    if (name === 'Reward') { openRewards(); return; }
     showToast(name + ' — coming soon.');
 }
 
@@ -1116,8 +1006,8 @@ function closeCashout() { document.getElementById('cashoutModal').classList.remo
 async function submitDeposit() {
     const amount = Number(document.getElementById('depositAmount').value);
     const phone = document.getElementById('depositPhone').value.trim();
-    if (!amount || amount < MIN_DEPOSIT) return showToast('Minimum deposit is ' + formatNumber(MIN_DEPOSIT) + ' UGX');
-    if (!phone) return showToast('Enter your phone number');
+    if (!amount || amount < MIN_DEPOSIT) return showToast('Minimum ' + formatNumber(MIN_DEPOSIT) + ' UGX');
+    if (!phone) return showToast('Enter phone number');
     const btn = document.getElementById('depositBtn');
     btn.disabled = true; btn.textContent = 'Sending...';
     try {
@@ -1125,8 +1015,8 @@ async function submitDeposit() {
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || 'Deposit failed');
         closeCashin();
-        showToast('Check your phone and approve the USSD prompt.');
-    } catch (err) { console.error(err); showToast('Error: ' + err.message); }
+        showToast('Approve the USSD prompt.');
+    } catch (err) { showToast('Error: ' + err.message); }
     finally { btn.disabled = false; btn.textContent = 'Send Request'; }
 }
 
@@ -1147,7 +1037,6 @@ function switchTab(tab, btn) {
     document.getElementById('historyView').style.display = 'none';
     document.getElementById('profileView').style.display = tab === 'profile' ? 'block' : 'none';
     if (tab === 'mycars') renderMyCars();
-    if (tab === 'referrals') loadReferralData();
 }
 
 function switchTabByName(name) {
@@ -1167,7 +1056,7 @@ async function loadConfig() {
         if (!cfg.supabaseUrl || !cfg.supabaseKey) throw new Error('Config missing');
         window.SUPABASE_URL = cfg.supabaseUrl;
         window.SUPABASE_ANON_KEY = cfg.supabaseKey;
-    } catch (err) { console.error('Config load failed:', err); alert('Config failed: ' + err.message); throw err; }
+    } catch (err) { alert('Config failed: ' + err.message); throw err; }
 }
 
 async function init() {
@@ -1178,7 +1067,7 @@ async function init() {
     if (refFromUrl) { const el = document.getElementById('signupReferral'); if (el) el.value = refFromUrl.toUpperCase(); }
     const saved = localStorage.getItem('sb_session');
     if (signupMode && saved) {
-        if (confirm('You are currently signed in. Sign out to create a new account with this referral code?')) {
+        if (confirm('Sign out to create a new account with this referral code?')) {
             localStorage.removeItem('sb_session');
             location.href = '/?ref=' + (refFromUrl || '') + '&signup=1';
             return;
@@ -1192,20 +1081,11 @@ async function init() {
             await loadUserProfile();
             await enterApp();
             return;
-        } catch (e) { console.error(e); localStorage.removeItem('sb_session'); }
+        } catch (e) { localStorage.removeItem('sb_session'); }
     }
     document.getElementById('authScreen').style.display = 'flex';
 }
 init();
 </script>
-<!-- REWARDS MODAL -->
-<div id="rewardsModal" class="modal-overlay">
-    <div class="modal-box">
-        <div class="modal-header"><div class="modal-title">Rewards</div><button class="modal-close" onclick="closeRewards()">X</button></div>
-        <div class="modal-body" id="rewardsBody">
-            <div class="loading">Loading...</div>
-        </div>
-    </div>
-</div>
 </body>
-                    </html>
+</html>
