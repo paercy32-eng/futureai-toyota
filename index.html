@@ -160,7 +160,7 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
 .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: #071a30; border-top: 1px solid #143254; display: flex; justify-content: space-around; padding: 8px 0; z-index: 100; }
 .nav-item { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 6px 14px; background: none; border: none; color: #4A6A8F; font-size: 10px; font-weight: 800; cursor: pointer; }
 .nav-item.active { color: #FFB800; }
-.nav-svg { width: 32px !important; height: 32px !important; background: red !important; display: block !important; }
+.nav-svg { width: 22px; height: 22px; fill: none; stroke: #FFB800; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
 /* MISC */
 .loading { text-align: center; padding: 40px 20px; color: #7AA3D0; font-size: 14px; }
@@ -343,19 +343,19 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; padding-bottom: 8
 
     <nav class="bottom-nav">
     <button class="nav-item active" onclick="switchTab('home', this)">
-        <svg class="nav-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <svg class="nav-svg" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         <span>Home</span>
     </button>
     <button class="nav-item" onclick="switchTab('cars', this)">
-        <svg class="nav-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17h14l-1.5-5.5A2 2 0 0 0 15.6 10H8.4a2 2 0 0 0-1.9 1.5L5 17z"/><circle cx="7.5" cy="17.5" r="1.5"/><circle cx="16.5" cy="17.5" r="1.5"/><path d="M5 17v3m14-3v3"/></svg>
+        <svg class="nav-svg" viewBox="0 0 24 24"><path d="M5 17h14l-1.5-5.5A2 2 0 0 0 15.6 10H8.4a2 2 0 0 0-1.9 1.5L5 17z"/><circle cx="7.5" cy="17.5" r="1.5"/><circle cx="16.5" cy="17.5" r="1.5"/></svg>
         <span>Cars</span>
     </button>
     <button class="nav-item" onclick="switchTab('mycars', this)">
-        <svg class="nav-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h6"/></svg>
+        <svg class="nav-svg" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h6"/></svg>
         <span>My Cars</span>
     </button>
     <button class="nav-item" onclick="switchTab('profile', this)">
-        <svg class="nav-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        <svg class="nav-svg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>
         <span>Profile</span>
     </button>
     </nav>
