@@ -738,6 +738,96 @@ async function handleUnlock(investmentId, productName, returnAmount) {
     } catch (err) { console.error(err); showToast('Unlock failed: ' + err.message); }
 }
 
+    async function openBindModal() {
+    document.getElementById('bindModal').classList.add('show');
+    const body = document.getElementById('bindBody');
+    body.innerHTML = '<div class="loading">Loading...</div>';
+    await loadUserBind();
+    if (userBind) {
+        body.innerHTML = `
+            <div class="modal-note">Your account is bound. You can update it below.</div>
+            <div class="row"><span class="row-label">Current Number</span><span class="row-value">${escapeHtml(userBind.recipient_number)}</span></div>
+            <div class="row" style="margin-bottom:14px;"><span class="row-label">Current Name</span><span class="row-value">${escapeHtml(userBind.recipient_name)}</span></div>
+            <div class="form-group"><label class="form-label">New Recipient Number</label><input type="tel" id="bindNumber" class="form-input" placeholder="e.g. 0749302975"></div>
+            <div class="form-group"><label class="form-label">New Full Name</label><input type="text" id="bindName" class="form-input" placeholder="Your full name"></div>
+            <button class="auth-btn" onclick="updateBind()">Update Account</button>
+        `;
+    } else {
+        body.innerHTML = `
+            <div class="modal-note">Bind your mobile money account. This will be used for all withdrawals.</div>
+            <div class="form-group"><label class="form-label">Recipient Number</label><input type="tel" id="bindNumber" class="form-input" placeholder="e.g. 0749302975"></div>
+            <div class="form-group"><label class="form-label">Full Name (as on Mobile Money)</label><input type="text" id="bindName" class="form-input" placeholder="Your full name"></div>
+            <button class="auth-btn" onclick="bindAccount()">Bind Account</button>
+        `;
+    }
+}
+
+function closeBind() { document.getElementById('bindModal').classList.remove('show'); }
+
+async function updateBind() {
+    const num = document.getElementById('bindNumber').value.trim();
+    const name = document.getElementById('bindName').value.trim();
+    if (!num && !name) return showToast('Enter new number or name');
+    try {
+        const updates = {};
+        if (num) updates.recipient_number = num;
+        if (name) updates.recipient_name = name;
+        const url = `${window.SUPABASE_URL}/rest/v1/user_binds?user_id=eq.${currentUser.id}&apikey=${window.SUPABASE_ANON_KEY}`;
+        await fetch(url, {
+            method: 'PATCH',
+            headers: {
+                'apikey': window.SUPABASE_ANON_KEY,
+                'Authorization': `Bearer ${currentUser.access_token}`,
+                'Content-Type': 'application/json',
+                'Prefer': 'return=minimal'
+            },
+            body: JSON.stringify(updates)
+        });
+        showToast('Account updated');
+        await loadUserBind();
+        closeBind();
+    } catch (err) { showToast('Failed: ' + err.message); }
+}
+
+function openJoinTelegram() { window.open(TELEGRAM_INVITE_URL, '_blank'); }
+function openSupport() { window.open(SUPPORT_TELEGRAM_URL, '_blank'); }
+
+async function openRewards() {
+    document.getElementById('rewardsModal').classList.add('show');
+    const body = document.getElementById('rewardsBody');
+    body.innerHTML = '<div class="loading">Loading...</div>';
+    try {
+        const refRes = await sbFetch(`/rest/v1/users?referred_by=eq.${currentUser.id}&select=id,total_invested`);
+        const referred = refRes.ok ? await refRes.json() : [];
+        const validCount = referred.filter(u => Number(u.total_invested || 0) > 0).length;
+        const claimsRes = await sbFetch(`/rest/v1/reward_claims?user_id=eq.${currentUser.id}&select=milestone,amount`);
+        const claims = claimsRes.ok ? await claimsRes.json() : [];
+        const claimedMilestones = claims.map(c => c.milestone);
+        const tiers = [
+            { count: 10, reward: 5000 }, { count: 20, reward: 10000 }, { count: 40, reward: 15000 },
+            { count: 60, reward: 20000 }, { count: 100, reward: 40000 }, { count: 200, reward: 70000 }
+        ];
+        let html = `<div class="modal-note" style="margin-bottom:14px;">Earn rewards when your team hits these milestones.</div>
+        <div style="text-align:center;margin-bottom:16px;font-size:20px;font-weight:900;color:#FFB800;">Your Valid Invites: ${validCount}</div>`;
+        tiers.forEach(t => {
+            const reached = validCount >= t.count;
+            const claimed = claimedMilestones.includes(t.count);
+            const statusColor = claimed ? '#10b981' : (reached ? '#FFB800' : '#7AA3D0');
+            const statusText = claimed ? 'CLAIMED' : (reached ? 'REACHED' : 'LOCKED');
+            html += `<div class="history-item" style="margin-bottom:8px;">
+                <div class="history-row"><span class="history-row-label">${t.count} valid invites</span><span class="history-row-value" style="color:${statusColor};">${formatNumber(t.reward)} UGX</span></div>
+                <div class="history-row"><span class="history-row-label">Progress</span><span class="history-row-value">${Math.min(validCount, t.count)}/${t.count} • ${statusText}</span></div>
+            </div>`;
+        });
+        body.innerHTML = html;
+    } catch (err) {
+        body.innerHTML = '<div class="loading">Failed to load rewards.</div>';
+    }
+}
+
+function closeRewards() { document.getElementById('rewardsModal').classList.remove('show'); }
+function openHistory() { switchTabByName('history'); }
+
 async function loadReferralData() {
     const l1Res = await sbFetch(`/rest/v1/users?referred_by=eq.${currentUser.id}&select=id,full_name,phone_number,total_invested`);
     const l1 = l1Res.ok ? await l1Res.json() : [];
