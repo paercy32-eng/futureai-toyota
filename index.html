@@ -942,7 +942,8 @@ async function bindAccount() {
 async function openCashout() {
     await loadUserBind();
     await loadUserInvestments();
-    const body = document.getElementById('cashoutBody');
+
+    await loadHistoryData();const body = document.getElementById('cashoutBody');
 
     if (!userBind) {
         body.innerHTML = `<div class="modal-note" style="border-color: rgba(255,184,0,0.3);">Bind your account first. Go to Profile → Bind Account.</div>
