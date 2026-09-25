@@ -141,6 +141,7 @@ async function checkAdmin() {
     const rows = await res.json();
     if (rows.length === 0 || !rows[0].is_admin) { alert('You are not an admin.'); location.href = '/'; return; }
     adminUser = { ...adminUser, ...rows[0] };
+    scheduleTokenRefresh();
     document.getElementById('loadingScreen').style.display = 'none';
     document.getElementById('appScreen').style.display = 'block';
     switchTab('dashboard', document.querySelector('.tab.active'));
@@ -693,6 +694,31 @@ async function sendMessage() {
 }
 
 function logout() { localStorage.removeItem('sb_session'); location.href = '/'; }
+async function refreshSession() {
+    try {
+        const saved = localStorage.getItem('sb_session');
+        if (!saved) return;
+        const session = JSON.parse(saved);
+        if (!session.refresh_token) return;
+
+        const res = await fetch(`${window.SUPABASE_URL}/auth/v1/token?grant_type=refresh_token`, {
+            method: 'POST',
+            headers: { 'apikey': window.SUPABASE_ANON_KEY, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ refresh_token: session.refresh_token })
+        });
+        if (!res.ok) return;
+        const newSession = await res.json();
+        localStorage.setItem('sb_session', JSON.stringify(newSession));
+        if (adminUser) adminUser.access_token = newSession.access_token;
+        console.log('Admin token refreshed');
+    } catch (err) {
+        console.error('Admin auto-refresh failed:', err);
+    }
+}
+
+function scheduleTokenRefresh() {
+    setInterval(refreshSession, 50 * 60 * 1000);
+}
 
 async function init() {
     try { await loadConfig(); await checkAdmin(); }
