@@ -170,7 +170,7 @@ async function renderDashboard() {
     c.innerHTML = '<div class="empty">Loading stats...</div>';
     await Promise.all([loadUsers(), loadWithdrawals(), loadProducts(), loadDeposits()]);
     const totalUsers = allUsers.length;
-    const totalBalance = allUsers.reduce((s, u) => s + Number(u.balance || 0), 0);
+    const totalWithdrawn = allWithdrawals.filter(w => w.status === 'approved' || w.status === 'completed').reduce((s, w) => s + Number(w.amount || 0), 0);
     const totalDeposited = allDeposits.filter(d => d.status === 'approved').reduce((s, d) => s + Number(d.amount || 0), 0);
     const pendingWithdrawals = allWithdrawals.filter(w => w.status === 'pending').length;
     const totalProducts = allProducts.length;
@@ -179,7 +179,7 @@ async function renderDashboard() {
         <div class="stats-grid">
             <div class="stat-box"><div class="stat-box-label">Total Users</div><div class="stat-box-value">${totalUsers}</div></div>
             <div class="stat-box"><div class="stat-box-label">Pending Withdrawals</div><div class="stat-box-value">${pendingWithdrawals}</div></div>
-            <div class="stat-box"><div class="stat-box-label">Total Balance</div><div class="stat-box-value">${formatNumber(totalBalance)}</div></div>
+            <div class="stat-box"><div class="stat-box-label">Total Withdrawn</div><div class="stat-box-value">${formatNumber(totalWithdrawn)}</div></div>
             <div class="stat-box"><div class="stat-box-label">Total Deposited</div><div class="stat-box-value">${formatNumber(totalDeposited)}</div></div>
             <div class="stat-box"><div class="stat-box-label">Total Products</div><div class="stat-box-value">${totalProducts}</div></div>
             <div class="stat-box"><div class="stat-box-label">Approved Deposits</div><div class="stat-box-value">${approvedDepositsCount}</div></div>
