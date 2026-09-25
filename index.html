@@ -496,6 +496,7 @@ async function handleSignup() {
         });
         localStorage.setItem('sb_session', JSON.stringify(authData));
         currentUser = { ...authData.user, access_token: authData.access_token };
+        scheduleTokenRefresh();
         await loadUserProfile();
         await enterApp();
     } catch (err) { console.error(err); showError('signupError', err.message || 'Signup failed.'); }
@@ -514,6 +515,7 @@ async function handleSignin() {
         const authData = await sbAuth('/token?grant_type=password', { email, password });
         localStorage.setItem('sb_session', JSON.stringify(authData));
         currentUser = { ...authData.user, access_token: authData.access_token };
+        scheduleTokenRefresh();
         await loadUserProfile();
         await enterApp();
     } catch (err) { console.error(err); showError('signinError', 'Invalid phone or password.'); }
