@@ -1059,6 +1059,33 @@ async function loadConfig() {
         window.SUPABASE_ANON_KEY = cfg.supabaseKey;
     } catch (err) { alert('Config failed: ' + err.message); throw err; }
 }
+async function refreshSession() {
+    try {
+        const saved = localStorage.getItem('sb_session');
+        if (!saved) return;
+        const session = JSON.parse(saved);
+        if (!session.refresh_token) return;
+
+        const res = await fetch(`${window.SUPABASE_URL}/auth/v1/token?grant_type=refresh_token`, {
+            method: 'POST',
+            headers: { 'apikey': window.SUPABASE_ANON_KEY, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ refresh_token: session.refresh_token })
+        });
+        if (!res.ok) return;
+        const newSession = await res.json();
+        localStorage.setItem('sb_session', JSON.stringify(newSession));
+        if (currentUser) {
+            currentUser.access_token = newSession.access_token;
+        }
+        console.log('Token refreshed');
+    } catch (err) {
+        console.error('Auto-refresh failed:', err);
+    }
+}
+
+function scheduleTokenRefresh() {
+    setInterval(refreshSession, 50 * 60 * 1000);
+}
 
 async function init() {
     await loadConfig();
@@ -1079,6 +1106,7 @@ async function init() {
         try {
             const session = JSON.parse(saved);
             currentUser = { ...session.user, access_token: session.access_token };
+            scheduleTokenRefresh();
             await loadUserProfile();
             await enterApp();
             return;
