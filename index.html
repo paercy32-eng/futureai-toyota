@@ -641,35 +641,116 @@ function renderProducts() {
 }
 
 async function handlePurchase(productId, productName, isDaily) {
-    const product = allProducts.find(p => p.id === productId);
-    if (!product) return;
-    const depRes = await sbFetch(`/rest/v1/deposits?user_id=eq.${currentUser.id}&status=eq.approved&select=id&limit=1`);
-    const deposits = await depRes.json();
-    if (!deposits || deposits.length === 0) return showToast('You need an approved deposit before buying.');
-    if ((currentUser.balance || 0) < product.deposit_amount) return showToast('Insufficient balance. Deposit first.');
-    const action = isDaily ? 'Purchase' : 'Lock In';
-    if (!confirm(`${action} ${productName} for ${formatNumber(product.deposit_amount)} UGX?`)) return;
+    // Prevent double-tap / double-click
+    if (window._purchaseInProgress) return;
+    window._purchaseInProgress = true;
+
     try {
+        const product = allProducts.find(p => p.id === productId);
+        if (!product) { window._purchaseInProgress = false; return; }
+
+        // Check approved deposit
+        const depRes = await sbFetch(`/rest/v1/deposits?user_id=eq.${currentUser.id}&status=eq.approved&select=id&limit=1`);
+        const deposits = depRes.ok ? await depRes.json() : [];
+        if (!deposits || deposits.length === 0) {
+            showToast('You need an approved deposit before buying.');
+            window._purchaseInProgress = false;
+            return;
+        }
+
+        // Check balance
+        if ((currentUser.balance || 0) < product.deposit_amount) {
+            showToast('Insufficient balance. Deposit first.');
+            window._purchaseInProgress = false;
+            return;
+        }
+
+        const action = isDaily ? 'Purchase' : 'Lock In';
+        if (!confirm(`${action} ${productName} for ${formatNumber(product.deposit_amount)} UGX?`)) {
+            window._purchaseInProgress = false;
+            return;
+        }
+
         const now = new Date();
         const unlockAt = new Date(now);
         unlockAt.setDate(unlockAt.getDate() + (isDaily ? product.earning_days : product.lock_days));
-        const invRes = await sbFetch('/rest/v1/investments', {
-            method: 'POST', headers: { 'Prefer': 'return=representation' },
-            body: JSON.stringify({ user_id: currentUser.id, product_id: product.id, product_name: product.model_name, category: product.category, deposit_amount: product.deposit_amount, earning_type: product.earning_type, lock_days: product.lock_days || 0, return_amount: product.return_amount || 0, daily_earning: product.daily_earning || 0, earning_days: product.earning_days || 0, days_credited: 0, total_earned: 0, purchased_at: now.toISOString(), unlock_at: unlockAt.toISOString(), 
- next_payout_at: new Date(now.getTime() + 24 * 60 * 60 * 1000).toISOString(),                                 status: 'active' })
-        });
-        if (!invRes.ok) {
-    const errBody = await invRes.text();
-    throw new Error('Status ' + invRes.status + ': ' + errBody.substring(0, 200));
+
+        const payload = {
+            user_id: currentUser.id,
+            product_id: product.id,
+            product_name: product.model_name,
+            category: product.category,
+            deposit_amount: product.deposit_amount,
+            earning_type: product.earning_type,
+            lock_days: product.lock_days || 0,
+            return_amount: product.return_amount || 0,
+            daily_earning: product.daily_earning || 0,
+            earning_days: product.earning_days || 0,
+            days_credited: 0,
+            total_earned: 0,
+            purchased_at: now.toISOString(),
+            unlock_at: unlockAt.toISOString(),
+            next_payout_at: new Date(now.getTime() + 24 * 60 * 60 * 1000).toISOString(),
+            status: 'active'
+        };
+
+        // Retry up to 3 times on failure
+        let success = false;
+        let lastError = '';
+        for (let attempt = 1; attempt <= 3; attempt++) {
+            const invRes = await sbFetch('/rest/v1/investments', {
+                method: 'POST',
+                headers: { 'Prefer': 'return=representation' },
+                body: JSON.stringify(payload)
+            });
+
+            if (invRes.ok) {
+                success = true;
+                break;
+            } else {
+                lastError = 'Status ' + invRes.status;
+                const errText = await invRes.text();
+                console.error('Purchase attempt ' + attempt + ' failed:', errText);
+
+                // If it's a duplicate key error (23505), it means the insert actually succeeded before
+                if (errText.includes('23505') || errText.includes('duplicate')) {
+                    success = true;
+                    break;
+                }
+
+                // Wait 1 second before retry
+                await new Promise(r => setTimeout(r, 1000));
+            }
         }
+
+        if (!success) {
+            showToast('Purchase failed. Please try again.');
+            window._purchaseInProgress = false;
+            return;
+        }
+
+        // Deduct balance
         const newBalance = currentUser.balance - product.deposit_amount;
-        await sbFetch(`/rest/v1/users?id=eq.${currentUser.id}`, { method: 'PATCH', body: JSON.stringify({ balance: newBalance, total_invested: (currentUser.total_invested || 0) + product.deposit_amount }) });
+        await sbFetch(`/rest/v1/users?id=eq.${currentUser.id}`, {
+            method: 'PATCH',
+            body: JSON.stringify({
+                balance: newBalance,
+                total_invested: (currentUser.total_invested || 0) + product.deposit_amount
+            })
+        });
+
         currentUser.balance = newBalance;
         await loadUserInvestments();
         updateUserUI();
         renderProducts();
         showToast(action + ' successful!');
-    } catch (err) { showToast('Purchase failed: ' + err.message); }
+    } catch (err) {
+        console.error('Purchase error:', err);
+        showToast('Purchase failed. Please try again.');
+    } finally {
+        window._purchaseInProgress = false;
+    }
+}
 }
 
 async function renderMyCars() {
