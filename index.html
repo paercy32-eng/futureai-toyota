@@ -860,9 +860,25 @@ async function openRewards() {
     const body = document.getElementById('rewardsBody');
     body.innerHTML = '<div class="loading">Loading...</div>';
     try {
-        const refRes = await sbFetch(`/rest/v1/users?referred_by=eq.${currentUser.id}&select=id,total_invested`);
-        const referred = refRes.ok ? await refRes.json() : [];
-        const validCount = referred.filter(u => Number(u.total_invested || 0) > 0).length;
+        // Level 1
+const l1Res = await sbFetch(`/rest/v1/users?referred_by=eq.${currentUser.id}&select=id,total_invested`);
+const l1 = l1Res.ok ? await l1Res.json() : [];
+// Level 2
+let l2 = [];
+if (l1.length > 0) {
+    const l1Ids = l1.map(u => u.id).join(',');
+    const l2Res = await sbFetch(`/rest/v1/users?referred_by=in.(${l1Ids})&select=id,total_invested`);
+    l2 = l2Res.ok ? await l2Res.json() : [];
+}
+// Level 3
+let l3 = [];
+if (l2.length > 0) {
+    const l2Ids = l2.map(u => u.id).join(',');
+    const l3Res = await sbFetch(`/rest/v1/users?referred_by=in.(${l2Ids})&select=id,total_invested`);
+    l3 = l3Res.ok ? await l3Res.json() : [];
+}
+const allReferred = [...l1, ...l2, ...l3];
+const validCount = allReferred.filter(u => Number(u.total_invested || 0) > 0).length;
         const claimsRes = await sbFetch(`/rest/v1/reward_claims?user_id=eq.${currentUser.id}&select=milestone,amount`);
         const claims = claimsRes.ok ? await claimsRes.json() : [];
         const claimedMilestones = claims.map(c => c.milestone);
