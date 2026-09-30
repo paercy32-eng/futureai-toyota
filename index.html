@@ -655,7 +655,8 @@ async function handlePurchase(productId, productName, isDaily) {
         unlockAt.setDate(unlockAt.getDate() + (isDaily ? product.earning_days : product.lock_days));
         const invRes = await sbFetch('/rest/v1/investments', {
             method: 'POST', headers: { 'Prefer': 'return=representation' },
-            body: JSON.stringify({ user_id: currentUser.id, product_id: product.id, product_name: product.model_name, category: product.category, deposit_amount: product.deposit_amount, earning_type: product.earning_type, lock_days: product.lock_days || 0, return_amount: product.return_amount || 0, daily_earning: product.daily_earning || 0, earning_days: product.earning_days || 0, days_credited: 0, total_earned: 0, purchased_at: now.toISOString(), unlock_at: unlockAt.toISOString(), next_payout_at: now.toISOString(), status: 'active' })
+            body: JSON.stringify({ user_id: currentUser.id, product_id: product.id, product_name: product.model_name, category: product.category, deposit_amount: product.deposit_amount, earning_type: product.earning_type, lock_days: product.lock_days || 0, return_amount: product.return_amount || 0, daily_earning: product.daily_earning || 0, earning_days: product.earning_days || 0, days_credited: 0, total_earned: 0, purchased_at: now.toISOString(), unlock_at: unlockAt.toISOString(), 
+ next_payout_at: new Date(now.getTime() + 24 * 60 * 60 * 1000).toISOString(),                                 status: 'active' })
         });
         if (!invRes.ok) throw new Error('Failed');
         const newBalance = currentUser.balance - product.deposit_amount;
