@@ -37,6 +37,7 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; }
 .btn-reject { background: rgba(220,38,38,0.2); border: 1px solid rgba(220,38,38,0.5); color: #fca5a5; }
 .btn-primary { background: linear-gradient(135deg, #0066FF 0%, #0044CC 100%); color: white; }
 .btn-danger { background: rgba(220,38,38,0.2); border: 1px solid rgba(220,38,38,0.5); color: #fca5a5; }
+.btn-warn { background: linear-gradient(135deg, #FFB800 0%, #D99A00 100%); color: #0A1E38; }
 .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
 .form-label { font-size: 11px; color: #7AA3D0; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
 .form-input, .form-select, .form-textarea { width: 100%; padding: 12px 14px; background: #0F2540; border: 1px solid #143254; border-radius: 10px; color: #fff; font-size: 14px; outline: none; font-family: inherit; }
@@ -69,7 +70,10 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; }
 <div id="appScreen" style="display:none;">
     <div class="header">
         <div class="header-title">TOYOTA <span>ADMIN</span></div>
-        <button class="logout-btn" onclick="logout()">Sign Out</button>
+        <div style="display:flex;gap:8px;">
+            <button class="logout-btn" style="background:rgba(0,102,255,0.15);border-color:rgba(0,102,255,0.4);color:#4A9EFF;" onclick="refreshSessionThenReload()">Refresh</button>
+            <button class="logout-btn" onclick="logout()">Sign Out</button>
+        </div>
     </div>
 
     <div class="tabs">
@@ -92,7 +96,6 @@ body { background: #061428; color: #e2e8f0; min-height: 100vh; }
     <div class="modal-box" id="modalBox"></div>
 </div>
 
-
 <script>
 window.SUPABASE_URL = '';
 window.SUPABASE_ANON_KEY = '';
@@ -108,7 +111,7 @@ function formatNumber(n) { return Number(n || 0).toLocaleString('en-UG'); }
 function showToast(msg, d = 3000) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), d); }
 function escapeHtml(s) { return String(s || '').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
-    async function sbFetch(path, options = {}) {
+async function sbFetch(path, options = {}) {
     const sep = path.includes('?') ? '&' : '?';
     const url = `${window.SUPABASE_URL}${path}${sep}apikey=${window.SUPABASE_ANON_KEY}`;
     const method = (options.method || 'GET').toUpperCase();
@@ -117,18 +120,45 @@ function escapeHtml(s) { return String(s || '').replace(/</g,'&lt;').replace(/>/
         'Prefer': method === 'POST' ? 'return=representation' : '',
         ...(options.headers || {})
     };
-    // Send admin's auth token for writes — needed for RLS admin policies
     if (method !== 'GET' && adminUser && adminUser.access_token) {
         headers['Authorization'] = `Bearer ${adminUser.access_token}`;
     }
     return fetch(url, { ...options, headers });
-    }
+}
 
 async function loadConfig() {
     const res = await fetch('/api/config');
     const cfg = await res.json();
     window.SUPABASE_URL = cfg.supabaseUrl;
     window.SUPABASE_ANON_KEY = cfg.supabaseKey;
+}
+
+async function refreshSession() {
+    try {
+        const saved = localStorage.getItem('sb_session');
+        if (!saved) return;
+        const session = JSON.parse(saved);
+        if (!session.refresh_token) return;
+        const res = await fetch(`${window.SUPABASE_URL}/auth/v1/token?grant_type=refresh_token`, {
+            method: 'POST',
+            headers: { 'apikey': window.SUPABASE_ANON_KEY, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ refresh_token: session.refresh_token })
+        });
+        if (!res.ok) return;
+        const newSession = await res.json();
+        localStorage.setItem('sb_session', JSON.stringify(newSession));
+        if (adminUser) adminUser.access_token = newSession.access_token;
+        console.log('Admin token refreshed');
+    } catch (err) { console.error('Auto-refresh failed:', err); }
+}
+
+function scheduleTokenRefresh() {
+    setInterval(refreshSession, 50 * 60 * 1000);
+}
+
+async function refreshSessionThenReload() {
+    await refreshSession();
+    location.reload();
 }
 
 async function checkAdmin() {
@@ -195,14 +225,12 @@ async function renderDeposits() {
     if (allDeposits.length === 0) { c.innerHTML = '<div class="empty">No deposits yet.</div>'; return; }
     const totalApproved = allDeposits.filter(d => d.status === 'approved').reduce((s, d) => s + Number(d.amount || 0), 0);
     const totalPending = allDeposits.filter(d => d.status === 'pending').reduce((s, d) => s + Number(d.amount || 0), 0);
-
     let html = `
         <div class="stats-grid">
             <div class="stat-box"><div class="stat-box-label">Total Successful</div><div class="stat-box-value">${formatNumber(totalApproved)}</div></div>
             <div class="stat-box"><div class="stat-box-label">Pending Total</div><div class="stat-box-value">${formatNumber(totalPending)}</div></div>
         </div>
     `;
-
     allDeposits.forEach(d => {
         const u = allUsers.find(u => u.id === d.user_id);
         const badgeClass = d.status === 'approved' ? 'badge-approved' : (d.status === 'failed' ? 'badge-rejected' : 'badge-pending');
@@ -236,7 +264,7 @@ async function renderWithdrawals() {
                     <div class="row"><span class="row-label">User</span><span class="row-value">${escapeHtml(w.full_name || '—')}</span></div>
                     <div class="row"><span class="row-label">Phone</span><span class="row-value">${escapeHtml(w.phone_number || '—')}</span></div>
                     <div class="row"><span class="row-label">Amount</span><span class="row-value">${formatNumber(w.amount)} UGX</span></div>
-                    <div class="row"><span class="row-label">Fee (16%)</span><span class="row-value">${formatNumber(w.fee)} UGX</span></div>
+                    <div class="row"><span class="row-label">Fee (15%)</span><span class="row-value">${formatNumber(w.fee)} UGX</span></div>
                     <div class="row"><span class="row-label">Net Amount</span><span class="row-value">${formatNumber(w.net_amount)} UGX</span></div>
                     <div class="actions">
                         <button class="btn btn-approve" onclick="approveWithdrawal('${w.id}')">Approve</button>
@@ -251,11 +279,13 @@ async function renderWithdrawals() {
         other.forEach(w => {
             const badgeClass = (w.status === 'approved' || w.status === 'completed') ? 'badge-approved' : (w.status === 'rejected' || w.status === 'failed' ? 'badge-rejected' : 'badge-pending');
             const label = (w.status === 'completed' || w.status === 'approved') ? 'SUCCESSFUL' : (w.status === 'rejected' || w.status === 'failed' ? 'REJECTED' : 'PROCESSING');
+            const showMarkBtn = w.status === 'processing';
             html += `
                 <div class="card">
                     <div class="row"><span class="row-label">User</span><span class="row-value">${escapeHtml(w.full_name || '—')}</span></div>
                     <div class="row"><span class="row-label">Amount</span><span class="row-value">${formatNumber(w.amount)} UGX</span></div>
                     <div class="row"><span class="row-label">Status</span><span class="badge ${badgeClass}">${label}</span></div>
+                    ${showMarkBtn ? `<div class="actions"><button class="btn btn-warn" onclick="markCompleted('${w.id}')">Mark as Completed</button></div>` : ''}
                 </div>
             `;
         });
@@ -266,7 +296,7 @@ async function renderWithdrawals() {
 async function approveWithdrawal(id) {
     const w = allWithdrawals.find(x => x.id === id);
     if (!w) return;
-    if (!confirm('Approve and send ' + formatNumber(w.amount) + ' UGX to ' + w.phone_number + '?')) return;
+    if (!confirm('Approve and send ' + formatNumber(w.net_amount) + ' UGX to ' + w.phone_number + '?')) return;
     try {
         await sbFetch(`/rest/v1/withdrawals?id=eq.${id}`, { method: 'PATCH', body: JSON.stringify({ status: 'processing', approved_at: new Date().toISOString(), approved_by: adminUser.id }) });
         const res = await fetch('/api/send-money', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ withdrawalId: w.id, phone: w.phone_number, amount: w.net_amount, fullName: w.full_name }) });
@@ -280,6 +310,15 @@ async function approveWithdrawal(id) {
             await sbFetch(`/rest/v1/users?id=eq.${w.user_id}`, { method: 'PATCH', body: JSON.stringify({ total_withdrawn: Number(u.total_withdrawn || 0) + Number(w.amount) }) });
         }
         showToast('Sent to MarzPay. Awaiting confirmation.');
+        renderWithdrawals();
+    } catch (err) { console.error(err); showToast('Failed: ' + err.message); }
+}
+
+async function markCompleted(id) {
+    if (!confirm('Mark this withdrawal as completed? Only do this after confirming MarzPay sent the money.')) return;
+    try {
+        await sbFetch(`/rest/v1/withdrawals?id=eq.${id}`, { method: 'PATCH', body: JSON.stringify({ status: 'completed', completed_at: new Date().toISOString() }) });
+        showToast('Marked as completed.');
         renderWithdrawals();
     } catch (err) { console.error(err); showToast('Failed: ' + err.message); }
 }
@@ -348,8 +387,8 @@ function openProductModal(product = null) {
         <div class="form-group"><label class="form-label">Deposit Amount</label><input id="pDeposit" type="number" class="form-input" value="${p.deposit_amount||''}" placeholder="20000"></div>
         <div class="form-group"><label class="form-label">Earning Type</label>
             <select id="pEarningType" class="form-select">
-                <option value="lock" ${p.earning_type==='lock'?'selected':''}>Lock (lump sum at end)</option>
-                <option value="daily" ${p.earning_type==='daily'?'selected':''}>Daily (24h payouts)</option>
+                <option value="lock" ${p.earning_type==='lock'?'selected':''}>Lock</option>
+                <option value="daily" ${p.earning_type==='daily'?'selected':''}>Daily</option>
             </select>
         </div>
         <div class="form-group"><label class="form-label">Lock Days</label><input id="pLockDays" type="number" class="form-input" value="${p.lock_days||''}" placeholder="10"></div>
@@ -444,7 +483,6 @@ function filterUsers() {
     const list = document.getElementById('usersList');
     if (filtered.length === 0) { list.innerHTML = '<div class="empty">No users match.</div>'; return; }
     list.innerHTML = filtered.map(u => {
-        // Count valid invites (referred users who purchased)
         const referred = allUsers.filter(x => x.referred_by === u.id);
         const validInvites = referred.filter(r => Number(r.total_invested || 0) > 0).length;
         return `
@@ -459,6 +497,7 @@ function filterUsers() {
                 <div class="actions">
                     <button class="btn btn-primary" onclick="openGrantModal('${u.id}')">Grant Product</button>
                     <button class="btn btn-primary" onclick="openAdjustModal('${u.id}')">Adjust Balance</button>
+                    <button class="btn btn-warn" onclick="resetUserPassword('${u.id}', '${escapeHtml(u.phone_number||'')}')">Reset Password</button>
                     <button class="btn ${u.is_blocked?'btn-approve':'btn-reject'}" onclick="toggleBlock('${u.id}', ${u.is_blocked})">${u.is_blocked?'Unban':'Ban'}</button>
                 </div>
             </div>
@@ -474,6 +513,33 @@ async function toggleBlock(id, isBlocked) {
         showToast('User ' + action + 'ned.');
         renderUsers();
     } catch (err) { showToast('Failed: ' + err.message); }
+}
+
+async function resetUserPassword(userId, phone) {
+    const u = allUsers.find(x => x.id === userId);
+    if (!u) return;
+    const newPassword = prompt('Enter new password for ' + u.full_name + ':', u.phone_number || '');
+    if (!newPassword || newPassword.length < 6) { showToast('Password must be at least 6 characters'); return; }
+    if (!confirm('Reset ' + u.full_name + '\'s password to "' + newPassword + '"?\n\nThey will need to use this to log in.')) return;
+
+    try {
+        // Reset password via Supabase Admin API — requires service_role key. Since we only have anon, we call our backend endpoint.
+        const res = await fetch('/api/reset-password', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                adminId: adminUser.id,
+                userId: userId,
+                newPassword: newPassword
+            })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Reset failed');
+        showToast('Password reset successfully');
+    } catch (err) {
+        console.error(err);
+        showToast('Failed: ' + err.message);
+    }
 }
 
 function openGrantModal(userId) {
@@ -610,7 +676,6 @@ async function renderVideoTab() {
     const res = await sbFetch('/rest/v1/app_settings?key=eq.home_video_url&select=*');
     const rows = res.ok ? await res.json() : [];
     const current = rows[0]?.value || '';
-
     c.innerHTML = `
         <div class="card">
             <div class="card-title">Home Screen Video</div>
@@ -694,31 +759,6 @@ async function sendMessage() {
 }
 
 function logout() { localStorage.removeItem('sb_session'); location.href = '/'; }
-async function refreshSession() {
-    try {
-        const saved = localStorage.getItem('sb_session');
-        if (!saved) return;
-        const session = JSON.parse(saved);
-        if (!session.refresh_token) return;
-
-        const res = await fetch(`${window.SUPABASE_URL}/auth/v1/token?grant_type=refresh_token`, {
-            method: 'POST',
-            headers: { 'apikey': window.SUPABASE_ANON_KEY, 'Content-Type': 'application/json' },
-            body: JSON.stringify({ refresh_token: session.refresh_token })
-        });
-        if (!res.ok) return;
-        const newSession = await res.json();
-        localStorage.setItem('sb_session', JSON.stringify(newSession));
-        if (adminUser) adminUser.access_token = newSession.access_token;
-        console.log('Admin token refreshed');
-    } catch (err) {
-        console.error('Admin auto-refresh failed:', err);
-    }
-}
-
-function scheduleTokenRefresh() {
-    setInterval(refreshSession, 50 * 60 * 1000);
-}
 
 async function init() {
     try { await loadConfig(); await checkAdmin(); }
