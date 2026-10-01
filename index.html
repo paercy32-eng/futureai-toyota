@@ -449,6 +449,7 @@ async function ensureFreshToken() {
 }
 
 async function sbFetch(path, options = {}) {
+   const methodCheck = (options.method || 'GET').toUpperCase(); if (methodCheck !== 'GET') { await ensureFreshToken(); }
     const sep = path.includes('?') ? '&' : '?';
     const url = `${window.SUPABASE_URL}${path}${sep}apikey=${window.SUPABASE_ANON_KEY}`;
     const method = (options.method || 'GET').toUpperCase();
