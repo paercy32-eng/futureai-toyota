@@ -431,6 +431,22 @@ function showToast(msg, d = 2500) { const t = document.getElementById('toast'); 
 function showError(id, msg) { const el = document.getElementById(id); el.textContent = msg; el.classList.add('show'); }
 function hideError(id) { document.getElementById(id).classList.remove('show'); }
 function isWithinWithdrawHours() { return true; }
+async function ensureFreshToken() {
+    if (!currentUser || !currentUser.access_token) return;
+    try {
+        // Decode JWT to check expiry
+        const token = currentUser.access_token;
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        const expMs = payload.exp * 1000;
+        const nowMs = Date.now();
+        // If token expires within 5 minutes, refresh it
+        if (expMs - nowMs < 5 * 60 * 1000) {
+            await refreshSession();
+        }
+    } catch (e) {
+        console.error('Token check failed:', e);
+    }
+}
 
 async function sbFetch(path, options = {}) {
     const sep = path.includes('?') ? '&' : '?';
