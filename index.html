@@ -1081,14 +1081,14 @@ async function openCashout() {
         return;
     }
     if (!isWithinWithdrawHours()) {
-        body.innerHTML = `<div class="modal-note" style="border-color: rgba(220,38,38,0.3); color: #fca5a5;">Withdrawals are only available between 9:30 AM and 6:00 PM.</div>`;
+        body.innerHTML = `<div class="modal-note" style="border-color: rgba(220,38,38,0.3); color: #fca5a5;">Withdrawals are only available between 9:30 AM and 5:00 PM.</div>`;
         return;
     }
     body.innerHTML = `
         <div class="row"><span class="row-label">Recipient</span><span class="row-value">${escapeHtml(userBind.recipient_number)}</span></div>
         <div class="row"><span class="row-label">Name</span><span class="row-value">${escapeHtml(userBind.recipient_name)}</span></div>
         <div class="form-group" style="margin-top:14px;"><label class="form-label">Amount (UGX)</label><input type="number" id="withdrawAmount" class="form-input" placeholder="Minimum ${formatNumber(MIN_WITHDRAW)}" min="${MIN_WITHDRAW}"></div>
-        <div class="modal-note">15% fee. Hours: 9:30 AM - 6:00 PM.</div>
+        <div class="modal-note">15% fee. Hours: 9:30 AM - 5:00 PM.</div>
         <button class="auth-btn" id="withdrawBtn" onclick="submitWithdraw()">Submit Withdrawal</button>`;
 }
 
