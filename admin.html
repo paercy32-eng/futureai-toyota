@@ -110,8 +110,23 @@ let editingProductId = null;
 function formatNumber(n) { return Number(n || 0).toLocaleString('en-UG'); }
 function showToast(msg, d = 3000) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), d); }
 function escapeHtml(s) { return String(s || '').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+async function ensureFreshToken() {
+    if (!adminUser || !adminUser.access_token) return;
+    try {
+        const token = adminUser.access_token;
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        const expMs = payload.exp * 1000;
+        const nowMs = Date.now();
+        if (expMs - nowMs < 5 * 60 * 1000) {
+            await refreshSession();
+        }
+    } catch (e) {
+        console.error('Token check failed:', e);
+    }
+}
 
 async function sbFetch(path, options = {}) {
+   const methodCheck = (options.method || 'GET').toUpperCase(); if (methodCheck !== 'GET') { await ensureFreshToken(); }
     const sep = path.includes('?') ? '&' : '?';
     const url = `${window.SUPABASE_URL}${path}${sep}apikey=${window.SUPABASE_ANON_KEY}`;
     const method = (options.method || 'GET').toUpperCase();
