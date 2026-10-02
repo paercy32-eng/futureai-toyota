@@ -1077,11 +1077,12 @@ async function openCashout() {
         return;
     }
     const hasInvested = Number(currentUser.total_invested || 0) > 0 || (userInvestments && userInvestments.length > 0);
-    const hasApprovedDeposit = userDeposits.some(d => d.status === 'approved');
-    if (!hasApprovedDeposit) {
-        body.innerHTML = `<div class="modal-note" style="border-color: rgba(220,38,38,0.3); color: #fca5a5;">You need an approved deposit before withdrawing.</div>`;
-        return;
-    }
+const hasApprovedDeposit = userDeposits.some(d => d.status === 'approved');
+const hasGrantedProduct = (userInvestments || []).some(inv => inv.granted === true);
+if (!hasApprovedDeposit && !hasGrantedProduct) {
+    body.innerHTML = `<div class="modal-note" style="border-color: rgba(220,38,38,0.3); color: #fca5a5;">You need an approved deposit before withdrawing.</div>`;
+    return;
+}
     if (!hasInvested) {
         body.innerHTML = `<div class="modal-note" style="border-color: rgba(220,38,38,0.3); color: #fca5a5;">You must own a purchased car to withdraw.</div>`;
         return;
